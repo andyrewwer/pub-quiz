@@ -85,7 +85,8 @@ dockerCompose {
 task npmBuild(type: NpmTask,
 		group: 'frontend',
 		description: 'Builds the frontend assets and puts them in the main application resource directory',
-		dependsOn: ['npmInstall', 'npmLint']) {
+//		dependsOn: ['npmInstall', 'npmLint']) {
+		dependsOn: ['npmInstall']) {
 	args = ['run', 'build', '--silent']
 }
 
@@ -111,7 +112,8 @@ task npmLint(type: NpmTask,
 task npmTest(type: NpmTask,
 		group: 'frontend',
 		description: 'Runs frontend unit tests.',
-		dependsOn: ['npmInstall', 'npmLint']) {
+//		dependsOn: ['npmInstall', 'npmLint']) {
+		dependsOn: ['npmInstall']) {
 	args = ['run', 'test', '--silent']
 }
 

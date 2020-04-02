@@ -13,12 +13,16 @@ import javax.persistence.SequenceGenerator;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyEntity {
+public class Player {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SongIdSeq")
-    @SequenceGenerator(name = "SongIdSeq", sequenceName = "song_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PlayerIdSeq")
+    @SequenceGenerator(name = "PlayerIdSeq", sequenceName = "player_id_seq", allocationSize = 1)
     @Id
     private Long id;
+
+    private String roomcode;
+
+    private String name;
 
 }
 

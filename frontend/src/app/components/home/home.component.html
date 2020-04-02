@@ -1,0 +1,19 @@
+<div class="main-div">
+  <form class="form" [formGroup]="form" (submit)="submit()">
+    <mat-card class="home-card">
+      <mat-card-content>
+        <label for="roomcode">ROOM CODE</label>
+        <input formControlName="roomcode" name="roomcode" id="roomcode" class="form-control jbg-input" type="text"
+               tabindex="0" placeholder="ENTER 4-LETTER CODE" style="text-transform:uppercase;" maxlength="4" value=""
+               autocapitalize="off" autocorrect="off" autocomplete="off">
+        <label for="name" class="mt-2">(TEAM) NAME</label>
+        <input formControlName="name" name="name" id="name" class="form-control jbg-input" type="text"
+               placeholder="ENTER YOUR NAME" style="text-transform:uppercase;" maxlength="24" value=""
+               autocapitalize="off" autocorrect="off" autocomplete="off">
+      </mat-card-content>
+      <mat-card-actions class="text-center">
+        <button mat-raised-button [disabled]="form.invalid" color="primary">PLAY</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
