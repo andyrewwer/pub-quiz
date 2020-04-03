@@ -20,7 +20,7 @@ public class Player {
     @Id
     private Long id;
 
-    private String roomcode;
+    private String quizcode;
 
     private String name;
 

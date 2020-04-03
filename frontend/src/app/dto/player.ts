@@ -1,11 +1,11 @@
 export class Player {
   id: number;
-  roomcode: string;
+  quizcode: string;
   name: string;
 
   constructor(args: Player = <Player>{}) {
     this.id = args.id;
-    this.roomcode = args.roomcode;
+    this.quizcode = args.quizcode;
     this.name = args.name;
   }
 }

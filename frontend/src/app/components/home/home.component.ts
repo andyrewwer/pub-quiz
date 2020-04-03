@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
               private playerEventService: PlayerEventService,
               private router: Router) {
     this.form = builder.group({
-      roomcode: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
+      quizcode: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]],
     });
   }
@@ -29,13 +29,13 @@ export class HomeComponent implements OnInit {
   submit() {
     console.log(this.form);
     this.form.controls.name.setValue(this.form.value.name.toUpperCase());
-    this.form.controls.roomcode.setValue(this.form.value.roomcode.toUpperCase());
+    this.form.controls.quizcode.setValue(this.form.value.quizcode.toUpperCase());
     this.playerService.save(this.form.value).subscribe(
       player => {
         console.log('player', player);
         this.playerService.setPlayer(player);
         this.playerEventService.fire(player);
-        this.router.navigate(['/game/' + player.roomcode]);
+        this.router.navigate(['/game/' + player.quizcode]);
       }
     );
   }
