@@ -111,7 +111,7 @@ export class GameComponent implements OnInit {
       }
     );
     //emit value in sequence every 10 second
-    const source = interval(5000);
+    const source = interval(1000);
     this.subscription = source.subscribe(val => {
       this.gameService.getCurrentRound().subscribe(
         curRound => {
