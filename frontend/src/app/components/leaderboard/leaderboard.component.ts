@@ -82,7 +82,7 @@ export class LeaderboardComponent implements OnInit {
     } if (!!game.answer10.correct) {
       result ++;
     } if (!!game.answerTheme.correct) {
-      result += 2;
+      result += 3;
     }
     return result;
   }

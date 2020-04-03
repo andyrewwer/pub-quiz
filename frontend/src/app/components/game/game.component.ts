@@ -66,7 +66,7 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
-    const routeParams = this.activeRoute.snapshot.params;
+    // const routeParams = this.activeRoute.snapshot.params;
     this.player = this.playerService.getPlayer();
     if (!this.player) {
       this.router.navigate(['/home']);
@@ -79,6 +79,28 @@ export class GameComponent implements OnInit {
       }
     );
     this.form.controls.player.setValue(this.player);
+    this.refreshGames();
+    //emit value in sequence every 10 second
+    const source = interval(1000);
+    this.subscription = source.subscribe(val => {
+      this.gameService.getCurrentRound().subscribe(
+        curRound => {
+          console.log('NEW ROUND', curRound);
+          if (curRound !== this.round) {
+            this.submitted = false;
+            this.form.controls.round.setValue(curRound);
+            this.round = curRound;
+            this.refreshGames();
+          }
+        }
+      );
+      }
+    );
+
+
+  }
+
+  refreshGames() {
     this.gameService.findGameForPlayer(this.player).subscribe(
       games => {
         games.forEach(
@@ -110,22 +132,7 @@ export class GameComponent implements OnInit {
         console.error(err);
       }
     );
-    //emit value in sequence every 10 second
-    const source = interval(1000);
-    this.subscription = source.subscribe(val => {
-      this.gameService.getCurrentRound().subscribe(
-        curRound => {
-          console.log('NEW ROUND', curRound);
-          this.form.controls.round.setValue(curRound);
-          this.round = curRound;
-        }
-      );
-      }
-    );
-
-
   }
-
 
   submit() {
     //CONFIRMATION?
@@ -133,21 +140,14 @@ export class GameComponent implements OnInit {
     this.gameService.save(this.form.value).subscribe(
       gameRound => {
         console.log('gameRound', new GameRound(this.form.value));
-        this.form.controls.answer1.disable();
-        this.form.controls.answer2.disable();
-        this.form.controls.answer3.disable();
-        this.form.controls.answer4.disable();
-        this.form.controls.answer5.disable();
-        this.form.controls.answer6.disable();
-        this.form.controls.answer7.disable();
-        this.form.controls.answer8.disable();
-        this.form.controls.answer9.disable();
-        this.form.controls.answer10.disable();
-        this.form.controls.answerTheme.disable();
-        // TODO SHOULD WE DO THIS? WHAT ABOUT NEXT ROUND?
-      // TODO multiple rounds of question
         this.submitted = true;
-        // TODO MULTIPLE ROUNDS
+        this.refreshGames();
+        this.form.reset(
+          {
+            round: this.round,
+            player: this.form.value.player
+          }
+        );
       }, err => {
         console.error(err);
       }

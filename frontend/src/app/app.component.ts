@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setTitle('AndrewBox.tv');
+    this.setTitle('AndrewWeeks.tech');
   }
 }
