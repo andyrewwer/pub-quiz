@@ -135,7 +135,7 @@ export class GameComponent implements OnInit {
   }
 
   submit() {
-    //CONFIRMATION?
+    // TODO CONFIRMATION?
     console.log(this.form);
     this.gameService.save(this.form.value).subscribe(
       gameRound => {

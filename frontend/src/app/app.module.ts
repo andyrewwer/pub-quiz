@@ -13,6 +13,7 @@ import { AnswerComponent } from './components/answer/answer.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     GameComponent,
     AnswerComponent,
     LeaderboardComponent,
+    AdminComponent,
   ],
   imports: [
     AppRoutingModule,

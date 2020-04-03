@@ -4,12 +4,14 @@ import {HomeComponent} from './components/home/home.component';
 import {GameComponent} from './components/game/game.component';
 import {AnswerComponent} from './components/answer/answer.component';
 import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
+import {AdminComponent} from './components/admin/admin.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'answer', component: AnswerComponent},
+  {path: 'admin', component: AdminComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'game/:roomcode', component: GameComponent}
 ];

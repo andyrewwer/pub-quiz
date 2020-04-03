@@ -3,7 +3,7 @@ import {GameService} from '../../services/game.service';
 import {GameRound} from '../../dto/gameRound';
 
 @Component({
-  selector: 'leaderboard',
+  selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.css']
 })
