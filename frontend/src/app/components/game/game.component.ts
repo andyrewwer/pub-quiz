@@ -5,6 +5,7 @@ import {Player} from '../../dto/player';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GameRound} from '../../dto/gameRound';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -18,7 +19,7 @@ export class GameComponent implements OnInit {
   submitted = false;
   public form: FormGroup;
   public roundMap: Map<number, Array<string>> = new Map();
-
+  subscription: Subscription;
 
   constructor(private builder: FormBuilder,
               private activeRoute: ActivatedRoute,
@@ -109,7 +110,20 @@ export class GameComponent implements OnInit {
         console.error(err);
       }
     );
-    // TODO FETCH answers if they are already there
+    //emit value in sequence every 10 second
+    const source = interval(5000);
+    this.subscription = source.subscribe(val => {
+      this.gameService.getCurrentRound().subscribe(
+        curRound => {
+          console.log('NEW ROUND', curRound);
+          this.form.controls.round.setValue(curRound);
+          this.round = curRound;
+        }
+      );
+      }
+    );
+
+
   }
 
 
