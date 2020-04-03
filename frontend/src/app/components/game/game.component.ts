@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlayerService} from '../../services/player.service';
 import {Player} from '../../dto/player';
 import {GameService} from '../../services/game.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {GameRound} from '../../dto/gameRound';
 import {interval, Subscription} from 'rxjs';
 
@@ -12,7 +12,7 @@ import {interval, Subscription} from 'rxjs';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
 
   private player: Player;
   round: number;
@@ -173,5 +173,9 @@ export class GameComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
