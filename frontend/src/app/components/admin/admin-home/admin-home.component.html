@@ -1,0 +1,11 @@
+<div class="main-div">
+  <mat-card>
+    <mat-card-content>
+      <img (click)="decrementRound()" src="/assets/svg/minus.svg"
+           alt="Minus"/>
+      <label>Current Round: {{round}}</label>
+      <img (click)="incrementRound()" class="mr-2" src="/assets/svg/add.svg"
+           alt="Plus"/>
+    </mat-card-content>
+  </mat-card>
+</div>

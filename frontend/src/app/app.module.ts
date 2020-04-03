@@ -14,6 +14,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AdminComponent } from './components/admin/admin.component';
     AnswerComponent,
     LeaderboardComponent,
     AdminComponent,
+    AdminHomeComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
               private playerEventService: PlayerEventService,
               private router: Router) {
     this.form = builder.group({
-      quizcode: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
+      quizcode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]],
     });
   }
