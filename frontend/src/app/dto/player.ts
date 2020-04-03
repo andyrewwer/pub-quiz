@@ -1,5 +1,3 @@
-import {Employee} from './employee';
-
 export class Player {
   id: number;
   roomcode: string;

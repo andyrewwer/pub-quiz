@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
 
   submit() {
     console.log(this.form);
+    this.form.controls.name.setValue(this.form.value.name.toUpperCase());
+    this.form.controls.roomcode.setValue(this.form.value.roomcode.toUpperCase());
     this.playerService.save(this.form.value).subscribe(
       player => {
         console.log('player', player);

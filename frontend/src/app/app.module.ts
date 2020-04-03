@@ -9,6 +9,10 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatR
 import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
 import {Broadcaster} from './services/broadcaster';
+import { AnswerComponent } from './components/answer/answer.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 
 @NgModule({
@@ -17,9 +21,12 @@ import {Broadcaster} from './services/broadcaster';
     HeaderComponent,
     HomeComponent,
     GameComponent,
+    AnswerComponent,
+    LeaderboardComponent,
   ],
   imports: [
     AppRoutingModule,
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -29,7 +36,8 @@ import {Broadcaster} from './services/broadcaster';
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
   exports: [
     MatCardModule,
@@ -37,7 +45,8 @@ import {Broadcaster} from './services/broadcaster';
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
   providers: [
     Broadcaster,

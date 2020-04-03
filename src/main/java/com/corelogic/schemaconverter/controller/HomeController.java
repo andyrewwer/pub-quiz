@@ -1,13 +1,14 @@
 package com.corelogic.schemaconverter.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
 
-    @RequestMapping({"/home", "/game/*"})
+    @RequestMapping({"/home", "/game/*", "/answer", "/leaderboard"})
     public String home() {
-        return "forward:/";
+        return "redirect:/";
     }
 }

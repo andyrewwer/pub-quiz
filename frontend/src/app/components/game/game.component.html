@@ -1,1 +1,41 @@
-<p>game works!</p>
+<div class="main-div">
+  <mat-card class="home-card">
+    <mat-card-header>
+      <!--        TODO PARAMETERIEZE-->
+      <!--        TODO SWAP BETWEEN ROUNDS-->
+      <mat-card-title>Andrew's Pub Quiz - Current Round {{round}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab *ngFor="let previousRound of roundsLessThanCurrent()" label="Round {{previousRound}}" class="bg-light">
+          <div *ngFor="let number of [0, 1,2,3,4,5,6,7,8,9]">
+            <label>Question {{number + 1}}</label>
+            <input class="form-control mb-2" disabled [value]="getValueForRoundAndAnswer(previousRound,number)">
+          </div>
+          <label [for]="'qtp'">Theme</label>
+          <input name="qtp" id="qtp" class="form-control mb-2" disabled [value]="getValueForRoundAndAnswer(previousRound,10)">
+        </mat-tab>
+        <mat-tab *ngIf="roundsLessThanCurrent().length != round" label="Current Round" class="bg-light">
+          <form class="form" [formGroup]="form" (submit)="submit()">
+            <div *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]">
+              <div [formGroupName]="'answer' + number">
+                <label [for]="'q' + number">Question {{number}}</label>
+                <input formControlName="answer" name="q{{number}}" id="q{{number}}" class="form-control mb-2"
+                       type="text" autocorrect="off" autocomplete="off">
+              </div>
+            </div>
+            <div [formGroupName]="'answerTheme'">
+              <label for="qt">Theme</label>
+              <input formControlName="answer" name="qt" id="qt" class="form-control mb-2"
+                     type="text" autocorrect="off" autocomplete="off">
+            </div>
+            <mat-card-actions class="text-center">
+              <button mat-raised-button color="primary" [disabled]="submitted">SUBMIT</button>
+              <small class="text-muted d-block">Warning there are no takebacks after you press SUBMIT.</small>
+            </mat-card-actions>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

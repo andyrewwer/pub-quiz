@@ -1,0 +1,115 @@
+<mat-tab-group class="bg-secondary">
+  <mat-tab *ngFor="let round of roundMap.keys()" label="Round {{round}}" class="bg-light" >
+    <div class="card-body">
+      <table class="table table-light">
+        <thead>
+        <tr class="border-right border-bottom">
+          <th class="text-center border-right border-bottom" style="max-width: 10px">Q</th>
+          <th class="text-center border-right border-bottom" *ngFor="let game of roundMap.get(round)">{{game.player.name}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th class="border-right border-bottom">1</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer1?.correct)">{{game?.answer1?.answer}}
+            <img (click)="markAnswerAs(game.answer1, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer1, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">2</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer2?.correct)">{{game?.answer2?.answer}}
+            <img (click)="markAnswerAs(game.answer2, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer2, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">3</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer3?.correct)">{{game?.answer3?.answer}}
+            <img (click)="markAnswerAs(game.answer3, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer3, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">4</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer4?.correct)">{{game?.answer4?.answer}}
+            <img (click)="markAnswerAs(game.answer4, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer4, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">5</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer5?.correct)">{{game?.answer5?.answer}}
+            <img (click)="markAnswerAs(game.answer5, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer5, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">6</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer6?.correct)">{{game?.answer6?.answer}}
+            <img (click)="markAnswerAs(game.answer6, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer6, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">7</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer7?.correct)">{{game?.answer7?.answer}}
+            <img (click)="markAnswerAs(game.answer7, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer7, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">8</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer8?.correct)">{{game?.answer8?.answer}}
+            <img (click)="markAnswerAs(game.answer8, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer8, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">9</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer9?.correct)">{{game?.answer9?.answer}}
+            <img (click)="markAnswerAs(game.answer9, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer9, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">10</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answer10?.correct)">{{game?.answer10?.answer}}
+            <img (click)="markAnswerAs(game.answer10, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answer10, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right border-bottom">Theme</th>
+          <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)" [className]="setClass(game?.answerTheme?.correct)">{{game?.answerTheme?.answer}}
+            <img (click)="markAnswerAs(game.answerTheme, true)" class="mr-2" src="/assets/svg/checkmark.svg"
+                 alt="Right"/>
+            <img (click)="markAnswerAs(game.answerTheme, false)" src="/assets/svg/crossmark.svg"
+                 alt="Wrong"/>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>

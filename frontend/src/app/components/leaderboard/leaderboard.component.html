@@ -1,0 +1,42 @@
+<div class="main-div">
+  <mat-card class="home-card">
+    <mat-tab-group>
+      <mat-tab label="Round Leaderboard" class="bg-light">
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab *ngFor="let round of scoresPerRoundMap.keys()" label="Round {{round}}" class="bg-light" >
+              <table class="table table-striped">
+                <tr>
+                  <th>#</th>
+                  <th>(Team) Name</th>
+                  <th>Score</th>
+                </tr>
+                <tr *ngFor="let team of scoresPerRoundMap.get(round).keys(); let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{team}}</td>
+                  <td>{{scoresPerRoundMap.get(round).get(team)}}</td>
+                </tr>
+              </table>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Overall Leaderboard" class="bg-light">
+        <mat-card-content>
+          <table class="table table-striped">
+            <tr>
+              <th>#</th>
+              <th>(Team) Name</th>
+              <th>Score</th>
+            </tr>
+            <tr *ngFor="let team of scoreMap.keys(); let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{team}}</td>
+              <td>{{scoreMap.get(team)}}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
