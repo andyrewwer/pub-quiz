@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form.patchValue(this.playerService.getPlayer());
+    this.playerEventService.fire(null);
+    this.playerService.setPlayer(null);
   }
 
   submit() {
