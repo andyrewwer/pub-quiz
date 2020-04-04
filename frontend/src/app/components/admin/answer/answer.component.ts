@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../../services/game.service';
 import {GameRound} from '../../../dto/gameRound';
 import {Answer} from '../../../dto/answer';
 import {AnswerService} from '../../../services/answer.service';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-answer',
@@ -13,6 +14,7 @@ export class AnswerComponent implements OnInit {
 
   games: Array<GameRound>;
   public roundMap: Map<number, Array<GameRound>> = new Map();
+
   constructor(private gameService: GameService,
               private answerService: AnswerService) { }
 
@@ -23,6 +25,7 @@ export class AnswerComponent implements OnInit {
   private initializeGames() {
     this.gameService.findAll().subscribe(
       games => {
+        this.roundMap = new Map();
         this.games = games;
         games.forEach(
           game => {
@@ -43,6 +46,10 @@ export class AnswerComponent implements OnInit {
     );
   }
 
+  refresh() {
+    this.initializeGames();
+  }
+
   setClass(correct: Boolean) {
     if (correct === null) {
       return 'border-bottom border-right';
@@ -57,8 +64,6 @@ export class AnswerComponent implements OnInit {
         answer = _answer;
       }, err => {
         console.error(err);
-    }
-    );
+    });
   }
-
 }

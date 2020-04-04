@@ -5,7 +5,9 @@
         <table class="table table-light">
           <thead>
           <tr class="border-right border-bottom">
-            <th class="text-center border-right border-bottom" style="max-width: 10px">Q</th>
+            <th class="text-center border-right border-bottom" style="max-width: 10px" (click)="refresh()">
+              <img src="/assets/svg/refresh.svg" alt="Refresh"/>
+            </th>
             <th class="text-center border-right border-bottom"
                 *ngFor="let game of roundMap.get(round)">{{game.player.name}}</th>
           </tr>
