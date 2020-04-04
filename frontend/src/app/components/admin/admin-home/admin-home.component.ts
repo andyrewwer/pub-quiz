@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GameService} from '../../../services/game.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -8,16 +9,23 @@ import { Component, OnInit } from '@angular/core';
 export class AdminHomeComponent implements OnInit {
 
   round = 0;
-  constructor() { }
+  constructor(private gameService: GameService) { }
 
   ngOnInit() {
+    this.gameService.getCurrentRound().subscribe(
+      curRound => this.round = curRound
+    );
   }
 
   incrementRound() {
-    this.round ++;
+    this.gameService.setCurrentRound(++this.round).subscribe(
+      curRound => this.round = curRound
+    );
   }
 
   decrementRound() {
-    this.round --;
+    this.gameService.setCurrentRound(--this.round).subscribe(
+      curRound => this.round = curRound
+    );
   }
 }
