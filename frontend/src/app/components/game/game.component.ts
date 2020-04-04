@@ -6,6 +6,8 @@ import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {GameRound} from '../../dto/gameRound';
 import {interval, Subscription} from 'rxjs';
+import {ModalService} from '../../services/modal.service';
+import {GameEventService} from '../../services/game-event.service';
 
 @Component({
   selector: 'app-game',
@@ -25,7 +27,9 @@ export class GameComponent implements OnInit, OnDestroy {
               private activeRoute: ActivatedRoute,
               private router: Router,
               private playerService: PlayerService,
-              private gameService: GameService) {
+              private gameService: GameService,
+              private modalService: ModalService,
+              private gameEvent: GameEventService) {
     this.form = builder.group({
       round: [null],
       player: [null],
@@ -66,7 +70,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // const routeParams = this.activeRoute.snapshot.params;
+    // TODO const routeParams = this.activeRoute.snapshot.params;
     this.player = this.playerService.getPlayer();
     if (!this.player) {
       this.router.navigate(['/home']);
@@ -80,9 +84,7 @@ export class GameComponent implements OnInit, OnDestroy {
     );
     this.form.controls.player.setValue(this.player);
     this.refreshGames();
-    //emit value in sequence every 10 second
-    const source = interval(1000);
-    this.subscription = source.subscribe(val => {
+    this.subscription = interval(1000).subscribe(val => {
       this.gameService.getCurrentRound().subscribe(
         curRound => {
           console.log('NEW ROUND', curRound);
@@ -97,6 +99,18 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.gameEvent.on().subscribe(
+      gameRound => {
+        this.submitted = true;
+        this.refreshGames();
+        this.form.reset(
+          {
+            round: this.round,
+            player: this.form.value.player
+          }
+        );
+      }
+    )
 
   }
 
@@ -135,23 +149,8 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    // TODO CONFIRMATION?
+    this.modalService.showConfirmationModal(this.form.value);
     console.log(this.form);
-    this.gameService.save(this.form.value).subscribe(
-      gameRound => {
-        console.log('gameRound', new GameRound(this.form.value));
-        this.submitted = true;
-        this.refreshGames();
-        this.form.reset(
-          {
-            round: this.round,
-            player: this.form.value.player
-          }
-        );
-      }, err => {
-        console.error(err);
-      }
-    );
   }
 
   roundsLessThanCurrent(): number[] {

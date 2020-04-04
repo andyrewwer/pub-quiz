@@ -27,6 +27,10 @@ export class HomeComponent implements OnInit {
   }
 
   submit() {
+    if (this.form.value.quizcode === 'ADMINN' && this.form.value.name === 'ADMIN') {
+      this.router.navigate(['/admin']);
+      return;
+    }
     console.log(this.form);
     this.form.controls.name.setValue(this.form.value.name.toUpperCase());
     this.form.controls.quizcode.setValue(this.form.value.quizcode.toUpperCase());

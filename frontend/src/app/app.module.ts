@@ -15,6 +15,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
+import {ModalService} from './services/modal.service';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PlayersComponent } from './components/admin/players/players.component';
 
 
 @NgModule({
@@ -27,6 +31,8 @@ import { AdminHomeComponent } from './components/admin/admin-home/admin-home.com
     LeaderboardComponent,
     AdminComponent,
     AdminHomeComponent,
+    ConfirmationModalComponent,
+    PlayersComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -41,7 +47,8 @@ import { AdminHomeComponent } from './components/admin/admin-home/admin-home.com
     MatInputModule,
     MatRippleModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
   ],
   exports: [
     MatCardModule,
@@ -50,12 +57,15 @@ import { AdminHomeComponent } from './components/admin/admin-home/admin-home.com
     MatInputModule,
     MatRippleModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
   ],
   providers: [
     Broadcaster,
     HttpClient,
+    ModalService
   ],
+  entryComponents: [ConfirmationModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

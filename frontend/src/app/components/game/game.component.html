@@ -16,7 +16,7 @@
           <input name="qtp" id="qtp" class="form-control mb-2" disabled [value]="getValueForRoundAndAnswer(previousRound,10)">
         </mat-tab>
         <mat-tab *ngIf="roundsLessThanCurrent().length != round" label="Current Round" class="bg-light">
-          <form class="form" [formGroup]="form" (submit)="submit()">
+          <form class="form" [formGroup]="form">
             <div *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]">
               <div [formGroupName]="'answer' + number">
                 <label [for]="'q' + number">Question {{number}}</label>
@@ -30,7 +30,7 @@
                      type="text" autocorrect="off" autocomplete="off">
             </div>
             <mat-card-actions class="text-center">
-              <button mat-raised-button color="primary" [disabled]="submitted">SUBMIT</button>
+              <button mat-raised-button type="button" color="primary" (click)="submit()" [disabled]="submitted">SUBMIT</button>
               <small class="text-muted d-block">Warning there are no takebacks after you press SUBMIT.</small>
             </mat-card-actions>
           </form>
