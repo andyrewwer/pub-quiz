@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PlayerService} from '../../../services/player.service';
 import {Player} from '../../../dto/player';
 import {interval, Subscription} from 'rxjs';
@@ -8,7 +8,7 @@ import {interval, Subscription} from 'rxjs';
   templateUrl: './players.component.html',
   styleUrls: ['./players.component.css']
 })
-export class PlayersComponent implements OnInit {
+export class PlayersComponent implements OnInit, OnDestroy {
 
   players: Array<Player>;
   subscription: Subscription;
@@ -24,6 +24,10 @@ export class PlayersComponent implements OnInit {
         players => this.players = players
       );
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

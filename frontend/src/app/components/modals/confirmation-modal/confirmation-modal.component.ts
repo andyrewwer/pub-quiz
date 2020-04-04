@@ -9,7 +9,7 @@ import {GameEventService} from '../../../services/game-event.service';
   templateUrl: './confirmation-modal.component.html',
   styleUrls: ['./confirmation-modal.component.css']
 })
-export class ConfirmationModalComponent  {
+export class ConfirmationModalComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private gameService: GameService,

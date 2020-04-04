@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {GameRound} from '../../dto/gameRound';
 import {interval, Subscription} from 'rxjs';
@@ -8,7 +8,7 @@ import {interval, Subscription} from 'rxjs';
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.css']
 })
-export class LeaderboardComponent implements OnInit {
+export class LeaderboardComponent implements OnInit, OnDestroy {
 
   public scoreMap: Map<string, number> = new Map(); // total score across rounds
   public scoresPerRoundMap: Map<number, Map<string, number>> = new Map(); // scores per round
@@ -99,5 +99,9 @@ export class LeaderboardComponent implements OnInit {
       result += 3;
     }
     return result;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
