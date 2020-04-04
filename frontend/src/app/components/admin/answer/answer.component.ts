@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {GameService} from '../../services/game.service';
-import {GameRound} from '../../dto/gameRound';
-import {Answer} from '../../dto/answer';
-import {AnswerService} from '../../services/answer.service';
+import {GameService} from '../../../services/game.service';
+import {GameRound} from '../../../dto/gameRound';
+import {Answer} from '../../../dto/answer';
+import {AnswerService} from '../../../services/answer.service';
 
 @Component({
   selector: 'app-answer',

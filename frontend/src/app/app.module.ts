@@ -9,10 +9,10 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatR
 import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
 import {Broadcaster} from './services/broadcaster';
-import { AnswerComponent } from './components/answer/answer.component';
+import { AnswerComponent } from './components/admin/answer/answer.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { LeaderboardComponent } from './components/admin/leaderboard/leaderboard.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';

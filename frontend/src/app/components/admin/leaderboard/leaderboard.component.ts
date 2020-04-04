@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {GameService} from '../../services/game.service';
-import {GameRound} from '../../dto/gameRound';
+import {GameService} from '../../../services/game.service';
+import {GameRound} from '../../../dto/gameRound';
 import {interval, Subscription} from 'rxjs';
 
 @Component({
