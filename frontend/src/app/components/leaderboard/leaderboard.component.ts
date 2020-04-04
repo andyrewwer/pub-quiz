@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {GameRound} from '../../dto/gameRound';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-leaderboard',
@@ -11,12 +12,22 @@ export class LeaderboardComponent implements OnInit {
 
   public scoreMap: Map<string, number> = new Map(); // total score across rounds
   public scoresPerRoundMap: Map<number, Map<string, number>> = new Map(); // scores per round
+  subscription: Subscription;
 
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
+    this.initializeGames();
+
+    this.subscription = interval(2500).subscribe(val => {
+      this.initializeGames();});
+  }
+
+  private initializeGames() {
     this.gameService.findAll().subscribe(
       games => {
+        this.scoreMap = new Map();
+        this.scoresPerRoundMap = new Map();
         games.forEach(
           game => {
             let name = game.player.name;
@@ -46,17 +57,20 @@ export class LeaderboardComponent implements OnInit {
         );
         this.scoresPerRoundMap = new Map([...this.scoresPerRoundMap.entries()].sort());
         for (let key of this.scoresPerRoundMap.keys()) {
-          this.scoresPerRoundMap.set(key, new Map([...this.scoresPerRoundMap.get(key).entries()].sort(function(a:[string,number], b:[string,number]){return b[1]-a[1]})));
+          this.scoresPerRoundMap.set(key, new Map([...this.scoresPerRoundMap.get(key).entries()].sort(function (a: [string, number], b: [string, number]) {
+            return b[1] - a[1]
+          })));
         }
-        console.log("scoreMap", this.scoreMap);
-        this.scoreMap = new Map([...this.scoreMap.entries()].sort(function(a:[string,number], b:[string,number]){return b[1]-a[1]}));
-        console.log("games", games);
-        console.log("scoreMap", this.scoreMap);
-        console.log("scoresPerRoundMap", this.scoresPerRoundMap);
+        console.log('scoreMap', this.scoreMap);
+        this.scoreMap = new Map([...this.scoreMap.entries()].sort(function (a: [string, number], b: [string, number]) {
+          return b[1] - a[1]
+        }));
+        console.log('games', games);
+        console.log('scoreMap', this.scoreMap);
+        console.log('scoresPerRoundMap', this.scoresPerRoundMap);
       }, err => {
         console.error(err);
-      }
-    )
+      })
   }
 
   numberCorrectAnswers(game: GameRound): number {

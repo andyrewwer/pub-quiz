@@ -4,7 +4,6 @@ import {PlayerService} from '../../services/player.service';
 import {Player} from '../../dto/player';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {GameRound} from '../../dto/gameRound';
 import {interval, Subscription} from 'rxjs';
 import {ModalService} from '../../services/modal.service';
 import {GameEventService} from '../../services/game-event.service';
@@ -96,8 +95,7 @@ export class GameComponent implements OnInit, OnDestroy {
           }
         }
       );
-      }
-    );
+      });
 
     this.gameEvent.on().subscribe(
       gameRound => {

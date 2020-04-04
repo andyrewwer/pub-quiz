@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PlayerService} from '../../../services/player.service';
 import {Player} from '../../../dto/player';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-players',
@@ -10,12 +11,19 @@ import {Player} from '../../../dto/player';
 export class PlayersComponent implements OnInit {
 
   players: Array<Player>;
+  subscription: Subscription;
   constructor(private playerService: PlayerService) { }
 
   ngOnInit() {
     this.playerService.findAll().subscribe(
       players => this.players = players
     );
+
+    this.subscription = interval(2500).subscribe(val => {
+      this.playerService.findAll().subscribe(
+        players => this.players = players
+      );
+    });
   }
 
 }

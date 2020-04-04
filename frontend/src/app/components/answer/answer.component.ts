@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {GameRound} from '../../dto/gameRound';
 import {Answer} from '../../dto/answer';
@@ -17,22 +17,26 @@ export class AnswerComponent implements OnInit {
               private answerService: AnswerService) { }
 
   ngOnInit() {
+    this.initializeGames();
+  }
+
+  private initializeGames() {
     this.gameService.findAll().subscribe(
       games => {
-          this.games = games;
-          games.forEach(
-            game => {
-              let round = this.roundMap.get(game.round);
-              if (!round) {
-                round = new Array<GameRound>();
-              }
-              round.push(game);
-              this.roundMap.set(game.round, round);
+        this.games = games;
+        games.forEach(
+          game => {
+            let round = this.roundMap.get(game.round);
+            if (!round) {
+              round = new Array<GameRound>();
             }
-          );
+            round.push(game);
+            this.roundMap.set(game.round, round);
+          }
+        );
         this.roundMap = new Map([...this.roundMap.entries()].sort());
-        console.log("games", games);
-        console.log("roundMap", this.roundMap);
+        console.log('games', games);
+        console.log('roundMap', this.roundMap);
       }, err => {
         console.error(err);
       }
