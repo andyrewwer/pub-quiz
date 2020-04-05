@@ -52,6 +52,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
   createGame() {
+    // TODO create with game-name -- modal?
     const gameRoom = new GameRoom();
     const name = Math.random().toString(36).substr(2, 6).toUpperCase();
     gameRoom.name = name;

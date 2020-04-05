@@ -1,5 +1,6 @@
 package com.corelogic.schemaconverter.entity;
 
+import com.corelogic.schemaconverter.entity.enums.GameRoomType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,10 @@ public class GameRoom {
     private Long id;
 
     private String code;
-    private String type; // TODO ENUM?
+    @Enumerated(EnumType.STRING)
+    private GameRoomType type;
     private String name;
     private Integer round;
+//    TODO currentStatus = CREATED, STARTED, COMPLETED
 }
 
