@@ -13,7 +13,6 @@ import java.util.List;
 @Slf4j
 public class GameService {
     private final GameRoundRepository gameRoundRepository;
-    private Long currentRound = 1L;
 
     @Autowired
     public GameService(GameRoundRepository gameRoundRepository) {
@@ -64,14 +63,6 @@ public class GameService {
     public List<GameRound> findAll() { return gameRoundRepository.findAll(); }
 
     public List<GameRound> findByRound(Long round) { return gameRoundRepository.findByRound(round); }
-
-    public Long getCurrentRound() {
-        return currentRound;
-    }
-
-    public void setCurrentRound(Long currentRound) {
-        this.currentRound = currentRound;
-    }
 
     public List<GameRound> findGamesForPlayer(Long playerId) {
         return gameRoundRepository.findByPlayerId(playerId);

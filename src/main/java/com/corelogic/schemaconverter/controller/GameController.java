@@ -38,18 +38,6 @@ public class GameController {
         return gameRoundService.findAll();
     }
 
-    @GetMapping("/round")
-    public Long getCurrentRound() {
-        return gameRoundService.getCurrentRound();
-    }
-
-    @PostMapping("/round/{round}")
-    public Long setCurrentRound(@PathVariable Long round) {
-        gameRoundService.setCurrentRound(round);
-        return gameRoundService.getCurrentRound();
-    }
-
-
     @GetMapping("/player/{playerId}")
     public List<GameRound> findGamesForPlayer(@PathVariable Long playerId) {
         return gameRoundService.findGamesForPlayer(playerId);

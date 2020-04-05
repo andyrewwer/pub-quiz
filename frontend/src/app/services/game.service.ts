@@ -11,14 +11,6 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  getCurrentRound(): Observable<number> {
-    return this.http.get<number>('/api/games/round');
-  }
-
-  setCurrentRound(round: number): Observable<number> {
-    return this.http.post<number>('/api/games/round/' + round, null);
-  }
-
   save(gameRound: GameRound): Observable<GameRound> {
     return this.http.post<GameRound>('/api/games', gameRound);
   }
