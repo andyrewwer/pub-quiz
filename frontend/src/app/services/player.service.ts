@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Player} from '../dto/player';
+import {Player, PlayerJoinRequest} from '../dto/player';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class PlayerService {
   constructor(private http: HttpClient) {
   }
 
-  save(player: Player): Observable<Player> {
-    return this.http.post<Player>('/api/players', player);
+  save(playerJoinRequest: PlayerJoinRequest): Observable<Player> {
+    return this.http.post<Player>('/api/players', playerJoinRequest);
   }
 
   findAll(): Observable<Array<Player>> {

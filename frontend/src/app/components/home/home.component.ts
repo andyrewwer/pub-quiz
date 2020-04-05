@@ -39,14 +39,13 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/admin']);
       return;
     }
-    console.log(this.form);
     this.form.controls.name.setValue(this.form.value.name.toUpperCase());
     this.form.controls.quizcode.setValue(this.form.value.quizcode.toUpperCase());
     this.playerService.save(this.form.value).subscribe(
       player => {
         this.playerService.setPlayer(player);
         this.playerEventService.fire(player);
-        this.router.navigate(['/game/' + player.quizcode]);
+        this.router.navigate(['/game/' + player.gameRoom.id]);
       }, (err: HttpErrorResponse) => {
         if (err.status ===  412) {
           this.modalService.showErrorGameRoomNotFoundModal();

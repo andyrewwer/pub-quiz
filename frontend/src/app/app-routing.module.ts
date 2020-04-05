@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'answer', component: AnswerComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
-  {path: 'game/:quizcode', component: GameComponent}
+  {path: 'game/:roomId', component: GameComponent}
 ];
 
 @NgModule({

@@ -69,7 +69,8 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // TODO const routeParams = this.activeRoute.snapshot.params;
+    const routeParams = this.activeRoute.snapshot.params;
+    console.log('RouteParams', routeParams.roomId);
     this.player = this.playerService.getPlayer();
     if (!this.player) {
       this.router.navigate(['/home']);
