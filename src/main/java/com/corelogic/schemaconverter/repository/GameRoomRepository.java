@@ -2,12 +2,14 @@ package com.corelogic.schemaconverter.repository;
 
 
 import com.corelogic.schemaconverter.entity.GameRoom;
-import com.corelogic.schemaconverter.entity.Player;
+import com.corelogic.schemaconverter.entity.GameRound;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PlayerRepository extends JpaRepository<Player, Long> {
+import java.util.List;
 
-    Player findByNameAndGameRoomId(String name, Long id);
+@Repository
+public interface GameRoomRepository extends JpaRepository<GameRoom, Long> {
+
+    GameRoom findByCode(String code);
 }

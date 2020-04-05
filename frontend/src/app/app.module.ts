@@ -19,6 +19,7 @@ import { ConfirmationModalComponent } from './components/modals/confirmation-mod
 import {ModalService} from './services/modal.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PlayersComponent } from './components/admin/players/players.component';
+import { ErrorGameRoomNotFoundModalComponent } from './components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { PlayersComponent } from './components/admin/players/players.component';
     AdminHomeComponent,
     ConfirmationModalComponent,
     PlayersComponent,
+    ErrorGameRoomNotFoundModalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -65,7 +67,10 @@ import { PlayersComponent } from './components/admin/players/players.component';
     HttpClient,
     ModalService
   ],
-  entryComponents: [ConfirmationModalComponent],
+  entryComponents: [
+    ConfirmationModalComponent,
+    ErrorGameRoomNotFoundModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {PlayerEventService} from '../../services/player-event.service';
 import {PlayerService} from '../../services/player.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ModalService} from '../../services/modal.service';
 
 @Component({
   selector: 'app-home-component',
@@ -16,7 +18,8 @@ export class HomeComponent implements OnInit {
   constructor(private builder: FormBuilder,
               private playerService: PlayerService,
               private playerEventService: PlayerEventService,
-              private router: Router) {
+              private router: Router,
+              private modalService: ModalService) {
     this.form = builder.group({
       quizcode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]],
@@ -24,9 +27,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form.patchValue(this.playerService.getPlayer());
-    this.playerEventService.fire(null);
-    this.playerService.setPlayer(null);
+    if (!!this.playerService.getPlayer())  {
+      this.form.patchValue(this.playerService.getPlayer());
+      this.playerEventService.fire(null);
+      this.playerService.setPlayer(null);
+    }
   }
 
   submit() {
@@ -39,12 +44,14 @@ export class HomeComponent implements OnInit {
     this.form.controls.quizcode.setValue(this.form.value.quizcode.toUpperCase());
     this.playerService.save(this.form.value).subscribe(
       player => {
-        console.log('player', player);
         this.playerService.setPlayer(player);
         this.playerEventService.fire(player);
         this.router.navigate(['/game/' + player.quizcode]);
-      }
-    );
+      }, (err: HttpErrorResponse) => {
+        if (err.status ===  412) {
+          this.modalService.showErrorGameRoomNotFoundModal();
+        }
+      });
   }
 
 }

@@ -1,18 +1,17 @@
 package com.corelogic.schemaconverter.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @javax.persistence.Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Player {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PlayerIdSeq")
@@ -20,7 +19,8 @@ public class Player {
     @Id
     private Long id;
 
-    private String quizcode;
+    @OneToOne(cascade = CascadeType.ALL)
+    private GameRoom gameRoom;
 
     private String name;
 

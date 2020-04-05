@@ -1,5 +1,6 @@
 package com.corelogic.schemaconverter.controller;
 
+import com.corelogic.schemaconverter.dto.PlayerJoinRequest;
 import com.corelogic.schemaconverter.entity.Player;
 import com.corelogic.schemaconverter.service.PlayerService;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class PlayerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Player createPlayer(@RequestBody Player player) {
-        return playerService.save(player);
+    public Player playerJoinGame(@RequestBody PlayerJoinRequest playerJoinRequest) {
+        return playerService.joinGame(playerJoinRequest);
     }
 
     @GetMapping("/{id}")
