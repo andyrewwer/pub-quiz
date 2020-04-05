@@ -9,17 +9,18 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatR
 import { HomeComponent } from './components/home/home.component';
 import { GameComponent } from './components/game/game.component';
 import {Broadcaster} from './services/broadcaster';
-import { AnswerComponent } from './components/admin/answer/answer.component';
+import { AnswerComponent } from './components/admin/admin-home/answer/answer.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { LeaderboardComponent } from './components/admin/leaderboard/leaderboard.component';
+import { LeaderboardComponent } from './components/admin/admin-home/leaderboard/leaderboard.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
 import {ModalService} from './services/modal.service';
 import {MatDialogModule} from '@angular/material/dialog';
-import { PlayersComponent } from './components/admin/players/players.component';
-import { ErrorGameRoomNotFoundModalComponent } from './components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
+import { PlayersComponent } from './components/admin/admin-home/players/players.component';
+// tslint:disable-next-line:max-line-length
+import {ErrorGameRoomNotFoundModalComponent} from './components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
 
 
 @NgModule({

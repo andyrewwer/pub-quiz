@@ -44,4 +44,7 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
+    public List<Player> findAllForGameRoom(Long gameRoomId) {
+        return playerRepository.findAllByGameRoomId(gameRoomId);
+    }
 }

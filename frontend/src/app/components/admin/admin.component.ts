@@ -10,6 +10,7 @@ export class AdminComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // TODO ADMIN -> CREATE GAME -> LEADERBOARD/ANSWER/PLAYERS PER GAME
   }
 
 }

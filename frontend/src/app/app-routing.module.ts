@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {GameComponent} from './components/game/game.component';
-import {AnswerComponent} from './components/admin/answer/answer.component';
-import {LeaderboardComponent} from './components/admin/leaderboard/leaderboard.component';
+import {AnswerComponent} from './components/admin/admin-home/answer/answer.component';
+import {LeaderboardComponent} from './components/admin/admin-home/leaderboard/leaderboard.component';
 import {AdminComponent} from './components/admin/admin.component';
 
 

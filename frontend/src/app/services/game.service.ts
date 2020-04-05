@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GameRound} from '../dto/gameRound';
 import {Player} from '../dto/player';
+import {GameRoom} from '../dto/gameRoom';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class GameService {
 
   findGameForPlayerAndGameRoom(player: Player): Observable<Array<GameRound>> {
     return this.http.get<Array<GameRound>>('/api/games/player/' + player.id + '/gameRoom/' + player.gameRoom.id);
+  }
+
+  findAllForGameRoom(selectedGameRoom: GameRoom): Observable<Array<GameRound>> {
+    return this.http.get<Array<GameRound>>('/api/games/gameRoom/' + selectedGameRoom.id);
   }
 }

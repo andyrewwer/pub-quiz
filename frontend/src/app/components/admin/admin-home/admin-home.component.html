@@ -9,7 +9,7 @@
           <th>Name</th>
           <th>Round</th>
         </tr>
-        <tr *ngFor="let room of gameRooms; let i = index">
+        <tr *ngFor="let room of gameRooms; let i = index" (click)="selectGameRoom(room)" [className]="selectedGameRoom === room ? 'table-active' : ''">
           <td>{{i+1}}</td>
           <td>{{room.name}}</td>
           <td>
@@ -20,8 +20,26 @@
                  alt="Plus"/>
           </td>
         </tr>
-
       </table>
+      <div class="mt-5">
+        <div *ngIf="!!selectedGameRoom">
+          <mat-card>
+            <mat-card-content>
+              <mat-tab-group>
+                <mat-tab label="Check Answers" class="bg-light">
+                  <app-answer [selectedGameRoom]="selectedGameRoom"></app-answer>
+                </mat-tab>
+                <mat-tab label="Leaderboard" class="bg-light">
+                  <app-leaderboard [selectedGameRoom]="selectedGameRoom"></app-leaderboard>
+                </mat-tab>
+                <mat-tab label="Players" class="bg-light">
+                  <app-players [selectedGameRoom]="selectedGameRoom"></app-players>
+                </mat-tab>
+              </mat-tab-group>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

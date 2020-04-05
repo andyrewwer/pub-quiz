@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {GameService} from '../../../services/game.service';
-import {GameRound} from '../../../dto/gameRound';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {GameService} from '../../../../services/game.service';
+import {GameRound} from '../../../../dto/gameRound';
 import {interval, Subscription} from 'rxjs';
+import {GameRoom} from '../../../../dto/gameRoom';
 
 @Component({
   selector: 'app-leaderboard',
@@ -10,6 +11,8 @@ import {interval, Subscription} from 'rxjs';
 })
 export class LeaderboardComponent implements OnInit, OnDestroy {
 
+  @Input() selectedGameRoom: GameRoom;
+
   public scoreMap: Map<string, number> = new Map(); // total score across rounds
   public scoresPerRoundMap: Map<number, Map<string, number>> = new Map(); // scores per round
   subscription: Subscription;
@@ -17,20 +20,23 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
-    this.initializeGames();
+    this.refresh();
 
     this.subscription = interval(2500).subscribe(val => {
-      this.initializeGames();});
+      this.refresh(); });
   }
 
-  private initializeGames() {
-    this.gameService.findAll().subscribe(
+  private refreshGames(room?: GameRoom) {
+    if (!room) {
+      room = this.selectedGameRoom;
+    }
+    this.gameService.findAllForGameRoom(room).subscribe(
       games => {
         this.scoreMap = new Map();
         this.scoresPerRoundMap = new Map();
         games.forEach(
           game => {
-            let name = game.player.name;
+            const name = game.player.name;
             let teamScore = this.scoreMap.get(name);
             if (!teamScore) {
               teamScore = 0;
@@ -56,21 +62,25 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
           }
         );
         this.scoresPerRoundMap = new Map([...this.scoresPerRoundMap.entries()].sort());
-        for (let key of this.scoresPerRoundMap.keys()) {
-          this.scoresPerRoundMap.set(key, new Map([...this.scoresPerRoundMap.get(key).entries()].sort(function (a: [string, number], b: [string, number]) {
-            return b[1] - a[1]
+        for (const key of this.scoresPerRoundMap.keys()) {
+          this.scoresPerRoundMap.set(key, new Map([...this.scoresPerRoundMap.get(key).entries()]
+            .sort(function (a: [string, number], b: [string, number]) {
+            return b[1] - a[1];
           })));
         }
-        console.log('scoreMap', this.scoreMap);
-        this.scoreMap = new Map([...this.scoreMap.entries()].sort(function (a: [string, number], b: [string, number]) {
-          return b[1] - a[1]
+        this.scoreMap = new Map([...this.scoreMap.entries()]
+          .sort(function (a: [string, number], b: [string, number]) {
+          return b[1] - a[1];
         }));
-        console.log('games', games);
         console.log('scoreMap', this.scoreMap);
         console.log('scoresPerRoundMap', this.scoresPerRoundMap);
       }, err => {
         console.error(err);
-      })
+      });
+  }
+
+  public refresh(room?: GameRoom) {
+    this.refreshGames(room);
   }
 
   numberCorrectAnswers(game: GameRound): number {

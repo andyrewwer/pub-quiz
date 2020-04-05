@@ -38,6 +38,11 @@ public class GameController {
         return gameRoundService.findAll();
     }
 
+    @GetMapping("/gameRoom/{gameRoomId}")
+    public List<GameRound> findGamesInGameRoom(@PathVariable Long gameRoomId) {
+        return gameRoundService.findAllForGameRoom(gameRoomId);
+    }
+
     @GetMapping("/player/{playerId}")
     public List<GameRound> findGamesForPlayer(@PathVariable Long playerId) {
         return gameRoundService.findGamesForPlayer(playerId);

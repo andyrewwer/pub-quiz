@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {GameService} from '../../../services/game.service';
-import {GameRound} from '../../../dto/gameRound';
-import {Answer} from '../../../dto/answer';
-import {AnswerService} from '../../../services/answer.service';
-import {interval, Subscription} from 'rxjs';
+import {Component, Input, OnInit} from '@angular/core';
+import {GameService} from '../../../../services/game.service';
+import {GameRound} from '../../../../dto/gameRound';
+import {Answer} from '../../../../dto/answer';
+import {AnswerService} from '../../../../services/answer.service';
+import {GameRoom} from '../../../../dto/gameRoom';
 
 @Component({
   selector: 'app-answer',
@@ -11,6 +11,8 @@ import {interval, Subscription} from 'rxjs';
   styleUrls: ['./answer.component.css']
 })
 export class AnswerComponent implements OnInit {
+
+  @Input() selectedGameRoom: GameRoom;
 
   games: Array<GameRound>;
   public roundMap: Map<number, Array<GameRound>> = new Map();
@@ -20,10 +22,15 @@ export class AnswerComponent implements OnInit {
 
   ngOnInit() {
     this.initializeGames();
+  //  TODO bonus points
+  //  TODO see other people's answers / highlight?
   }
 
-  private initializeGames() {
-    this.gameService.findAll().subscribe(
+  private initializeGames(room?: GameRoom) {
+    if (!room) {
+      room = this.selectedGameRoom;
+    }
+    this.gameService.findAllForGameRoom(room).subscribe(
       games => {
         this.roundMap = new Map();
         this.games = games;
@@ -46,8 +53,9 @@ export class AnswerComponent implements OnInit {
     );
   }
 
-  refresh() {
-    this.initializeGames();
+  public refresh(room?: GameRoom) {
+    console.log('REFRESH CALLED');
+    this.initializeGames(room);
   }
 
   setClass(correct: Boolean) {

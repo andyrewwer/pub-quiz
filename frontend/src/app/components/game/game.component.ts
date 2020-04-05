@@ -79,6 +79,7 @@ export class GameComponent implements OnInit, OnDestroy {
       // TODO SHOW ERROR MESSAGE!
     }
     this.form.controls.player.setValue(this.player);
+    this.form.controls.round.setValue(this.player.gameRoom.round);
     this.getCurrentRound();
     this.refreshGames();
     this.subscription = interval(1000).subscribe(val => {
@@ -100,8 +101,8 @@ export class GameComponent implements OnInit, OnDestroy {
   private getCurrentRound() {
     this.gameRoomService.getCurrentRound(this.player.gameRoom).subscribe(
       curRound => {
-        console.log('NEW ROUND', curRound);
         if (curRound !== this.player.gameRoom.round) {
+          console.log('NEW ROUND', curRound);
           this.submitted = false;
           this.form.controls.round.setValue(curRound);
           this.player.gameRoom.round = curRound;
@@ -151,7 +152,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   roundsLessThanCurrent(): number[] {
-    let result = [];
+    const result = [];
     for (let i = 1; i < this.player.gameRoom.round; i++) {
       result.push(i);
     }
@@ -162,7 +163,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   getValueForRoundAndAnswer(roundNumber: number, position: number) {
-    let round = this.roundMap.get(roundNumber);
+    const round = this.roundMap.get(roundNumber);
     if (!!round) {
       if (!!round[position]) {
         return round[position];

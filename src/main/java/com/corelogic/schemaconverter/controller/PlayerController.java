@@ -34,4 +34,9 @@ public class PlayerController {
         return playerService.findAll();
     }
 
+    @GetMapping("/gameRoom/{gameRoomId}")
+    public List<Player> findPlayersForGameRoom(@PathVariable Long gameRoomId) {
+        return playerService.findAllForGameRoom(gameRoomId);
+    }
+
 }

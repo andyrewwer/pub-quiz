@@ -72,4 +72,8 @@ public class GameService {
         return gameRoundRepository.findByPlayerIdAndPlayerGameRoomId(playerId, gameRoomId);
 
     }
+
+    public List<GameRound> findAllForGameRoom(Long gameRoomId) {
+        return gameRoundRepository.findAllByPlayerGameRoomId(gameRoomId);
+    }
 }

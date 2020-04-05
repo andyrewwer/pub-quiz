@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Player, PlayerJoinRequest} from '../dto/player';
 import {Observable} from 'rxjs';
+import {GameRoom} from '../dto/gameRoom';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class PlayerService {
 
   findAll(): Observable<Array<Player>> {
     return this.http.get<Array<Player>>('/api/players');
+  }
+
+  findAllForGameRoom(selectedGameRoom: GameRoom):  Observable<Array<Player>> {
+    return this.http.get<Array<Player>>('/api/players/gameRoom/' + selectedGameRoom.id);
   }
 
   getPlayer(): Player {

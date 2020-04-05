@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GameService} from '../../../services/game.service';
 import {GameRoom} from '../../../dto/gameRoom';
 import {GameRoomService} from '../../../services/game-room.service';
+import {AnswerComponent} from './answer/answer.component';
+import {LeaderboardComponent} from './leaderboard/leaderboard.component';
+import {PlayersComponent} from './players/players.component';
 
 @Component({
   selector: 'app-admin-home',
@@ -9,8 +12,12 @@ import {GameRoomService} from '../../../services/game-room.service';
   styleUrls: ['./admin-home.component.css']
 })
 export class AdminHomeComponent implements OnInit {
+  @ViewChild(AnswerComponent, null) private childAnswer: AnswerComponent;
+  @ViewChild(LeaderboardComponent, null) private childLeaderboard: LeaderboardComponent;
+  @ViewChild(PlayersComponent, null) private childPlayers: PlayersComponent;
 
   gameRooms: Array<GameRoom>;
+  selectedGameRoom: GameRoom;
   constructor(private gameService: GameService,
               private gameRoomService: GameRoomService) { }
 
@@ -21,7 +28,7 @@ export class AdminHomeComponent implements OnInit {
   private findAllGameRooms() {
     this.gameRoomService.findAll().subscribe(
       _gameRooms => {
-        console.log("Game Rooms", _gameRooms);
+        console.log('Game Rooms', _gameRooms);
         this.gameRooms = _gameRooms;
       }
     );
@@ -39,19 +46,20 @@ export class AdminHomeComponent implements OnInit {
 
   decrementRound(game: GameRoom) {
     this.gameRoomService.setCurrentRound(game, --game.round).subscribe(
-      gameRoom => game = gameRoom
-    ), error => game.round ++;
+      gameRoom => game = gameRoom,
+        error => game.round ++
+    );
   }
 
   createGame() {
-    let gameRoom = new GameRoom();
-    let name = Math.random().toString(36).substr(2, 6).toUpperCase();
+    const gameRoom = new GameRoom();
+    const name = Math.random().toString(36).substr(2, 6).toUpperCase();
     gameRoom.name = name;
     gameRoom.type = 'QUIZ';
     gameRoom.code = name;
     this.gameRoomService.save(gameRoom).subscribe(
-      gameRoom => {
-        console.log('game room', gameRoom);
+      _gameRoom => {
+        console.log('game room', _gameRoom);
         this.findAllGameRooms();
       }, err => {
         console.error(err);
@@ -59,4 +67,10 @@ export class AdminHomeComponent implements OnInit {
     );
   }
 
+  selectGameRoom(room: GameRoom) {
+    this.selectedGameRoom = room;
+    this.childAnswer.refresh(room);
+    this.childLeaderboard.refresh(room);
+    this.childPlayers.refresh(room);
+  }
 }
