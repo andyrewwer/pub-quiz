@@ -12,4 +12,6 @@ public interface GameRoundRepository extends JpaRepository<GameRound, Long> {
     List<GameRound> findByRound(Long round);
 
     List<GameRound> findByPlayerId(Long playerId);
+
+    List<GameRound> findByPlayerIdAndPlayerGameRoomId(Long playerId, Long gameRoomId);
 }

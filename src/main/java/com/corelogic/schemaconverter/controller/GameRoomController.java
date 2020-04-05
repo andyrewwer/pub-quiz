@@ -33,4 +33,13 @@ public class GameRoomController {
         return gameRoomService.findAll();
     }
 
+    @GetMapping("{id}/round")
+    public Integer getCurrentRound(@PathVariable Long id) {
+        return gameRoomService.getCurrentRoundForGameRoom(id);
+    }
+
+    @PostMapping("{id}/round/{round}")
+    public GameRoom setCurrentRound(@PathVariable Long id, @PathVariable Integer round) {
+        return gameRoomService.setCurrentRoundForGameRoom(id, round);
+    }
 }

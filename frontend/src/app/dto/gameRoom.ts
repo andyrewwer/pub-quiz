@@ -3,11 +3,13 @@ export class GameRoom {
   code: string;
   type: string;
   name: string;
+  round: number;
 
   constructor(args: GameRoom = <GameRoom>{}) {
     this.id = args.id;
     this.code = args.code;
     this.type = args.type;
     this.name = args.name;
+    this.round = args.round;
   }
 }

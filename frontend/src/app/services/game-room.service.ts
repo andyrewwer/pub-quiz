@@ -18,4 +18,12 @@ export class GameRoomService {
   findAll(): Observable<Array<GameRoom>> {
     return this.http.get<Array<GameRoom>>('/api/gameRooms');
   }
+
+  getCurrentRound(gameRoom: GameRoom): Observable<number> {
+    return this.http.get<number>('/api/gameRooms/' + gameRoom.id + '/round');
+  }
+
+  setCurrentRound(gameRoom: GameRoom, round: number): Observable<GameRoom> {
+    return this.http.post<GameRoom>('/api/gameRooms/' + gameRoom.id + '/round/' + round, null);
+  }
 }

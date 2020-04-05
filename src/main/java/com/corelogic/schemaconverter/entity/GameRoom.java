@@ -20,5 +20,6 @@ public class GameRoom {
     private String code;
     private String type; // TODO ENUM?
     private String name;
+    private Integer round;
 }
 

@@ -3,12 +3,13 @@
     <mat-card-header>
       <!--        TODO PARAMETERIEZE-->
       <!--        TODO SWAP BETWEEN ROUNDS-->
+<!--      TODO DISPLAY ON MOBILE-->
 <!--      TODO DISPLAY ROOMCODE-->
-      <mat-card-title>Andrew's Pub Quiz - Current Round {{round}}</mat-card-title>
+      <mat-card-title>{{player.gameRoom.name}} - Current Round {{player.gameRoom.round}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-tab-group>
-        <mat-tab *ngFor="let previousRound of roundsLessThanCurrent()" [label]="previousRound === round ? 'Current Round' : 'Round ' + previousRound" class="bg-light">
+        <mat-tab *ngFor="let previousRound of roundsLessThanCurrent()" [label]="previousRound === player.gameRoom.round ? 'Current Round' : 'Round ' + previousRound" class="bg-light">
           <div *ngFor="let number of [0, 1,2,3,4,5,6,7,8,9]">
             <label>Question {{number + 1}}</label>
             <input class="form-control mb-2" disabled [value]="getValueForRoundAndAnswer(previousRound,number)">
@@ -16,7 +17,7 @@
           <label [for]="'qtp'">Theme</label>
           <input name="qtp" id="qtp" class="form-control mb-2" disabled [value]="getValueForRoundAndAnswer(previousRound,10)">
         </mat-tab>
-        <mat-tab *ngIf="roundsLessThanCurrent().length != round" label="Current Round" class="bg-light">
+        <mat-tab *ngIf="roundsLessThanCurrent().length != player.gameRoom.round" label="Current Round" class="bg-light">
           <form class="form" [formGroup]="form">
             <div *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]">
               <div [formGroupName]="'answer' + number">

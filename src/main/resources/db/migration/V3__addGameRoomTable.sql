@@ -4,6 +4,7 @@ create table game_room
     code varchar(6) unique  not null,
     type varchar(25) not null,
     name varchar(25),
+    round integer default 1 not null,
 primary key (id)
 );
 

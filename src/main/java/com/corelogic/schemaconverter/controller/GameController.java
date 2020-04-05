@@ -51,7 +51,12 @@ public class GameController {
 
 
     @GetMapping("/player/{playerId}")
-    public List<GameRound> findGamesForPlayerAndRound(@PathVariable Long playerId) {
+    public List<GameRound> findGamesForPlayer(@PathVariable Long playerId) {
         return gameRoundService.findGamesForPlayer(playerId);
+    }
+
+    @GetMapping("/player/{playerId}/gameRoom/{gameRoomId}")
+    public List<GameRound> findGamesForPlayerAndRound(@PathVariable Long playerId, @PathVariable Long gameRoomId) {
+        return gameRoundService.findGamesForPlayerAndRound(playerId, gameRoomId);
     }
 }

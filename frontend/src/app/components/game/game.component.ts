@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {interval, Subscription} from 'rxjs';
 import {ModalService} from '../../services/modal.service';
 import {GameEventService} from '../../services/game-event.service';
+import {GameRoomService} from '../../services/game-room.service';
 
 @Component({
   selector: 'app-game',
@@ -15,11 +16,10 @@ import {GameEventService} from '../../services/game-event.service';
 })
 export class GameComponent implements OnInit, OnDestroy {
 
-  private player: Player;
-  round: number;
+  player: Player;
   submitted = false;
-  public form: FormGroup;
-  public roundMap: Map<number, Array<string>> = new Map();
+  form: FormGroup;
+  roundMap: Map<number, Array<string>> = new Map();
   subscription: Subscription;
 
   constructor(private builder: FormBuilder,
@@ -27,6 +27,7 @@ export class GameComponent implements OnInit, OnDestroy {
               private router: Router,
               private playerService: PlayerService,
               private gameService: GameService,
+              private gameRoomService: GameRoomService,
               private modalService: ModalService,
               private gameEvent: GameEventService) {
     this.form = builder.group({
@@ -74,29 +75,15 @@ export class GameComponent implements OnInit, OnDestroy {
     this.player = this.playerService.getPlayer();
     if (!this.player) {
       this.router.navigate(['/home']);
+      return;
+      // TODO SHOW ERROR MESSAGE!
     }
-    this.gameService.getCurrentRound().subscribe(
-      curRound => {
-        console.log('curRound', curRound);
-        this.form.controls.round.setValue(curRound);
-        this.round = curRound;
-      }
-    );
     this.form.controls.player.setValue(this.player);
+    this.getCurrentRound();
     this.refreshGames();
     this.subscription = interval(1000).subscribe(val => {
-      this.gameService.getCurrentRound().subscribe(
-        curRound => {
-          console.log('NEW ROUND', curRound);
-          if (curRound !== this.round) {
-            this.submitted = false;
-            this.form.controls.round.setValue(curRound);
-            this.round = curRound;
-            this.refreshGames();
-          }
-        }
-      );
-      });
+      this.getCurrentRound();
+    });
 
     this.gameEvent.on().subscribe(
       gameRound => {
@@ -104,17 +91,28 @@ export class GameComponent implements OnInit, OnDestroy {
         this.refreshGames();
         this.form.reset(
           {
-            round: this.round,
+            round: this.form.value.round,
             player: this.form.value.player
-          }
-        );
-      }
-    )
+          });
+      });
+  }
 
+  private getCurrentRound() {
+    this.gameRoomService.getCurrentRound(this.player.gameRoom).subscribe(
+      curRound => {
+        console.log('NEW ROUND', curRound);
+        if (curRound !== this.player.gameRoom.round) {
+          this.submitted = false;
+          this.form.controls.round.setValue(curRound);
+          this.player.gameRoom.round = curRound;
+          this.refreshGames();
+        }
+      });
   }
 
   refreshGames() {
-    this.gameService.findGameForPlayer(this.player).subscribe(
+    // this.gameService.findGameForPlayer(this.player).subscribe(
+    this.gameService.findGameForPlayerAndGameRoom(this.player).subscribe(
       games => {
         games.forEach(
           game => {
@@ -136,11 +134,11 @@ export class GameComponent implements OnInit, OnDestroy {
             this.roundMap.set(game.round, round);
           }
         );
-        if (!!this.roundMap.get(this.round)) {
+        if (!!this.roundMap.get(this.player.gameRoom.round)) {
           this.submitted = true;
         }
-        console.log("games", games);
-        console.log("roundMap", this.roundMap);
+        console.log('games', games);
+        console.log('roundMap', this.roundMap);
       }, err => {
         console.error(err);
       }
@@ -154,11 +152,11 @@ export class GameComponent implements OnInit, OnDestroy {
 
   roundsLessThanCurrent(): number[] {
     let result = [];
-    for(let i = 1; i < this.round; i++) {
+    for (let i = 1; i < this.player.gameRoom.round; i++) {
       result.push(i);
     }
-    if (!!this.roundMap.get(this.round)) {
-      result.push(this.round);
+    if (!!this.roundMap.get(this.player.gameRoom.round)) {
+      result.push(this.player.gameRoom.round);
     }
     return result;
   }

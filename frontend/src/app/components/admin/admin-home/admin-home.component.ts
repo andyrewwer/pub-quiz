@@ -10,15 +10,11 @@ import {GameRoomService} from '../../../services/game-room.service';
 })
 export class AdminHomeComponent implements OnInit {
 
-  round = 0;
   gameRooms: Array<GameRoom>;
   constructor(private gameService: GameService,
               private gameRoomService: GameRoomService) { }
 
   ngOnInit() {
-    this.gameService.getCurrentRound().subscribe(
-      curRound => this.round = curRound
-    );
     this.findAllGameRooms();
   }
 
@@ -31,21 +27,25 @@ export class AdminHomeComponent implements OnInit {
     );
   }
 
-  incrementRound() {
-    this.gameService.setCurrentRound(++this.round).subscribe(
-      curRound => this.round = curRound
+  incrementRound(game: GameRoom) {
+    this.gameRoomService.setCurrentRound(game, ++game.round).subscribe(
+      gameRoom => {
+        console.log('game', game);
+        console.log('gameRoom', gameRoom);
+        game = gameRoom;
+      }, error => game.round--
     );
   }
 
-  decrementRound() {
-    this.gameService.setCurrentRound(--this.round).subscribe(
-      curRound => this.round = curRound
-    );
+  decrementRound(game: GameRoom) {
+    this.gameRoomService.setCurrentRound(game, --game.round).subscribe(
+      gameRoom => game = gameRoom
+    ), error => game.round ++;
   }
 
   createGame() {
     let gameRoom = new GameRoom();
-    let name = Math.random().toString(36).substr(2, 6);
+    let name = Math.random().toString(36).substr(2, 6).toUpperCase();
     gameRoom.name = name;
     gameRoom.type = 'QUIZ';
     gameRoom.code = name;
