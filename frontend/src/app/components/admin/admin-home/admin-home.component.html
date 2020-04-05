@@ -1,12 +1,20 @@
 <div class="main-div">
   <mat-card>
     <mat-card-content>
+      <div class="row">
       Current Round:
       <img (click)="decrementRound()" src="/assets/svg/minus.svg"
            alt="Minus" class="ml-2"/>
       <label class="mx-2">{{round}}</label>
       <img (click)="incrementRound()" class="mr-2" src="/assets/svg/add.svg"
            alt="Plus"/>
+      </div>
+      <div class="row">
+        <button mat-stroked-button (click)="createGame()">Create new Game</button>
+        <ol>
+          <li *ngFor="let game of gameRooms">{{game.name}}</li>
+        </ol>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
