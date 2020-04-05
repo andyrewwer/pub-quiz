@@ -54,7 +54,7 @@ public class GameService {
         if (gameRound.getAnswerTheme() == null) {
             gameRound.setAnswerTheme(new Answer());
         }
-//        TODO CHECK IF game already exists based on player & round
+//        TODO CHECK IF game already exists based on player & gameroom & round
         return gameRoundRepository.save(gameRound);
     }
 
