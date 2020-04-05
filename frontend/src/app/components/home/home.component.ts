@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if (!!this.playerService.getPlayer())  {
       this.form.patchValue(this.playerService.getPlayer());
+      this.form.controls.quizcode.setValue(this.playerService.getPlayer().gameRoom.code);
       this.playerEventService.fire(null);
       this.playerService.setPlayer(null);
     }
