@@ -29,6 +29,7 @@ import {PlayersComponent} from './components/admin/admin-home/players/players.co
 // tslint:disable-next-line:max-line-length
 import {ErrorGameRoomNotFoundModalComponent} from './components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
 import {CreateGameModalComponent} from './components/modals/create-game-modal/create-game-modal.component';
+import { GameRoomPipePipe } from './dto/pipes/game-room-pipe.pipe';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {CreateGameModalComponent} from './components/modals/create-game-modal/cr
     PlayersComponent,
     ErrorGameRoomNotFoundModalComponent,
     CreateGameModalComponent,
+    GameRoomPipePipe,
   ],
   imports: [
     AppRoutingModule,

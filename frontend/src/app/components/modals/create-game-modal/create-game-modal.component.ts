@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {GameRoom} from '../../../dto/gameRoom';
+import {Component} from '@angular/core';
 import {GameRoomService} from '../../../services/game-room.service';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GameRoomTypes} from '../../../dto/enums/gameRoomTypes';
+import gameRoomTypes = GameRoomTypes.gameRoomTypes;
 
 @Component({
   selector: 'create-game-modal',
@@ -10,6 +11,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./create-game-modal.component.css']
 })
 export class CreateGameModalComponent {
+  types = gameRoomTypes;
 
   form: FormGroup;
   constructor(private builder: FormBuilder,
@@ -18,8 +20,9 @@ export class CreateGameModalComponent {
     this.form = builder.group({
       name: [null, Validators.required],
       type: ['QUIZ', Validators.required],
-      code: [null, Validators.required],
-    })
+      code: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+    });
+    console.log('types', this.types);
   }
 
   createGame() {

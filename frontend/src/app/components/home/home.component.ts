@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
       // TODO CREATE LOG-ON page for admin
       // TODO add a changelog + wish list
       // TODO CREATE NEW GAME TYPE - WHOOPS
+      // TODO CREATE A PAGE OF THE EVENTS FOR ANDREW?
       return;
     }
     this.form.controls.name.setValue(this.form.value.name.toUpperCase());

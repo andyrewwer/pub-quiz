@@ -14,7 +14,7 @@
         <tr *ngFor="let room of gameRooms; let i = index" (click)="selectGameRoom(room)" [className]="selectedGameRoom === room ? 'table-active' : ''">
           <td>{{i+1}}</td>
           <td>{{room.name}}</td>
-          <td>{{room.type}}</td>
+          <td>{{room.type | gameRoomPipe}}</td>
           <td>{{room.code}}</td>
           <td>
             <img (click)="decrementRound(room)" src="/assets/svg/minus.svg"
