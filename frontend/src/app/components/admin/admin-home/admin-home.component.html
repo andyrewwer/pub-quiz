@@ -7,14 +7,16 @@
             <button mat-stroked-button (click)="createGame()">Create new Game</button>
           </th>
           <th>Name</th>
-          <th>Type</th>
+          <th>Game</th>
           <th>Code</th>
+          <th>Status</th>
           <th>Round</th>
         </tr>
         <tr *ngFor="let room of gameRooms; let i = index" (click)="selectGameRoom(room)" [className]="selectedGameRoom === room ? 'table-active' : ''">
           <td>{{i+1}}</td>
           <td>{{room.name}}</td>
           <td>{{room.type | gameRoomPipe}}</td>
+          <td>{{room.status | gameRoomStatusPipe}}</td>
           <td>{{room.code}}</td>
           <td>
             <img (click)="decrementRound(room)" src="/assets/svg/minus.svg"

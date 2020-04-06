@@ -4,6 +4,7 @@ export class GameRoom {
   type: string;
   name: string;
   round: number;
+  status: number;
 
   constructor(args: GameRoom = <GameRoom>{}) {
     this.id = args.id;
@@ -11,5 +12,6 @@ export class GameRoom {
     this.type = args.type;
     this.name = args.name;
     this.round = args.round;
+    this.status = args.status;
   }
 }

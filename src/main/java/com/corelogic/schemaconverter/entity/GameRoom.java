@@ -1,5 +1,6 @@
 package com.corelogic.schemaconverter.entity;
 
+import com.corelogic.schemaconverter.entity.enums.GameRoomStatus;
 import com.corelogic.schemaconverter.entity.enums.GameRoomType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,8 @@ public class GameRoom {
     private GameRoomType type;
     private String name;
     private Integer round;
+    @Enumerated(EnumType.STRING)
+    private GameRoomStatus status;
 //    TODO currentStatus = CREATED, STARTED, COMPLETED
 }
 

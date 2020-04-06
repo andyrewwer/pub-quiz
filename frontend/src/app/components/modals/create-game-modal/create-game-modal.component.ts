@@ -22,7 +22,6 @@ export class CreateGameModalComponent {
       type: ['QUIZ', Validators.required],
       code: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     });
-    console.log('types', this.types);
   }
 
   createGame() {

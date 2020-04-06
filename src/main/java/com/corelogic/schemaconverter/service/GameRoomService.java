@@ -1,10 +1,12 @@
 package com.corelogic.schemaconverter.service;
 
 import com.corelogic.schemaconverter.entity.GameRoom;
+import com.corelogic.schemaconverter.entity.enums.GameRoomStatus;
 import com.corelogic.schemaconverter.repository.GameRoomRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -19,7 +21,10 @@ public class GameRoomService {
     }
 
     public GameRoom save(GameRoom gameRoom) {
-        gameRoom.setRound(1);
+        if (ObjectUtils.isEmpty(gameRoom.getId())) {
+            gameRoom.setRound(1);
+            gameRoom.setStatus(GameRoomStatus.CREATED);
+        }
         return gameRoomRepository.save(gameRoom);
     }
 
