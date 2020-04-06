@@ -4,6 +4,8 @@ import {ConfirmationModalComponent} from '../components/modals/confirmation-moda
 import {GameRound} from '../dto/gameRound';
 // tslint:disable-next-line:max-line-length
 import {ErrorGameRoomNotFoundModalComponent} from '../components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
+import {CreateGameModalComponent} from '../components/modals/create-game-modal/create-game-modal.component';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +14,23 @@ export class ModalService {
 
   constructor(public dialog: MatDialog) {}
 
-  showConfirmationModal(game: GameRound) {
+  showConfirmationModal(game: GameRound): Observable<any> {
     const data: MatDialogConfig = {
       data: {
         game: game
       }
     };
     const dialogRef = this.dialog.open(ConfirmationModalComponent, data);
-    dialogRef.afterClosed().subscribe(() => {
-    });
+    return dialogRef.afterClosed();
   }
 
-  showErrorGameRoomNotFoundModal() {
+  showErrorGameRoomNotFoundModal(): Observable<any> {
     const dialogRef = this.dialog.open(ErrorGameRoomNotFoundModalComponent);
-    dialogRef.afterClosed().subscribe(() => {
-    });
+    return dialogRef.afterClosed();
+  }
+
+  showCreateGameModal(): Observable<any> {
+    const dialogRef = this.dialog.open(CreateGameModalComponent);
+    return dialogRef.afterClosed();
   }
 }

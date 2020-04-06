@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
               private router: Router,
               private modalService: ModalService) {
     this.form = builder.group({
-      quizcode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      quizcode: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]],
     });
   }

@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GameService} from '../../../services/game.service';
 import {GameRoom} from '../../../dto/gameRoom';
 import {GameRoomService} from '../../../services/game-room.service';
 import {AnswerComponent} from './answer/answer.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {PlayersComponent} from './players/players.component';
+import {ModalService} from '../../../services/modal.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -18,8 +18,8 @@ export class AdminHomeComponent implements OnInit {
 
   gameRooms: Array<GameRoom>;
   selectedGameRoom: GameRoom;
-  constructor(private gameService: GameService,
-              private gameRoomService: GameRoomService) { }
+  constructor(private gameRoomService: GameRoomService,
+              private modalService: ModalService) { }
 
   ngOnInit() {
     this.findAllGameRooms();
@@ -40,30 +40,30 @@ export class AdminHomeComponent implements OnInit {
         console.log('game', game);
         console.log('gameRoom', gameRoom);
         game = gameRoom;
-      }, error => game.round--
+      }, error => {
+        game.round--;
+        // TODO show error
+      }
     );
   }
 
   decrementRound(game: GameRoom) {
     this.gameRoomService.setCurrentRound(game, --game.round).subscribe(
       gameRoom => game = gameRoom,
-        error => game.round ++
+        error => {
+        game.round ++;
+          // TODO show error
+        }
     );
   }
 
   createGame() {
     // TODO create with game-name -- modal?
-    const gameRoom = new GameRoom();
-    const name = Math.random().toString(36).substr(2, 6).toUpperCase();
-    gameRoom.name = name;
-    gameRoom.type = 'QUIZ';
-    gameRoom.code = name;
-    this.gameRoomService.save(gameRoom).subscribe(
-      _gameRoom => {
-        console.log('game room', _gameRoom);
-        this.findAllGameRooms();
-      }, err => {
-        console.error(err);
+    this.modalService.showCreateGameModal().subscribe(
+      success => {
+        if (!!success && success) {
+          this.findAllGameRooms();
+        }
       }
     );
   }

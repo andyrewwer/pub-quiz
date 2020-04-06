@@ -6,7 +6,6 @@ import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {interval, Subscription} from 'rxjs';
 import {ModalService} from '../../services/modal.service';
-import {GameEventService} from '../../services/game-event.service';
 import {GameRoomService} from '../../services/game-room.service';
 
 @Component({
@@ -28,8 +27,7 @@ export class GameComponent implements OnInit, OnDestroy {
               private playerService: PlayerService,
               private gameService: GameService,
               private gameRoomService: GameRoomService,
-              private modalService: ModalService,
-              private gameEvent: GameEventService) {
+              private modalService: ModalService) {
     this.form = builder.group({
       round: [null],
       player: [null],
@@ -85,17 +83,6 @@ export class GameComponent implements OnInit, OnDestroy {
     this.subscription = interval(1000).subscribe(val => {
       this.getCurrentRound();
     });
-
-    this.gameEvent.on().subscribe(
-      gameRound => {
-        this.submitted = true;
-        this.refreshGames();
-        this.form.reset(
-          {
-            round: this.form.value.round,
-            player: this.form.value.player
-          });
-      });
   }
 
   private getCurrentRound() {
@@ -147,7 +134,19 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.modalService.showConfirmationModal(this.form.value);
+    this.modalService.showConfirmationModal(this.form.value).subscribe(
+      result => {
+        if (!!result && result) {
+          this.submitted = true;
+          this.refreshGames();
+          this.form.reset(
+            {
+              round: this.form.value.round,
+              player: this.form.value.player
+            });
+        }
+      }
+    );
     console.log(this.form);
   }
 

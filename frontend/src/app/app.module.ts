@@ -5,22 +5,30 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule} from '@angular/material';
-import { HomeComponent } from './components/home/home.component';
-import { GameComponent } from './components/game/game.component';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatRippleModule
+} from '@angular/material';
+import {HomeComponent} from './components/home/home.component';
+import {GameComponent} from './components/game/game.component';
 import {Broadcaster} from './services/broadcaster';
-import { AnswerComponent } from './components/admin/admin-home/answer/answer.component';
+import {AnswerComponent} from './components/admin/admin-home/answer/answer.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { LeaderboardComponent } from './components/admin/admin-home/leaderboard/leaderboard.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
-import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
+import {LeaderboardComponent} from './components/admin/admin-home/leaderboard/leaderboard.component';
+import {AdminComponent} from './components/admin/admin.component';
+import {AdminHomeComponent} from './components/admin/admin-home/admin-home.component';
+import {ConfirmationModalComponent} from './components/modals/confirmation-modal/confirmation-modal.component';
 import {ModalService} from './services/modal.service';
 import {MatDialogModule} from '@angular/material/dialog';
-import { PlayersComponent } from './components/admin/admin-home/players/players.component';
+import {PlayersComponent} from './components/admin/admin-home/players/players.component';
 // tslint:disable-next-line:max-line-length
 import {ErrorGameRoomNotFoundModalComponent} from './components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
+import {CreateGameModalComponent} from './components/modals/create-game-modal/create-game-modal.component';
 
 
 @NgModule({
@@ -36,6 +44,7 @@ import {ErrorGameRoomNotFoundModalComponent} from './components/modals/error-gam
     ConfirmationModalComponent,
     PlayersComponent,
     ErrorGameRoomNotFoundModalComponent,
+    CreateGameModalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -70,7 +79,8 @@ import {ErrorGameRoomNotFoundModalComponent} from './components/modals/error-gam
   ],
   entryComponents: [
     ConfirmationModalComponent,
-    ErrorGameRoomNotFoundModalComponent
+    ErrorGameRoomNotFoundModalComponent,
+    CreateGameModalComponent
   ],
   bootstrap: [AppComponent]
 })
