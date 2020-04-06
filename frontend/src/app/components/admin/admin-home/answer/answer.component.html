@@ -17,6 +17,8 @@
             <th class="border-right border-bottom">1</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer1?.correct)">
+              <img (click)="bonusPoint(game.answer1)" class="mr-2" [className]="bonusPointClass(game.answer1)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer1, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer1, false)" src="/assets/svg/crossmark.svg"
@@ -27,6 +29,8 @@
             <th class="border-right border-bottom">2</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer2?.correct)">
+              <img (click)="bonusPoint(game.answer2)" class="mr-2" [className]="bonusPointClass(game.answer2)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer2, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer2, false)" src="/assets/svg/crossmark.svg"
@@ -38,6 +42,8 @@
             <th class="border-right border-bottom">3</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer3?.correct)">
+              <img (click)="bonusPoint(game.answer3)" class="mr-2" [className]="bonusPointClass(game.answer3)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer3, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer3, false)" src="/assets/svg/crossmark.svg"
@@ -49,6 +55,8 @@
             <th class="border-right border-bottom">4</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer4?.correct)">
+              <img (click)="bonusPoint(game.answer4)" class="mr-2" [className]="bonusPointClass(game.answer4)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer4, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer4, false)" src="/assets/svg/crossmark.svg"
@@ -60,6 +68,8 @@
             <th class="border-right border-bottom">5</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer5?.correct)">
+              <img (click)="bonusPoint(game.answer5)" class="mr-2" [className]="bonusPointClass(game.answer5)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer5, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer5, false)" src="/assets/svg/crossmark.svg"
@@ -71,6 +81,8 @@
             <th class="border-right border-bottom">6</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer6?.correct)">
+              <img (click)="bonusPoint(game.answer6)" class="mr-2" [className]="bonusPointClass(game.answer6)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer6, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer6, false)" src="/assets/svg/crossmark.svg"
@@ -82,6 +94,8 @@
             <th class="border-right border-bottom">7</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer7?.correct)">
+              <img (click)="bonusPoint(game.answer7)" class="mr-2" [className]="bonusPointClass(game.answer7)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer7, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer7, false)" src="/assets/svg/crossmark.svg"
@@ -93,6 +107,8 @@
             <th class="border-right border-bottom">8</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer8?.correct)">
+              <img (click)="bonusPoint(game.answer8)" class="mr-2" [className]="bonusPointClass(game.answer8)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer8, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer8, false)" src="/assets/svg/crossmark.svg"
@@ -104,6 +120,8 @@
             <th class="border-right border-bottom">9</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer9?.correct)">
+              <img (click)="bonusPoint(game.answer9)" class="mr-2" [className]="bonusPointClass(game.answer9)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer9, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer9, false)" src="/assets/svg/crossmark.svg"
@@ -115,6 +133,8 @@
             <th class="border-right border-bottom">10</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answer10?.correct)">
+              <img (click)="bonusPoint(game.answer10)" class="mr-2" [className]="bonusPointClass(game.answer10)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answer10, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answer10, false)" src="/assets/svg/crossmark.svg"
@@ -126,6 +146,8 @@
             <th class="border-right border-bottom">Theme</th>
             <td class="border-right border-bottom" *ngFor="let game of roundMap.get(round)"
                 [className]="setClass(game?.answerTheme?.correct)">
+              <img (click)="bonusPoint(game.answerTheme)" class="mr-2" [className]="bonusPointClass(game.answerTheme)" src="/assets/svg/thumbs-up.svg"
+                   alt="Bonus Point"/>
               <img (click)="markAnswerAs(game.answerTheme, true)" class="mr-2" src="/assets/svg/checkmark.svg"
                    alt="Right"/>
               <img (click)="markAnswerAs(game.answerTheme, false)" src="/assets/svg/crossmark.svg"

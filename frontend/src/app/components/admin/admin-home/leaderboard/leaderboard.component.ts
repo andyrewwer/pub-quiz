@@ -108,6 +108,30 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     } if (!!game.answerTheme.correct) {
       result += 3;
     }
+
+    if (!!game.answer1.bonus) {
+      result ++;
+    } if (!!game.answer2.bonus) {
+      result ++;
+    } if (!!game.answer3.bonus) {
+      result ++;
+    } if (!!game.answer4.bonus) {
+      result ++;
+    } if (!!game.answer5.bonus) {
+      result ++;
+    } if (!!game.answer6.bonus) {
+      result ++;
+    } if (!!game.answer7.bonus) {
+      result ++;
+    } if (!!game.answer8.bonus) {
+      result ++;
+    } if (!!game.answer9.bonus) {
+      result ++;
+    } if (!!game.answer10.bonus) {
+      result ++;
+    } if (!!game.answerTheme.bonus) {
+      result ++;
+    }
     return result;
   }
 

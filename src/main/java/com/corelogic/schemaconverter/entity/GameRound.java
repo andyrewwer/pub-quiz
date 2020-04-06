@@ -55,5 +55,6 @@ public class GameRound {
     @ManyToOne(cascade = CascadeType.ALL)
     private Answer answerTheme;
 
+    // TODO ARRAY INSTEAD OF LIST?
 }
 

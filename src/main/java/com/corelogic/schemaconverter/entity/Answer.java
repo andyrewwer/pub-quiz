@@ -23,6 +23,7 @@ public class Answer {
     private String answer;
 
     private Boolean correct;
+    private Boolean bonus;
 
 }
 

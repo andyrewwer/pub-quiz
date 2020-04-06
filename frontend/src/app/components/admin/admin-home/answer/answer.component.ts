@@ -22,7 +22,6 @@ export class AnswerComponent implements OnInit {
 
   ngOnInit() {
     this.initializeGames();
-  //  TODO bonus points
   //  TODO see other people's answers / highlight?
   }
 
@@ -67,11 +66,25 @@ export class AnswerComponent implements OnInit {
 
   markAnswerAs(answer: Answer, correct: Boolean) {
     answer.correct = correct;
+    this.updateAnswer(answer);
+  }
+
+  bonusPoint(answer: Answer) {
+    answer.bonus = !answer.bonus;
+    this.updateAnswer(answer);
+  }
+
+  bonusPointClass(answer: Answer) {
+    return answer.bonus ? 'mr-2 bonus-given' : 'mr-2';
+  }
+
+  private updateAnswer(answer: Answer) {
     this.answerService.save(answer).subscribe(
       _answer => {
         answer = _answer;
       }, err => {
         console.error(err);
-    });
+      });
+    return answer;
   }
 }
