@@ -42,7 +42,7 @@ export class AdminHomeComponent implements OnInit {
         game = gameRoom;
       }, error => {
         game.round--;
-        // TODO show error
+        this.modalService.showErrorGameRoomNotFoundModal('Sorry, we failed to increment round. Try again later please');
       }
     );
   }
@@ -51,8 +51,8 @@ export class AdminHomeComponent implements OnInit {
     this.gameRoomService.setCurrentRound(game, --game.round).subscribe(
       gameRoom => game = gameRoom,
         error => {
-        game.round ++;
-          // TODO show error
+          game.round ++;
+          this.modalService.showErrorGameRoomNotFoundModal('Sorry, we failed to decrement round. Try again later please');
         }
     );
   }
