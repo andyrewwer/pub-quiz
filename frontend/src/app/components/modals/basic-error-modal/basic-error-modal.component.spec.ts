@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {BasicErrorModalComponent} from './basic-error-modal.component';
 
-import { ErrorGameRoomNotFoundModalComponent } from './error-game-room-not-found-modal.component';
 
 describe('ErrorGameRoomNotFoundModalComponent', () => {
-  let component: ErrorGameRoomNotFoundModalComponent;
-  let fixture: ComponentFixture<ErrorGameRoomNotFoundModalComponent>;
+  let component: BasicErrorModalComponent;
+  let fixture: ComponentFixture<BasicErrorModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorGameRoomNotFoundModalComponent ]
+      declarations: [ BasicErrorModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ErrorGameRoomNotFoundModalComponent);
+    fixture = TestBed.createComponent(BasicErrorModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

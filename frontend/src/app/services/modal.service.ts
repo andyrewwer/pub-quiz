@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ConfirmationModalComponent} from '../components/modals/confirmation-modal/confirmation-modal.component';
 import {GameRound} from '../dto/gameRound';
-// tslint:disable-next-line:max-line-length
-import {ErrorGameRoomNotFoundModalComponent} from '../components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
 import {CreateGameModalComponent} from '../components/modals/create-game-modal/create-game-modal.component';
 import {Observable} from 'rxjs';
+import {BasicErrorModalComponent} from '../components/modals/basic-error-modal/basic-error-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +23,14 @@ export class ModalService {
     return dialogRef.afterClosed();
   }
 
-  showErrorGameRoomNotFoundModal(): Observable<any> {
-    const dialogRef = this.dialog.open(ErrorGameRoomNotFoundModalComponent);
+  showErrorGameRoomNotFoundModal(message: string): Observable<any> {
+    const data: MatDialogConfig = {
+      data: {
+        message: message
+      }
+    };
+
+    const dialogRef = this.dialog.open(BasicErrorModalComponent, data);
     return dialogRef.afterClosed();
   }
 

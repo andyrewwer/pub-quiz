@@ -26,11 +26,10 @@ import {ConfirmationModalComponent} from './components/modals/confirmation-modal
 import {ModalService} from './services/modal.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PlayersComponent} from './components/admin/admin-home/players/players.component';
-// tslint:disable-next-line:max-line-length
-import {ErrorGameRoomNotFoundModalComponent} from './components/modals/error-game-room-not-found-modal/error-game-room-not-found-modal.component';
 import {CreateGameModalComponent} from './components/modals/create-game-modal/create-game-modal.component';
 import { GameRoomPipePipe } from './dto/pipes/game-room-pipe.pipe';
 import { GameRoomStatusPipePipe } from './dto/pipes/game-room-status-pipe.pipe';
+import {BasicErrorModalComponent} from './components/modals/basic-error-modal/basic-error-modal.component';
 
 
 @NgModule({
@@ -45,7 +44,7 @@ import { GameRoomStatusPipePipe } from './dto/pipes/game-room-status-pipe.pipe';
     AdminHomeComponent,
     ConfirmationModalComponent,
     PlayersComponent,
-    ErrorGameRoomNotFoundModalComponent,
+    BasicErrorModalComponent,
     CreateGameModalComponent,
     GameRoomPipePipe,
     GameRoomStatusPipePipe,
@@ -83,7 +82,7 @@ import { GameRoomStatusPipePipe } from './dto/pipes/game-room-status-pipe.pipe';
   ],
   entryComponents: [
     ConfirmationModalComponent,
-    ErrorGameRoomNotFoundModalComponent,
+    BasicErrorModalComponent,
     CreateGameModalComponent
   ],
   bootstrap: [AppComponent]
