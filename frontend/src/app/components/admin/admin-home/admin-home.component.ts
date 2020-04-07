@@ -58,7 +58,6 @@ export class AdminHomeComponent implements OnInit {
   }
 
   createGame() {
-    // TODO create with game-name -- modal?
     this.modalService.showCreateGameModal().subscribe(
       success => {
         if (!!success && success) {
