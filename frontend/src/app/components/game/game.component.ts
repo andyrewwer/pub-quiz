@@ -73,8 +73,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.player = this.playerService.getPlayer();
     if (!this.player) {
       this.router.navigate(['/home']);
+      this.modalService.showErrorGameRoomNotFoundModal('Could not find active player. Please join game again!');
       return;
-      // TODO SHOW ERROR MESSAGE!
     }
     this.form.controls.player.setValue(this.player);
     this.form.controls.round.setValue(this.player.gameRoom.round);

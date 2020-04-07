@@ -26,6 +26,5 @@ public class GameRoom {
     private Integer round;
     @Enumerated(EnumType.STRING)
     private GameRoomStatus status;
-//    TODO currentStatus = CREATED, STARTED, COMPLETED
 }
 
