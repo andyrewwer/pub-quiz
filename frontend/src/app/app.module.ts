@@ -30,6 +30,7 @@ import {CreateGameModalComponent} from './components/modals/create-game-modal/cr
 import { GameRoomPipePipe } from './dto/pipes/game-room-pipe.pipe';
 import { GameRoomStatusPipePipe } from './dto/pipes/game-room-status-pipe.pipe';
 import {BasicErrorModalComponent} from './components/modals/basic-error-modal/basic-error-modal.component';
+import { LobbyComponent } from './components/game/lobby/lobby.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {BasicErrorModalComponent} from './components/modals/basic-error-modal/ba
     CreateGameModalComponent,
     GameRoomPipePipe,
     GameRoomStatusPipePipe,
+    LobbyComponent,
   ],
   imports: [
     AppRoutingModule,

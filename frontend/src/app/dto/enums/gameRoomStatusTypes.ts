@@ -6,6 +6,7 @@ export enum GameRoomStatusTypes {
   FINISHED = 'FINISHED'
 }
 // TODO SOMETHING WITH THESE STATUSESSSSS LOL
+// FOR NOW SHOULD JUST BE ABLE TO JOIN A "CREATED" GAME, LATER WILL BE TO VIEW STARTED
 
 export namespace GameRoomStatusTypes {
   export const gameRoomStatusTypes: ViewValue[] = [

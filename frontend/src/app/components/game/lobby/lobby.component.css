@@ -1,0 +1,32 @@
+div.scrollmenu {
+  /*background-color: #333;*/
+  overflow: auto;
+  white-space: nowrap;
+  height: 180px;
+}
+
+div.scrollmenu div {
+  display: inline-block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+/*ON MOBILE SHOULD BE SMALLER?*/
+.wrapper {
+  padding: 30px;
+}
+
+.player-card {
+  background-color: #f8f9fa;
+  border-radius: .25rem;
+  width: 125px;
+  height: 60px;
+}
+
+label {
+  font-size: 18px;
+  font-weight: 700;
+  word-break: break-all;
+  white-space: normal;
+}
