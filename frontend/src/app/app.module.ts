@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import {HeaderComponent} from './header/header.component';
+import {HeaderComponent} from './components/header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {
@@ -14,7 +14,7 @@ import {
   MatRippleModule
 } from '@angular/material';
 import {HomeComponent} from './components/home/home.component';
-import {GameComponent} from './components/game/game.component';
+import {QuizComponent} from './components/game/quiz/quiz.component';
 import {Broadcaster} from './services/broadcaster';
 import {AnswerComponent} from './components/admin/admin-home/answer/answer.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -37,7 +37,7 @@ import {BasicErrorModalComponent} from './components/modals/basic-error-modal/ba
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    GameComponent,
+    QuizComponent,
     AnswerComponent,
     LeaderboardComponent,
     AdminComponent,

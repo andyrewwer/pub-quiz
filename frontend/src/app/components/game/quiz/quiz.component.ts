@@ -1,19 +1,19 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PlayerService} from '../../services/player.service';
-import {Player} from '../../dto/player';
-import {GameService} from '../../services/game.service';
+import {PlayerService} from '../../../services/player.service';
+import {Player} from '../../../dto/player';
+import {GameService} from '../../../services/game.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {interval, Subscription} from 'rxjs';
-import {ModalService} from '../../services/modal.service';
-import {GameRoomService} from '../../services/game-room.service';
+import {ModalService} from '../../../services/modal.service';
+import {GameRoomService} from '../../../services/game-room.service';
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css']
 })
-export class GameComponent implements OnInit, OnDestroy {
+export class QuizComponent implements OnInit, OnDestroy {
 
   player: Player;
   submitted = false;

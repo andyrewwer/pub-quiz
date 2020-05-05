@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {PlayerService} from '../services/player.service';
-import {Player} from '../dto/player';
-import {PlayerEventService} from '../services/player-event.service';
+import {Component, OnInit} from '@angular/core';
+import {Player} from '../../dto/player';
+import {PlayerEventService} from '../../services/player-event.service';
 
 @Component({
   selector: 'app-header',

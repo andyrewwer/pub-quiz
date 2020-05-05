@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -40,5 +41,14 @@ public class GameRoomService {
         GameRoom gameRoom = gameRoomRepository.findOne(id);
         gameRoom.setRound(round);
         return gameRoomRepository.save(gameRoom);
+    }
+
+    public String test() {
+        List<String> strings = Arrays.asList("Andrew", "Ben", "Sophie");
+        String string = "My siblings are {name}, {noun} and {999}!";
+        for (String _s: strings) {
+            string = string.replaceFirst("\\{\\w*}", _s);
+        }
+        return string;
     }
 }

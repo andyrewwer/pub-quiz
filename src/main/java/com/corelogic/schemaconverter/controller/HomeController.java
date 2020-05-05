@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    @RequestMapping({"/home", "/game/*", "/answer", "/leaderboard", "/admin"})
+    @RequestMapping({"/home", "/game/*", "/game/*/*", "/answer", "/leaderboard", "/admin"})
     public String home() {
         return "redirect:/";
     }

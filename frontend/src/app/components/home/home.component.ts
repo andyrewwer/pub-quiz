@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
       player => {
         this.playerService.setPlayer(player);
         this.playerEventService.fire(player);
-        this.router.navigate(['/game/' + player.gameRoom.id]);
+        this.router.navigate(['/game/' + player.gameRoom.type.toLowerCase() + '/' + player.gameRoom.id]);
       }, (err: HttpErrorResponse) => {
         if (err.status ===  412) {
           this.modalService.showErrorGameRoomNotFoundModal("Game Room Code Not Found");

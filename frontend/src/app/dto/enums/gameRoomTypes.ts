@@ -6,6 +6,6 @@ export enum GameRoomTypes {
 
 export namespace GameRoomTypes {
   export const gameRoomTypes: ViewValue[] = [
-    {value: GameRoomTypes.QUIZ, viewValue: 'Quiz'}
+    {value: GameRoomTypes.QUIZ, viewValue: 'Pub Quiz'},
   ];
 }
