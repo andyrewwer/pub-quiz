@@ -10,10 +10,4 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GameRoomServiceTest {
     private GameRoomService subject;
 
-    @Test
-    public void test_test() {
-        subject = new GameRoomService(null);
-        assertThat(subject.test()).isEqualTo("My siblings are Andrew, Ben and Sophie!!");
-    }
-
 }

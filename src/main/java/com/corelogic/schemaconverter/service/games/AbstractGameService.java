@@ -1,36 +1,36 @@
 package com.corelogic.schemaconverter.service.games;
 
-import com.corelogic.schemaconverter.entity.GameRound;
+import com.corelogic.schemaconverter.entity.games.AbstractGameRound;
 import com.corelogic.schemaconverter.entity.enums.GameRoomType;
-import com.corelogic.schemaconverter.repository.GameRoundRepository;
+import com.corelogic.schemaconverter.repository.games.AbstractGameRoundRepository;
 
 import java.util.List;
 
-public abstract class AbstractGameService {
-    private final GameRoundRepository gameRoundRepository;
+public abstract class AbstractGameService <T extends AbstractGameRound> {
+    private final AbstractGameRoundRepository gameRoundRepository;
 
-    public AbstractGameService(GameRoundRepository gameRoundRepository) {
+    public AbstractGameService(AbstractGameRoundRepository gameRoundRepository) {
         this.gameRoundRepository = gameRoundRepository;
     }
 
-    public abstract GameRound save(GameRound gameRound);
+    public abstract T save(T gameRound);
 
-    public GameRound findById(Long id) { return gameRoundRepository.findOne(id); }
+    public T findById(Long id) { return (T) gameRoundRepository.findOne(id); }
 
-    public List<GameRound> findAll() { return gameRoundRepository.findAll(); }
+    public List<T> findAll() { return gameRoundRepository.findAll(); }
 
-    public List<GameRound> findByRound(Long round) { return gameRoundRepository.findByRound(round); }
+    public List<T> findByRound(Long round) { return gameRoundRepository.findByRound(round); }
 
-    public List<GameRound> findGamesForPlayer(Long playerId) {
+    public List<T> findGamesForPlayer(Long playerId) {
         return gameRoundRepository.findByPlayerId(playerId);
     }
 
-    public List<GameRound> findGamesForPlayerAndRound(Long playerId, Long gameRoomId) {
+    public List<T> findGamesForPlayerAndRound(Long playerId, Long gameRoomId) {
         return gameRoundRepository.findByPlayerIdAndPlayerGameRoomId(playerId, gameRoomId);
 
     }
 
-    public List<GameRound> findAllForGameRoom(Long gameRoomId) {
+    public List<T> findAllForGameRoom(Long gameRoomId) {
         return gameRoundRepository.findAllByPlayerGameRoomId(gameRoomId);
     }
 

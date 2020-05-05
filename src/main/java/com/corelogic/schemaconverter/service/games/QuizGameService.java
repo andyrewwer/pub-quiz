@@ -1,9 +1,9 @@
 package com.corelogic.schemaconverter.service.games;
 
 import com.corelogic.schemaconverter.entity.Answer;
-import com.corelogic.schemaconverter.entity.GameRound;
 import com.corelogic.schemaconverter.entity.enums.GameRoomType;
-import com.corelogic.schemaconverter.repository.GameRoundRepository;
+import com.corelogic.schemaconverter.entity.games.QuizGameRound;
+import com.corelogic.schemaconverter.repository.games.QuizGameRoundRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +12,17 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class QuizGameService extends AbstractGameService{
-    private final GameRoundRepository gameRoundRepository;
+public class QuizGameService extends AbstractGameService<QuizGameRound> {
+
+    private final QuizGameRoundRepository gameRoundRepository;
 
     @Autowired
-    public QuizGameService(GameRoundRepository gameRoundRepository) {
+    public QuizGameService(QuizGameRoundRepository gameRoundRepository) {
         super(gameRoundRepository);
         this.gameRoundRepository = gameRoundRepository;
     }
 
-    public GameRound save(GameRound gameRound) {
+    public QuizGameRound save(QuizGameRound gameRound) {
         log.info("GR {}", gameRound);
         if (gameRound.getAnswer1() == null) {
             gameRound.setAnswer1(new Answer());
@@ -60,22 +61,22 @@ public class QuizGameService extends AbstractGameService{
         return gameRoundRepository.save(gameRound);
     }
 
-    public GameRound findById(Long id) { return gameRoundRepository.findOne(id); }
+    public QuizGameRound findById(Long id) { return gameRoundRepository.findOne(id); }
 
-    public List<GameRound> findAll() { return gameRoundRepository.findAll(); }
+    public List<QuizGameRound> findAll() { return gameRoundRepository.findAll(); }
 
-    public List<GameRound> findByRound(Long round) { return gameRoundRepository.findByRound(round); }
+    public List<QuizGameRound> findByRound(Long round) { return gameRoundRepository.findByRound(round); }
 
-    public List<GameRound> findGamesForPlayer(Long playerId) {
+    public List<QuizGameRound> findGamesForPlayer(Long playerId) {
         return gameRoundRepository.findByPlayerId(playerId);
     }
 
-    public List<GameRound> findGamesForPlayerAndRound(Long playerId, Long gameRoomId) {
+    public List<QuizGameRound> findGamesForPlayerAndRound(Long playerId, Long gameRoomId) {
         return gameRoundRepository.findByPlayerIdAndPlayerGameRoomId(playerId, gameRoomId);
 
     }
 
-    public List<GameRound> findAllForGameRoom(Long gameRoomId) {
+    public List<QuizGameRound> findAllForGameRoom(Long gameRoomId) {
         return gameRoundRepository.findAllByPlayerGameRoomId(gameRoomId);
     }
 

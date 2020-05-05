@@ -1,16 +1,23 @@
-package com.corelogic.schemaconverter.entity;
+package com.corelogic.schemaconverter.entity.games;
 
+import com.corelogic.schemaconverter.entity.Answer;
+import com.corelogic.schemaconverter.entity.Player;
+import com.corelogic.schemaconverter.entity.enums.GameRoomType;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@javax.persistence.Entity
+@EqualsAndHashCode(callSuper = true)
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameRound {
+@Table(name = "game_round")
+public class QuizGameRound extends AbstractGameRound {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GameRoundSeq")
     @SequenceGenerator(name = "GameRoundSeq", sequenceName = "game_round_id_seq", allocationSize = 1)
@@ -55,6 +62,9 @@ public class GameRound {
     @ManyToOne(cascade = CascadeType.ALL)
     private Answer answerTheme;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient
+    private GameRoomType type = GameRoomType.QUIZ;
     // TODO ARRAY INSTEAD OF LIST?
 }
 

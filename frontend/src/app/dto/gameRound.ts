@@ -16,6 +16,7 @@ export class GameRound {
   answer9: Answer;
   answer10: Answer;
   answerTheme: Answer;
+  type: string;
 
   constructor(args: GameRound = <GameRound>{}) {
     this.id = args.id;
@@ -32,6 +33,7 @@ export class GameRound {
     this.answer9 = args.answer9;
     this.answer10 = args.answer10;
     this.answerTheme = args.answerTheme;
+    this.type = args.type;
   }
 
 }

@@ -31,6 +31,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.form = builder.group({
       round: [null],
       player: [null],
+      type: [null],
       answer1: builder.group({
         answer: ['']
       }),
@@ -78,6 +79,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
     this.form.controls.player.setValue(this.player);
     this.form.controls.round.setValue(this.player.gameRoom.round);
+    this.form.controls.type.setValue(this.player.gameRoom.type);
     this.getCurrentRound();
     this.refreshGames();
     this.subscription = interval(1000).subscribe(val => {
