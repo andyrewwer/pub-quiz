@@ -30,7 +30,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     if (!room) {
       room = this.selectedGameRoom;
     }
-    this.gameService.findAllForGameRoom(room).subscribe(
+    this.gameService.findAllForGameRoom(room.type, room).subscribe(
       games => {
         this.scoreMap = new Map();
         this.scoresPerRoundMap = new Map();

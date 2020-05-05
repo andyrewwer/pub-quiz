@@ -100,7 +100,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   refreshGames() {
     // this.gameService.findGameForPlayer(this.player).subscribe(
-    this.gameService.findGameForPlayerAndGameRoom(this.player).subscribe(
+    this.gameService.findGameForPlayerAndGameRoom(this.player.gameRoom.type, this.player).subscribe(
       games => {
         games.forEach(
           game => {

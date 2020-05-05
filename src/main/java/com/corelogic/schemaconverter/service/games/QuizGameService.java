@@ -1,7 +1,8 @@
-package com.corelogic.schemaconverter.service;
+package com.corelogic.schemaconverter.service.games;
 
 import com.corelogic.schemaconverter.entity.Answer;
 import com.corelogic.schemaconverter.entity.GameRound;
+import com.corelogic.schemaconverter.entity.enums.GameRoomType;
 import com.corelogic.schemaconverter.repository.GameRoundRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,12 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class GameService {
+public class QuizGameService extends AbstractGameService{
     private final GameRoundRepository gameRoundRepository;
 
     @Autowired
-    public GameService(GameRoundRepository gameRoundRepository) {
+    public QuizGameService(GameRoundRepository gameRoundRepository) {
+        super(gameRoundRepository);
         this.gameRoundRepository = gameRoundRepository;
     }
 
@@ -75,5 +77,10 @@ public class GameService {
 
     public List<GameRound> findAllForGameRoom(Long gameRoomId) {
         return gameRoundRepository.findAllByPlayerGameRoomId(gameRoomId);
+    }
+
+    @Override
+    public GameRoomType getGameRoomType() {
+        return GameRoomType.QUIZ;
     }
 }

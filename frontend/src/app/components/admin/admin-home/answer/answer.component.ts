@@ -29,7 +29,7 @@ export class AnswerComponent implements OnInit {
     if (!room) {
       room = this.selectedGameRoom;
     }
-    this.gameService.findAllForGameRoom(room).subscribe(
+    this.gameService.findAllForGameRoom(room.type, room).subscribe(
       games => {
         this.roundMap = new Map();
         this.games = games;

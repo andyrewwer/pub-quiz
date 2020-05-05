@@ -14,7 +14,7 @@ export class ConfirmationModalComponent {
               private dialogRef: MatDialogRef<ConfirmationModalComponent>) { }
 
   save () {
-    this.gameService.save(this.data.game).subscribe(
+    this.gameService.save(this.data.game.player.gameRoom.type, this.data.game).subscribe(
       () => {
         this.dialogRef.close(true);
       }, err => {

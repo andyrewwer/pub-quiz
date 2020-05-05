@@ -12,19 +12,19 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  save(gameRound: GameRound): Observable<GameRound> {
-    return this.http.post<GameRound>('/api/games', gameRound);
+  save(gameRoomType: string, gameRound: GameRound): Observable<GameRound> {
+    return this.http.post<GameRound>('/api/games/' + gameRoomType, gameRound);
   }
 
-  findAll(): Observable<Array<GameRound>> {
-    return this.http.get<Array<GameRound>>('/api/games');
+  findAll(gameRoomType: string): Observable<Array<GameRound>> {
+    return this.http.get<Array<GameRound>>('/api/games/' + gameRoomType);
   }
 
-  findGameForPlayerAndGameRoom(player: Player): Observable<Array<GameRound>> {
-    return this.http.get<Array<GameRound>>('/api/games/player/' + player.id + '/gameRoom/' + player.gameRoom.id);
+  findGameForPlayerAndGameRoom(gameRoomType: string, player: Player): Observable<Array<GameRound>> {
+    return this.http.get<Array<GameRound>>('/api/games/' + gameRoomType + '/player/' + player.id + '/gameRoom/' + player.gameRoom.id);
   }
 
-  findAllForGameRoom(selectedGameRoom: GameRoom): Observable<Array<GameRound>> {
-    return this.http.get<Array<GameRound>>('/api/games/gameRoom/' + selectedGameRoom.id);
+  findAllForGameRoom(gameRoomType: string, selectedGameRoom: GameRoom): Observable<Array<GameRound>> {
+    return this.http.get<Array<GameRound>>('/api/games/' + gameRoomType + '/gameRoom/' + selectedGameRoom.id);
   }
 }

@@ -43,12 +43,4 @@ public class GameRoomService {
         return gameRoomRepository.save(gameRoom);
     }
 
-    public String test() {
-        List<String> strings = Arrays.asList("Andrew", "Ben", "Sophie");
-        String string = "My siblings are {name}, {noun} and {999}!";
-        for (String _s: strings) {
-            string = string.replaceFirst("\\{\\w*}", _s);
-        }
-        return string;
-    }
 }
