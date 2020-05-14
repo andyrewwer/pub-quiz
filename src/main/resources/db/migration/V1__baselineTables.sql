@@ -5,6 +5,7 @@ create table game_room
     type varchar(25) not null,
     name varchar(25),
     round integer default 1 not null,
+    game_room varchar(25) not null,
 primary key (id)
 );
 
@@ -22,6 +23,7 @@ create table answer
   id                            bigserial    not null,
     answer varchar,
     correct boolean,
+    bonus boolean,
 primary key (id)
 );
 
@@ -43,3 +45,5 @@ create table game_round
     answer_theme_id bigint references answer(id),
 primary key (id)
 );
+
+
