@@ -136,6 +136,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    console.log('Submit form', this.form);
     this.modalService.showConfirmationModal(this.form.value).subscribe(
       result => {
         if (!!result && result) {
@@ -144,12 +145,12 @@ export class QuizComponent implements OnInit, OnDestroy {
           this.form.reset(
             {
               round: this.form.value.round,
-              player: this.form.value.player
+              player: this.form.value.player,
+              type: this.form.value.type
             });
         }
       }
     );
-    console.log(this.form);
   }
 
   roundsLessThanCurrent(): number[] {
