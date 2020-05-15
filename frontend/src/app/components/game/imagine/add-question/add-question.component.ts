@@ -32,7 +32,7 @@ export class AddQuestionComponent implements OnInit {
 
   submit() {
     const question = new ImagineIfQuestion(this.form.value);
-    question.question = this.form.value.question;
+    question.question = 'If [person]' + this.form.value.question + ', which would they be?';
     this.questionService.save(question).subscribe(
       _question => {
         this.modalService.showBasicModal('Success', _question.question);
