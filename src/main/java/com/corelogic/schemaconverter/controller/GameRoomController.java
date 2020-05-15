@@ -19,8 +19,8 @@ public class GameRoomController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GameRoom createGame(@RequestBody GameRoom player) {
-        return gameRoomService.save(player);
+    public GameRoom createGame(@RequestBody GameRoom gameRoom) {
+        return gameRoomService.create(gameRoom);
     }
 
     @GetMapping("/{id}")

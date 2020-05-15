@@ -1,0 +1,47 @@
+<div class="main-div">
+  <mat-card class="home-card">
+    <mat-card-header>
+      <mat-card-title>Add new question</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="form" [formGroup]="form">
+        <div class="row">
+          <div class="col-3">
+            <label for="question">If [person] were a </label>
+          </div>
+          <div class="col-3">
+            <input formControlName="question" name="question" id="question" class="form-control mb-2" type="text">
+          </div>
+          <div class="col-6">
+            <label for="question">, which would they be?</label>
+          </div>
+          </div>
+
+
+        <label for="answer1">A1 </label>
+        <input formControlName="answer1" name="answer1" id="answer1" class="form-control mb-2"
+               type="text">
+        <label for="answer2">A2 </label>
+        <input formControlName="answer2" name="answer2" id="answer2" class="form-control mb-2"
+               type="text">
+        <label for="answer3">A3 </label>
+        <input formControlName="answer3" name="answer3" id="answer3" class="form-control mb-2"
+               type="text">
+        <label for="answer4">A4 </label>
+        <input formControlName="answer4" name="answer4" id="answer4" class="form-control mb-2"
+               type="text">
+        <label for="answer5">A5 </label>
+        <input formControlName="answer5" name="answer5" id="answer5" class="form-control mb-2"
+               type="text">
+        <label for="answer6">A6 </label>
+        <input formControlName="answer6" name="answer6" id="answer6" class="form-control mb-2"
+               type="text">
+
+        <mat-card-actions class="text-center">
+          <button mat-raised-button type="button" color="primary" (click)="submit()">SUBMIT
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

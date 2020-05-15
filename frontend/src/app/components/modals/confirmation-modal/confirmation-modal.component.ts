@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {GameService} from '../../../services/game.service';
+import {QuizGameRoundService} from '../../../services/quiz/quiz-game-round.service';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -10,7 +10,7 @@ import {GameService} from '../../../services/game.service';
 export class ConfirmationModalComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private gameService: GameService,
+              private gameService: QuizGameRoundService,
               private dialogRef: MatDialogRef<ConfirmationModalComponent>) { }
 
   save () {

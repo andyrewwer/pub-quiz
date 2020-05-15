@@ -28,8 +28,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {PlayersComponent} from './components/admin/admin-home/players/players.component';
 import {CreateGameModalComponent} from './components/modals/create-game-modal/create-game-modal.component';
 import { GameRoomPipePipe } from './dto/pipes/game-room-pipe.pipe';
-import { GameRoomStatusPipePipe } from './dto/pipes/game-room-status-pipe.pipe';
-import {BasicErrorModalComponent} from './components/modals/basic-error-modal/basic-error-modal.component';
+import { GameRoomStatusPipe } from './dto/pipes/game-room-status-pipe.pipe';
+import {BasicMessageModalComponent} from './components/modals/basic-error-modal/basic-message-modal.component';
+import { AddQuestionComponent } from './components/game/imagine/add-question/add-question.component';
 
 
 @NgModule({
@@ -44,10 +45,11 @@ import {BasicErrorModalComponent} from './components/modals/basic-error-modal/ba
     AdminHomeComponent,
     ConfirmationModalComponent,
     PlayersComponent,
-    BasicErrorModalComponent,
+    BasicMessageModalComponent,
     CreateGameModalComponent,
     GameRoomPipePipe,
-    GameRoomStatusPipePipe,
+    GameRoomStatusPipe,
+    AddQuestionComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -82,7 +84,7 @@ import {BasicErrorModalComponent} from './components/modals/basic-error-modal/ba
   ],
   entryComponents: [
     ConfirmationModalComponent,
-    BasicErrorModalComponent,
+    BasicMessageModalComponent,
     CreateGameModalComponent
   ],
   bootstrap: [AppComponent]

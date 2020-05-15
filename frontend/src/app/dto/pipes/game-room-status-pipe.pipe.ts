@@ -3,9 +3,9 @@ import {GameRoomStatusTypes} from '../enums/gameRoomStatusTypes';
 import gameRoomStatusTypes = GameRoomStatusTypes.gameRoomStatusTypes;
 
 @Pipe({
-  name: 'gameRoomStatusPipe'
+  name: 'gameRoomStatus'
 })
-export class GameRoomStatusPipePipe implements PipeTransform {
+export class GameRoomStatusPipe implements PipeTransform {
 
   viewValues = gameRoomStatusTypes;
 

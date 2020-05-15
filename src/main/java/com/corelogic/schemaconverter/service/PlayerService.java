@@ -8,7 +8,6 @@ import com.corelogic.schemaconverter.repository.GameRoomRepository;
 import com.corelogic.schemaconverter.repository.PlayerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 

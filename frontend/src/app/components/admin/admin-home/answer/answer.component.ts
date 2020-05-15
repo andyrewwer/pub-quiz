@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GameService} from '../../../../services/game.service';
-import {GameRound} from '../../../../dto/gameRound';
-import {Answer} from '../../../../dto/answer';
-import {AnswerService} from '../../../../services/answer.service';
+import {QuizGameRoundService} from '../../../../services/quiz/quiz-game-round.service';
+import {QuizGameRound} from '../../../../dto/quizGameRound';
+import {QuizAnswer} from '../../../../dto/quizAnswer';
+import {QuizAnswerService} from '../../../../services/quiz/quiz-answer.service';
 import {GameRoom} from '../../../../dto/gameRoom';
 
 @Component({
@@ -14,11 +14,11 @@ export class AnswerComponent implements OnInit {
 
   @Input() selectedGameRoom: GameRoom;
 
-  games: Array<GameRound>;
-  public roundMap: Map<number, Array<GameRound>> = new Map();
+  games: Array<QuizGameRound>;
+  public roundMap: Map<number, Array<QuizGameRound>> = new Map();
 
-  constructor(private gameService: GameService,
-              private answerService: AnswerService) { }
+  constructor(private gameService: QuizGameRoundService,
+              private answerService: QuizAnswerService) { }
 
   ngOnInit() {
     this.initializeGames();
@@ -37,7 +37,7 @@ export class AnswerComponent implements OnInit {
           game => {
             let round = this.roundMap.get(game.round);
             if (!round) {
-              round = new Array<GameRound>();
+              round = new Array<QuizGameRound>();
             }
             round.push(game);
             this.roundMap.set(game.round, round);
@@ -64,21 +64,21 @@ export class AnswerComponent implements OnInit {
     return correct ? 'border-bottom border-right bg-success' : 'border-bottom border-right bg-danger';
   }
 
-  markAnswerAs(answer: Answer, correct: Boolean) {
+  markAnswerAs(answer: QuizAnswer, correct: Boolean) {
     answer.correct = correct;
     this.updateAnswer(answer);
   }
 
-  bonusPoint(answer: Answer) {
+  bonusPoint(answer: QuizAnswer) {
     answer.bonus = !answer.bonus;
     this.updateAnswer(answer);
   }
 
-  bonusPointClass(answer: Answer) {
+  bonusPointClass(answer: QuizAnswer) {
     return answer.bonus ? 'mr-2 bonus-given' : 'mr-2';
   }
 
-  private updateAnswer(answer: Answer) {
+  private updateAnswer(answer: QuizAnswer) {
     this.answerService.save(answer).subscribe(
       _answer => {
         answer = _answer;

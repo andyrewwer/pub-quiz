@@ -5,7 +5,8 @@ create table game_room
     type varchar(25) not null,
     name varchar(25),
     round integer default 1 not null,
-    game_room varchar(25) not null,
+    question integer,
+    status varchar(25) not null,
 primary key (id)
 );
 
@@ -18,7 +19,7 @@ create table player
     primary key (id)
 );
 
-create table answer
+create table quiz_answer
 (
   id                            bigserial    not null,
     answer varchar,
@@ -27,22 +28,23 @@ create table answer
 primary key (id)
 );
 
-create table game_round
+create table quiz_game_round
 (
   id                            bigserial    not null,
     round bigint not null,
     player_id bigint references player(id) not null,
-    answer1_id bigint references answer(id),
-    answer2_id bigint references answer(id),
-    answer3_id bigint references answer(id),
-    answer4_id bigint references answer(id),
-    answer5_id bigint references answer(id),
-    answer6_id bigint references answer(id),
-    answer7_id bigint references answer(id),
-    answer8_id bigint references answer(id),
-    answer9_id bigint references answer(id),
-    answer10_id bigint references answer(id),
-    answer_theme_id bigint references answer(id),
+    game_room_id bigint references game_room(id) not null,
+    answer1_id bigint references quiz_answer(id),
+    answer2_id bigint references quiz_answer(id),
+    answer3_id bigint references quiz_answer(id),
+    answer4_id bigint references quiz_answer(id),
+    answer5_id bigint references quiz_answer(id),
+    answer6_id bigint references quiz_answer(id),
+    answer7_id bigint references quiz_answer(id),
+    answer8_id bigint references quiz_answer(id),
+    answer9_id bigint references quiz_answer(id),
+    answer10_id bigint references quiz_answer(id),
+    answer_theme_id bigint references quiz_answer(id),
 primary key (id)
 );
 

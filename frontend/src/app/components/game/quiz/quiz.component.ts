@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlayerService} from '../../../services/player.service';
-import {Player} from '../../../dto/player';
-import {GameService} from '../../../services/game.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {interval, Subscription} from 'rxjs';
 import {ModalService} from '../../../services/modal.service';
 import {GameRoomService} from '../../../services/game-room.service';
+import {QuizGameRoundService} from '../../../services/quiz/quiz-game-round.service';
 
 @Component({
   selector: 'app-quiz',
@@ -15,7 +14,6 @@ import {GameRoomService} from '../../../services/game-room.service';
 })
 export class QuizComponent implements OnInit, OnDestroy {
 
-  player: Player;
   submitted = false;
   form: FormGroup;
   roundMap: Map<number, Array<string>> = new Map();
@@ -25,13 +23,14 @@ export class QuizComponent implements OnInit, OnDestroy {
               private activeRoute: ActivatedRoute,
               private router: Router,
               private playerService: PlayerService,
-              private gameService: GameService,
+              private gameService: QuizGameRoundService,
               private gameRoomService: GameRoomService,
               private modalService: ModalService) {
     this.form = builder.group({
       round: [null],
       player: [null],
       type: [null],
+      gameRoom: [null],
       answer1: builder.group({
         answer: ['']
       }),
@@ -71,15 +70,16 @@ export class QuizComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const routeParams = this.activeRoute.snapshot.params;
     console.log('RouteParams', routeParams.roomId);
-    this.player = this.playerService.getPlayer();
-    if (!this.player) {
+    const player = this.playerService.getPlayer();
+    if (!player) {
       this.router.navigate(['/home']);
-      this.modalService.showErrorGameRoomNotFoundModal('Could not find active player. Please join game again!');
+      this.modalService.showBasicModal('Error', 'Could not find active player. Please join game again!');
       return;
     }
-    this.form.controls.player.setValue(this.player);
-    this.form.controls.round.setValue(this.player.gameRoom.round);
-    this.form.controls.type.setValue(this.player.gameRoom.type);
+    this.form.controls.player.setValue(player);
+    this.form.controls.round.setValue(player.gameRoom.round);
+    this.form.controls.type.setValue(player.gameRoom.type);
+    this.form.controls.gameRoom.setValue(player.gameRoom);
     this.getCurrentRound();
     this.refreshGames();
     this.subscription = interval(1000).subscribe(val => {
@@ -88,13 +88,13 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private getCurrentRound() {
-    this.gameRoomService.getCurrentRound(this.player.gameRoom).subscribe(
+    this.gameRoomService.getCurrentRound(this.form.value.gameRoom).subscribe(
       curRound => {
-        if (curRound !== this.player.gameRoom.round) {
+        if (curRound !== this.form.value.gameRoom.round) {
           console.log('NEW ROUND', curRound);
           this.submitted = false;
           this.form.controls.round.setValue(curRound);
-          this.player.gameRoom.round = curRound;
+          this.form.value.gameRoom.round = curRound; // TODO WILL THIS WORK?
           this.refreshGames();
         }
       });
@@ -102,7 +102,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   refreshGames() {
     // this.gameService.findGameForPlayer(this.player).subscribe(
-    this.gameService.findGameForPlayerAndGameRoom(this.player.gameRoom.type, this.player).subscribe(
+    this.gameService.findGameForPlayerAndGameRoom(this.form.value.player, this.form.value.gameRoom).subscribe(
       games => {
         games.forEach(
           game => {
@@ -124,7 +124,7 @@ export class QuizComponent implements OnInit, OnDestroy {
             this.roundMap.set(game.round, round);
           }
         );
-        if (!!this.roundMap.get(this.player.gameRoom.round)) {
+        if (!!this.roundMap.get(this.form.value.gameRoom.round)) {
           this.submitted = true;
         }
         console.log('games', games);
@@ -146,7 +146,8 @@ export class QuizComponent implements OnInit, OnDestroy {
             {
               round: this.form.value.round,
               player: this.form.value.player,
-              type: this.form.value.type
+              type: this.form.value.type,
+              gameRoom: this.form.value.gameRoom
             });
         }
       }
@@ -155,11 +156,11 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   roundsLessThanCurrent(): number[] {
     const result = [];
-    for (let i = 1; i < this.player.gameRoom.round; i++) {
+    for (let i = 1; i < this.form.value.gameRoom.round; i++) {
       result.push(i);
     }
-    if (!!this.roundMap.get(this.player.gameRoom.round)) {
-      result.push(this.player.gameRoom.round);
+    if (!!this.roundMap.get(this.form.value.gameRoom.round)) {
+      result.push(this.form.value.gameRoom.round);
     }
     return result;
   }

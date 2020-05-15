@@ -42,7 +42,7 @@ export class AdminHomeComponent implements OnInit {
         game = gameRoom;
       }, error => {
         game.round--;
-        this.modalService.showErrorGameRoomNotFoundModal('Sorry, we failed to increment round. Try again later please');
+        this.modalService.showBasicModal('Error', 'Sorry, we failed to increment round. Try again later please');
       }
     );
   }
@@ -52,7 +52,7 @@ export class AdminHomeComponent implements OnInit {
       gameRoom => game = gameRoom,
         error => {
           game.round ++;
-          this.modalService.showErrorGameRoomNotFoundModal('Sorry, we failed to decrement round. Try again later please');
+          this.modalService.showBasicModal('Error', 'Sorry, we failed to decrement round. Try again later please');
         }
     );
   }

@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {GameService} from '../../../../services/game.service';
-import {GameRound} from '../../../../dto/gameRound';
+import {QuizGameRound} from '../../../../dto/quizGameRound';
 import {interval, Subscription} from 'rxjs';
 import {GameRoom} from '../../../../dto/gameRoom';
+import {QuizGameRoundService} from '../../../../services/quiz/quiz-game-round.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -17,7 +17,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   public scoresPerRoundMap: Map<number, Map<string, number>> = new Map(); // scores per round
   subscription: Subscription;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: QuizGameRoundService) { }
 
   ngOnInit() {
     this.refresh();
@@ -26,10 +26,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.refresh(); });
   }
 
-  private refreshGames(room?: GameRoom) {
-    if (!room) {
-      room = this.selectedGameRoom;
-    }
+  private refreshGames(room: GameRoom) {
     this.gameService.findAllForGameRoom(room.type, room).subscribe(
       games => {
         this.scoreMap = new Map();
@@ -80,10 +77,13 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   public refresh(room?: GameRoom) {
+    if (!room) {
+      room = this.selectedGameRoom;
+    }
     this.refreshGames(room);
   }
 
-  numberCorrectAnswers(game: GameRound): number {
+  numberCorrectAnswers(game: QuizGameRound): number {
     let result = 0;
     if (!!game.answer1.correct) {
       result ++;
