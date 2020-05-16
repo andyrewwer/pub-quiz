@@ -6,6 +6,7 @@ import {AnswerComponent} from './components/admin/admin-home/answer/answer.compo
 import {LeaderboardComponent} from './components/admin/admin-home/leaderboard/leaderboard.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {AddQuestionComponent} from './components/game/imagine/add-question/add-question.component';
+import {EditQuestionsComponent} from './components/game/imagine/edit-questions/edit-questions.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'game/quiz/:roomId', component: QuizComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
-  {path: 'add-question', component: AddQuestionComponent}
+  {path: 'add-question', component: AddQuestionComponent},
+  {path: 'edit-question', component: EditQuestionsComponent}
 ];
 
 @NgModule({

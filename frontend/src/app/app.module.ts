@@ -31,6 +31,7 @@ import { GameRoomPipePipe } from './dto/pipes/game-room-pipe.pipe';
 import { GameRoomStatusPipe } from './dto/pipes/game-room-status-pipe.pipe';
 import {BasicMessageModalComponent} from './components/modals/basic-error-modal/basic-message-modal.component';
 import { AddQuestionComponent } from './components/game/imagine/add-question/add-question.component';
+import { EditQuestionsComponent } from './components/game/imagine/edit-questions/edit-questions.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { AddQuestionComponent } from './components/game/imagine/add-question/add
     GameRoomPipePipe,
     GameRoomStatusPipe,
     AddQuestionComponent,
+    EditQuestionsComponent,
   ],
   imports: [
     AppRoutingModule,

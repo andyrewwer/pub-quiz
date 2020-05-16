@@ -34,6 +34,10 @@ public class ImagineGameRoundController {
     public ImagineIfQuestion generateNewRound(@PathVariable long questionId) {
         return imagineIfGameService.getQuestion(questionId);
     }
+    @GetMapping("/questions")
+    public List<ImagineIfQuestion> findAllQuestions() {
+        return imagineIfGameService.findAllQuestions();
+    }
 
     @PostMapping("/question")
     public ImagineIfQuestion createNewQuestion(@RequestBody ImagineIfQuestion question) {

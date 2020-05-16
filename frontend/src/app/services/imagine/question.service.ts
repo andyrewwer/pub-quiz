@@ -12,4 +12,9 @@ export class QuestionService {
 
   save(question: ImagineIfQuestion): Observable<ImagineIfQuestion> {
     return this.http.post<ImagineIfQuestion>('/api/gameRound/imagine/question', question);
-  }}
+  }
+
+  findAll(): Observable<Array<ImagineIfQuestion>> {
+    return this.http.get<Array<ImagineIfQuestion>>('/api/gameRound/imagine/questions');
+  }
+}

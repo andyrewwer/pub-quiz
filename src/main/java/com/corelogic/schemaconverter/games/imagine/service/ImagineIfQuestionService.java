@@ -34,4 +34,8 @@ public class ImagineIfQuestionService {
     public ImagineIfQuestion save(ImagineIfQuestion question) {
         return questionRepository.save(question);
     }
+
+    public List<ImagineIfQuestion> findAll() {
+        return questionRepository.findAll();
+    }
 }
