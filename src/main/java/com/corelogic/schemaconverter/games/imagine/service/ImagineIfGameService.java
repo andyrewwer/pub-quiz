@@ -66,4 +66,8 @@ public class ImagineIfGameService  {
     public List<ImagineIfQuestion> findAllQuestions() {
         return questionService.findAll();
     }
+
+    public ImagineIfQuestion getQuestionByGameRoom(long gameRoomId) {
+        return questionService.getQuestion(gameRoomService.findById(gameRoomId).getId());
+    }
 }

@@ -17,4 +17,12 @@ export class QuestionService {
   findAll(): Observable<Array<ImagineIfQuestion>> {
     return this.http.get<Array<ImagineIfQuestion>>('/api/gameRound/imagine/questions');
   }
+
+  findQuestionById(questionId: number): Observable<ImagineIfQuestion> {
+    return this.http.get<ImagineIfQuestion>('/api/gameRound/imagine/question/' + questionId);
+  }
+
+  findQuestionByGameRoomId(gameRoomId: number): Observable<ImagineIfQuestion> {
+    return this.http.get<ImagineIfQuestion>('/api/gameRound/imagine/question/gameRoom/' + gameRoomId);
+  }
 }

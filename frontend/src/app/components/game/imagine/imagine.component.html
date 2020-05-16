@@ -1,0 +1,38 @@
+<div class="main-div">
+  <mat-card class="home-card">
+    <mat-card-header>
+      <!--      TODO DISPLAY ON MOBILE-->
+      <!--      TODO DISPLAY ROOMCODE MORE PRETTY-->
+      <mat-card-title>{{form.value.gameRoom.name}} - Current Question {{form.value.gameRoom.round}}</mat-card-title>
+      <mat-card-subtitle class="text-muted d-block">Click an option & when you're sure press submit!</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
+      <h4>{{form.value.question.question}}</h4>
+      <table class="table table-bordered mat-elevation-z3">
+        <tbody>
+        <tr [class]="form.value.answer == 1 ? 'table-info' : ''" (click)="selectAnswer(1)">
+          <th><span>{{form.value.question.answer1}}</span></th>
+        </tr>
+        <tr [class]="form.value.answer == 2 ? 'table-info' : ''" (click)="selectAnswer(2)">
+          <th><span>{{form.value.question.answer2}}</span></th>
+        </tr>
+        <tr [class]="form.value.answer == 3 ? 'table-info' : ''" (click)="selectAnswer(3)">
+          <th><span>{{form.value.question.answer3}}</span></th>
+        </tr>
+        <tr [class]="form.value.answer == 4 ? 'table-info' : ''" (click)="selectAnswer(4)">
+          <th><span>{{form.value.question.answer4}}</span></th>
+        </tr>
+        <tr [class]="form.value.answer == 5 ? 'table-info' : ''" (click)="selectAnswer(5)">
+          <th><span>{{form.value.question.answer5}}</span></th>
+        </tr>
+        <tr [class]="form.value.answer == 6 ? 'table-info' : ''" (click)="selectAnswer(6)">
+          <th><span>{{form.value.question.answer6}}</span></th>
+        </tr>
+        </tbody>
+      </table>
+      <mat-card-actions class="text-center">
+        <button mat-raised-button type="button" color="primary" (click)="submit()" [disabled]="disabled()">SUBMIT</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -14,13 +14,13 @@
     </thead>
     <tbody>
     <tr *ngFor="let question of questions">
-      <td><textarea [(ngModel)]="question.question"></textarea></td>
-      <td><textarea [(ngModel)]="question.answer1"></textarea></td>
-      <td><textarea [(ngModel)]="question.answer2"></textarea></td>
-      <td><textarea [(ngModel)]="question.answer3"></textarea></td>
-      <td><textarea [(ngModel)]="question.answer4"></textarea></td>
-      <td><textarea [(ngModel)]="question.answer5"></textarea></td>
-      <td><textarea [(ngModel)]="question.answer6"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.question"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.answer1"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.answer2"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.answer3"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.answer4"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.answer5"></textarea></td>
+      <td><textarea rows="3" [(ngModel)]="question.answer6"></textarea></td>
       <td><button mat-stroked-button color="primary" (click)="update(question)">Update</button></td>
     </tr>
     </tbody>

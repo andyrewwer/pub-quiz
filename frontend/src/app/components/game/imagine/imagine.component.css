@@ -1,0 +1,13 @@
+h4 {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+table {
+  width: 250px;
+  margin: auto;
+}
+
+tr:hover {
+  background-color: #E5F4F7;
+}

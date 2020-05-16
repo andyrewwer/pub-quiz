@@ -3,7 +3,7 @@ import {ImagineIfQuestion} from '../../../../dto/imagineIfQuestion';
 import {QuestionService} from '../../../../services/imagine/question.service';
 
 @Component({
-  selector: 'edit-questions',
+  selector: 'app-edit-questions',
   templateUrl: './edit-questions.component.html',
   styleUrls: ['./edit-questions.component.css']
 })

@@ -1,22 +1,21 @@
-export class ImagineIfQuestion {
+import {GameRoom} from './gameRoom';
+import {Player} from './player';
+import {ImagineIfQuestion} from './imagineIfQuestion';
+
+export class ImagineIfGameRound {
   id: number;
-  question: string;
-  answer1: string;
-  answer2: string;
-  answer3: string;
-  answer4: string;
-  answer5: string;
-  answer6: string;
+  gameRoom: GameRoom;
+  player: Player;
+  round: number;
+  answer: number;
+  question: ImagineIfQuestion;
 
-  constructor(args: ImagineIfQuestion = <ImagineIfQuestion>{}) {
+  constructor(args: ImagineIfGameRound = <ImagineIfGameRound>{}) {
     this.id = args.id;
+    this.gameRoom = args.gameRoom;
+    this.player = args.player;
+    this.round = args.round;
+    this.answer = args.answer;
     this.question = args.question;
-    this.answer1 = args.answer1;
-    this.answer2 = args.answer2;
-    this.answer3 = args.answer3;
-    this.answer4 = args.answer4;
-    this.answer5 = args.answer5;
-    this.answer6 = args.answer6;
   }
-
 }

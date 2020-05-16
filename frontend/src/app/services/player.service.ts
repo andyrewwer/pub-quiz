@@ -18,10 +18,6 @@ export class PlayerService {
     return this.http.post<Player>('/api/players', playerJoinRequest);
   }
 
-  findAll(): Observable<Array<Player>> {
-    return this.http.get<Array<Player>>('/api/players');
-  }
-
   findAllForGameRoom(selectedGameRoom: GameRoom):  Observable<Array<Player>> {
     return this.http.get<Array<Player>>('/api/players/gameRoom/' + selectedGameRoom.id);
   }

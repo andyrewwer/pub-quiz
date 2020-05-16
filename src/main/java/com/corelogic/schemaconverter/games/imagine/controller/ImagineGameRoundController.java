@@ -31,12 +31,17 @@ public class ImagineGameRoundController {
     }
 
     @GetMapping("/question/{questionId}")
-    public ImagineIfQuestion generateNewRound(@PathVariable long questionId) {
+    public ImagineIfQuestion findQuestionById(@PathVariable long questionId) {
         return imagineIfGameService.getQuestion(questionId);
     }
     @GetMapping("/questions")
     public List<ImagineIfQuestion> findAllQuestions() {
         return imagineIfGameService.findAllQuestions();
+    }
+
+    @GetMapping("/question/gameRoom/{gameRoomId}")
+    public ImagineIfQuestion findQuestionByGameRoom(@PathVariable long gameRoomId) {
+        return imagineIfGameService.getQuestionByGameRoom(gameRoomId);
     }
 
     @PostMapping("/question")
