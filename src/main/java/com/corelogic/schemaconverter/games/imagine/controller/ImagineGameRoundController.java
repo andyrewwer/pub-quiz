@@ -25,11 +25,6 @@ public class ImagineGameRoundController {
         return imagineIfGameService.save(gameRound);
     }
 
-    @PostMapping("/generateRound")
-    public GameRoom generateNewRound(@RequestBody GameRoom gameRoom) {
-        return imagineIfGameService.generateNewRound(gameRoom);
-    }
-
     @GetMapping("/question/{questionId}")
     public ImagineIfQuestion findQuestionById(@PathVariable long questionId) {
         return imagineIfGameService.getQuestion(questionId);
@@ -49,8 +44,8 @@ public class ImagineGameRoundController {
         return imagineIfGameService.saveQuestion(question);
     }
 
-    @GetMapping("gameRoomCode/{gameRoomId}/round/{round}")
-    public List<ImagineIfGameRound> findGamesInRound(@PathVariable Long round, @PathVariable Long gameRoomId) {
+    @GetMapping("gameRoom/{gameRoomId}/round/{round}")
+    public List<ImagineIfGameRound> findGamesInRound(@PathVariable Long gameRoomId, @PathVariable int round) {
         return imagineIfGameService.findByGameRoomIdAndRound(gameRoomId, round);
     }
 
@@ -62,5 +57,10 @@ public class ImagineGameRoundController {
     @GetMapping("/player/{playerId}/gameRoom/{gameRoomId}")
     public List<ImagineIfGameRound> findGamesForPlayerAndGameRoom(@PathVariable Long playerId, @PathVariable Long gameRoomId) {
         return imagineIfGameService.findGamesForPlayerAndGameRoom(playerId, gameRoomId);
+    }
+
+    @GetMapping("/player/{playerId}/round/{round}")
+    public ImagineIfGameRound findGamesForPlayerAndRound(@PathVariable Long playerId, @PathVariable int round) {
+        return imagineIfGameService.findGamesForPlayerAndRound(playerId, round);
     }
 }

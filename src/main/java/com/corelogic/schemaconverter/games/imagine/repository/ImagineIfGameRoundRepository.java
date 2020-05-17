@@ -10,5 +10,7 @@ public interface ImagineIfGameRoundRepository extends JpaRepository<ImagineIfGam
 
     List<ImagineIfGameRound> findAllByGameRoomId(long gameRoomId);
     List<ImagineIfGameRound> findByPlayerIdAndGameRoomId(long playerId, long gameRoomId);
-    List<ImagineIfGameRound> findByGameRoomIdAndRound(long gameRoomId, long round);
+    List<ImagineIfGameRound> findByGameRoomIdAndRound(long gameRoomId, int round);
+
+    ImagineIfGameRound findByPlayerIdAndRound(Long playerId, int round);
 }

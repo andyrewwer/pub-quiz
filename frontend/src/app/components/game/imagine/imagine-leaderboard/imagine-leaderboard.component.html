@@ -1,0 +1,11 @@
+<table class="table table-bordered mat-elevation-z3 mt-2">
+  <tbody>
+  <tr>
+    <th>Name</th>
+    <th>Response</th>
+  </tr>
+  <tr *ngFor="let game of games">
+    <th>{{game.player.name}}</th>
+    <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
+  </tr>
+</table>

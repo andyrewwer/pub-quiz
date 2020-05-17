@@ -14,4 +14,12 @@ export class ImagineGameService {
     return this.http.post<ImagineIfGameRound>('/api/gameRound/imagine', game);
   }
 
+  findByPlayerAndRound(playerId: number, round: number): Observable<ImagineIfGameRound> {
+    return this.http.get<ImagineIfGameRound>('/api/gameRound/imagine/player/' + playerId + '/round/' + round);
+  }
+
+  findByGameRoomAndRound(gameRoomId: number, round: number): Observable<Array<ImagineIfGameRound>> {
+    return this.http.get<Array<ImagineIfGameRound>>('/api/gameRound/imagine/gameRoom/' + gameRoomId + '/round/' + round);
+  }
+
 }

@@ -1,0 +1,25 @@
+<table class="table table-bordered mat-elevation-z3">
+  <tbody>
+  <tr [class]="setSelectedClass(1)" (click)="selectAnswer(1)">
+    <th><span>{{form.value.question.answer1}}</span></th>
+  </tr>
+  <tr [class]="setSelectedClass(2)" (click)="selectAnswer(2)">
+    <th><span>{{form.value.question.answer2}}</span></th>
+  </tr>
+  <tr [class]="setSelectedClass(3)" (click)="selectAnswer(3)">
+    <th><span>{{form.value.question.answer3}}</span></th>
+  </tr>
+  <tr [class]="setSelectedClass(4)" (click)="selectAnswer(4)">
+    <th><span>{{form.value.question.answer4}}</span></th>
+  </tr>
+  <tr [class]="setSelectedClass(5)" (click)="selectAnswer(5)">
+    <th><span>{{form.value.question.answer5}}</span></th>
+  </tr>
+  <tr [class]="setSelectedClass(6)" (click)="selectAnswer(6)">
+    <th><span>{{form.value.question.answer6}}</span></th>
+  </tr>
+  </tbody>
+</table>
+<mat-card-actions class="text-center">
+  <button mat-raised-button type="button" color="primary" (click)="submit()" [disabled]="disabled()">SUBMIT</button>
+</mat-card-actions>

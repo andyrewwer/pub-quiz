@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {interval, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
@@ -7,6 +7,7 @@ import {GameRoomService} from '../../../services/game-room.service';
 import {ModalService} from '../../../services/modal.service';
 import {QuestionService} from '../../../services/imagine/question.service';
 import {ImagineGameService} from '../../../services/imagine/imagine-game.service';
+import {FlashMessageService} from '../../../services/flash-message.service';
 
 @Component({
   selector: 'imagine',
@@ -15,17 +16,22 @@ import {ImagineGameService} from '../../../services/imagine/imagine-game.service
 })
 export class ImagineComponent implements OnInit, OnDestroy {
 
-  submitted = false;
+  // TODO SOME SORT OF COUNTDOWN ON SCREEN
+    // TODO COUNTDOWN FOR HOW LONG TO ANSWER QUESTION UNTIL WE SEE ANSWER
+    // TODO COUNTDOWN UNTIL NEXT QUESTION
+
   form: FormGroup;
+  submitted = false;
+  transitioning = false;
   subscription: Subscription;
 
   constructor(private builder: FormBuilder,
               private router: Router,
               private playerService: PlayerService,
-              private questionService: QuestionService,
-              private gameService: ImagineGameService,
+              private modalService: ModalService,
               private gameRoomService: GameRoomService,
-              private modalService: ModalService) {
+              private questionService: QuestionService,
+              private flashService: FlashMessageService) {
     this.form = builder.group({
       gameRoom: [null],
       player: [null],
@@ -51,46 +57,40 @@ export class ImagineComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectAnswer(answerNumber: number) {
-    this.form.controls.answer.setValue(answerNumber);
-  }
   private getCurrentRound() {
     this.gameRoomService.getCurrentRound(this.form.value.gameRoom).subscribe(
       curRound => {
-        if (curRound !== this.form.value.round) {
-          console.log('NEW ROUND', curRound);
-          this.submitted = false;
-          this.form.controls.round.setValue(curRound);
-          this.form.value.gameRoom.round = curRound; // TODO WILL THIS WORK?
-          this.questionService.findQuestionByGameRoomId(this.form.value.gameRoom.id).subscribe(
-            question => {
-              this.form.controls.question.setValue(question);
-              console.log('QUESTION', question);
-              console.log('this.form.value.question', this.form.value.question);
-              console.log('this.form.value', this.form.value);
-            }, err => {
-              console.error(err);
-            }
-          );
+        if (this.transitioning) {
+          return;
         }
+        if (curRound === this.form.value.round) {
+          return;
+        }
+        console.log('getCurrentRound');
+        if (!!this.form.value.round) {
+          this.flashService.updateCountdown(3);
+          this.transitioning = true;
+          setTimeout(() => {
+            this.updateCurrentRound(curRound);
+          }, 3000);
+        } else {
+          this.updateCurrentRound(curRound);
+        }
+
       });
   }
 
-  submit() {
-    console.log('Submit form', this.form);
-    this.gameService.save(this.form.value).subscribe(
-      result => {
-        console.log('saved?', result);
-        if (!!result && result) {
-          this.submitted = true;
-          this.form.reset(
-            {
-              round: this.form.value.round,
-              player: this.form.value.player,
-              gameRoom: this.form.value.gameRoom,
-              question: this.form.value.question,
-            });
-        }
+  private updateCurrentRound(curRound) {
+    this.submitted = false;
+    this.transitioning = false;
+    this.form.controls.round.setValue(curRound);
+    this.form.value.gameRoom.round = curRound;
+    this.questionService.findQuestionByGameRoomId(this.form.value.gameRoom.id).subscribe(
+      question => {
+        this.form.controls.question.setValue(question);
+        this.form.controls.answer.setValue(null);
+      }, err => {
+        console.error(err);
       }
     );
   }
@@ -99,7 +99,4 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  disabled() {
-    return this.submitted || !this.form.value.answer; // AND OPTION SELECTED
-  }
 }

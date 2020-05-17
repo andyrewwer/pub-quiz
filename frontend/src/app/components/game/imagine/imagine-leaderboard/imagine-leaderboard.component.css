@@ -1,0 +1,39 @@
+h4 {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+table {
+  width: 250px;
+  margin: auto;
+}
+
+.final-choice {
+  background-color: #85A09C;
+}
+
+.red-text {
+  /*color: #ffe1e6; // light */
+  color: #ff849d;
+}
+.blue-text {
+  /*color: #d9ecfb; // light*/
+  color: #64b5ef;
+}
+.yellow-text {
+  /*color: #fff5de; // light*/
+  color: #ffd77b;
+}
+.green-text {
+  /*color: #ddf2f2; // light*/
+  color: #74cdcc;
+
+}
+.purple-text {
+  color: #ae85ff;
+  /*color: #ebe0ff; // light*/
+}
+.orange-text {
+  /*color: #ffecdb; // light*/
+  color: #ffb26a
+}

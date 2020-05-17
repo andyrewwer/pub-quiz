@@ -23,9 +23,9 @@ public class QuizGameRoundController {
         return quizGameService.save(gameRound);
     }
 
-    @GetMapping("gameRoomCode/{gameRoomId}/round/{round}")
-    public List<QuizGameRound> findGamesInRound(@PathVariable Long round, @PathVariable Long gameRoomId) {
-//        return quizGameService.findByGameRoomCodeAndRound(gameRoomId, round);
+    @GetMapping("gameRoom/{gameRoomId}/round/{round}")
+    public List<QuizGameRound> findGamesInRound(@PathVariable Long gameRoomId, @PathVariable int round) {
+//        return quizGameService.findByGameRoomAndRound(gameRoomId, round);
         return null;
     }
 

@@ -1,0 +1,44 @@
+.flashMessage{
+  /*position: absolute;*/
+  /*top: 12px;*/
+  /*left: 50%;*/
+  /*width: 350px;*/
+  /*z-index: 1000000;*/
+  /*pointer-events: none;*/
+  /*background: #058405;*/
+  /*text-align: center;*/
+  /*padding: 5px 3px;*/
+  /*border-radius: 5px;*/
+  /*color: #fff;*/
+  /*font-size:14px;*/
+
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  z-index: 1000000;
+  background: #058405;
+  text-align: center;
+  padding: 5px 3px;
+  border-radius: 5px;
+  color: #fff;
+  margin-left: -35px;
+}
+
+span {
+  font-size: 40px;
+}
+
+
+.animateCss{
+  -webkit-transition: opacity 1000ms ease-in-out,margin-left 500ms ease-in-out;
+  -moz-transition: opacity 1000ms ease-in-out,margin-left 500ms ease-in-out;
+  -ms-transition: opacity 1000ms ease-in-out,margin-left 500ms ease-in-out ;
+  -o-transition: opacity 1000ms ease-in-out,margin-left 500ms ease-in-out;
+  transition: opacity 1000ms ease-in-out,margin-left 500ms ease-in-out;
+  opacity: 0;
+}
+.showFlashMessage{
+  opacity: .8;
+}

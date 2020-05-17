@@ -5,6 +5,7 @@ import {AnswerComponent} from './answer/answer.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {PlayersComponent} from './players/players.component';
 import {ModalService} from '../../../services/modal.service';
+import {GameRoomTypes} from '../../../dto/enums/gameRoomTypes';
 
 @Component({
   selector: 'app-admin-home',
@@ -30,6 +31,7 @@ export class AdminHomeComponent implements OnInit {
       _gameRooms => {
         console.log('Game Rooms', _gameRooms);
         this.gameRooms = _gameRooms;
+        //  TODO COLORS
       }
     );
   }
@@ -37,10 +39,9 @@ export class AdminHomeComponent implements OnInit {
   incrementRound(game: GameRoom) {
     this.gameRoomService.setCurrentRound(game, ++game.round).subscribe(
       gameRoom => {
-        console.log('game', game);
-        console.log('gameRoom', gameRoom);
         game = gameRoom;
       }, error => {
+        console.log(error);
         game.round--;
         this.modalService.showBasicModal('Error', 'Sorry, we failed to increment round. Try again later please');
       }
@@ -51,6 +52,7 @@ export class AdminHomeComponent implements OnInit {
     this.gameRoomService.setCurrentRound(game, --game.round).subscribe(
       gameRoom => game = gameRoom,
         error => {
+          console.log(error);
           game.round ++;
           this.modalService.showBasicModal('Error', 'Sorry, we failed to decrement round. Try again later please');
         }

@@ -34,6 +34,9 @@ import { AddQuestionComponent } from './components/game/imagine/add-question/add
 import { ImagineComponent } from './components/game/imagine/imagine.component';
 import { EditQuestionsComponent } from './components/game/imagine/edit-questions/edit-questions.component';
 import { ImagineAdminComponent } from './components/admin/imagine-admin/imagine-admin.component';
+import { ImagineLeaderboardComponent } from './components/game/imagine/imagine-leaderboard/imagine-leaderboard.component';
+import { ImagineGameComponent } from './components/game/imagine/imagine-game/imagine-game.component';
+import { FlashMessageComponentComponent } from './components/modals/flash-message-component/flash-message-component.component';
 
 
 @NgModule({
@@ -56,6 +59,9 @@ import { ImagineAdminComponent } from './components/admin/imagine-admin/imagine-
     EditQuestionsComponent,
     ImagineComponent,
     ImagineAdminComponent,
+    ImagineLeaderboardComponent,
+    ImagineGameComponent,
+    FlashMessageComponentComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -28,7 +28,7 @@ public class ImagineIfQuestionService {
     }
 
     public long generateNewQuestionId() {
-        return (int) (Math.random() * (questionRepository.count()));
+        return (int) (Math.random() * (questionRepository.count())) + 1;
     }
 
     public ImagineIfQuestion save(ImagineIfQuestion question) {
