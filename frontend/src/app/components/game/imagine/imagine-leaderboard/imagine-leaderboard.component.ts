@@ -24,35 +24,21 @@ export class ImagineLeaderboardComponent implements OnInit {
         console.log('found games', _games);
         this.games = _games;
 
-        const gamesMap = new Map();
+        // map that shows for each Answer a list of Games
+        const answerGamesMap = new Map<number, Array<ImagineIfGameRound>>();
         _games.forEach(
           game => {
-            let answer = this.scoreMap.get(name);
-            if (!teamScore) {
-              teamScore = 0;
+            const answer = game.answer;
+            let gamesForAnswer = answerGamesMap.get(answer);
+            if (!gamesForAnswer) {
+              gamesForAnswer = new Array<ImagineIfGameRound>();
             }
-            teamScore += this.numberCorrectAnswers(game);
-            this.scoreMap.set(name, teamScore);
+            gamesForAnswer.push(game);
+          });
+        console.log('games', _games);
+        console.log('answerGamesMap', answerGamesMap);
 
-            let roundMap = this.scoresPerRoundMap.get(game.round);
-            if (!roundMap) {
-              roundMap = new Map<string, number>();
-            }
-
-            let teamScoreForRound = roundMap.get(name);
-            if (!teamScoreForRound) {
-              teamScoreForRound = 0;
-            }
-
-            teamScoreForRound += this.numberCorrectAnswers(game);
-            roundMap.set(name, teamScoreForRound);
-
-            this.scoresPerRoundMap.set(game.round, roundMap);
-
-          }
-        );
-
-    }, err => {
+      }, err => {
         console.error('Error fetching games', err);
       }
     );
