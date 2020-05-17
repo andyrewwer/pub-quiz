@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GameRoomTypes} from '../../../dto/enums/gameRoomTypes';
 import gameRoomTypes = GameRoomTypes.gameRoomTypes;
+import {GameRoom} from '../../../dto/gameRoom';
 
 @Component({
   selector: 'create-game-modal',
@@ -25,7 +26,9 @@ export class CreateGameModalComponent {
   }
 
   createGame() {
-    this.gameRoomService.save(this.form.value).subscribe(
+    let gameRoom: GameRoom = this.form.value;
+    gameRoom.code = gameRoom.code.toUpperCase();
+    this.gameRoomService.save(gameRoom).subscribe(
       _gameRoom => {
         console.log('created game room', _gameRoom);
         this.dialogRef.close(true);
