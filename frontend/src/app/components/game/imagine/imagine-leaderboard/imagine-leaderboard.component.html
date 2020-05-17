@@ -4,8 +4,10 @@
     <th>Name</th>
     <th>Response</th>
   </tr>
-  <tr *ngFor="let game of games">
-    <th>{{game.player.name}}</th>
-    <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
-  </tr>
+  <ng-container *ngFor="let key of getKeys()">
+    <tr *ngFor="let game of answersGameMap.get(key)">
+          <th>{{game.player.name}}</th>
+          <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
+    </tr>
+  </ng-container>
 </table>

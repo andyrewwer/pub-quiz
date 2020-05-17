@@ -14,7 +14,7 @@ export class ImagineLeaderboardComponent implements OnInit {
   @Input() gameRoom: GameRoom;
   @Input() submitted = false;
   @Output() submittedChange = new EventEmitter<boolean>();
-
+  answersGameMap = new Map<number, Array<ImagineIfGameRound>>();
   games: Array<ImagineIfGameRound> = [];
   constructor(private gameService: ImagineGameService) { }
 
@@ -32,11 +32,23 @@ export class ImagineLeaderboardComponent implements OnInit {
             let gamesForAnswer = answerGamesMap.get(answer);
             if (!gamesForAnswer) {
               gamesForAnswer = new Array<ImagineIfGameRound>();
+              answerGamesMap.set(answer, gamesForAnswer);
             }
             gamesForAnswer.push(game);
           });
-        console.log('games', _games);
-        console.log('answerGamesMap', answerGamesMap);
+        this.answersGameMap = new Map<number, Array<ImagineIfGameRound>>();
+        for (let key of answerGamesMap.keys()) {
+          let lengthKey = answerGamesMap.get(key).length;
+          let gamesForKey = this.answersGameMap.get(lengthKey);
+          if (!gamesForKey) {
+            gamesForKey = new Array<ImagineIfGameRound>();
+            this.answersGameMap.set(lengthKey, gamesForKey);
+          }
+          answerGamesMap.get(key).forEach(
+            game => gamesForKey.push(game));
+        }
+        console.log('this.answersGameMapKeyList', this.answersGameMap);
+        console.log('this.answersGameMapKeyList.sort(b-a)', Array.from(this.answersGameMap.keys()).sort((a,b) => b-a));
 
       }, err => {
         console.error('Error fetching games', err);
@@ -80,5 +92,9 @@ export class ImagineLeaderboardComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  getKeys() {
+    return Array.from(this.answersGameMap.keys()).sort((a,b) => b-a);
   }
 }
