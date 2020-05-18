@@ -53,8 +53,9 @@ public class PlayerService {
     }
 
     public long generateNewRandomPlayerIdForGameRoom(GameRoom gameRoom) {
+        // TODO This should be random now ordered
         List<Player> playersInGame = findAllForGameRoom(gameRoom.getId());
-        return playersInGame.size() > 0 ? playersInGame.get((int) (Math.random() * playersInGame.size())).getId() : 0;
+        return playersInGame.size() > 0 ? playersInGame.get(gameRoom.getRound() % playersInGame.size()).getId() : 0;
 
     }
 }

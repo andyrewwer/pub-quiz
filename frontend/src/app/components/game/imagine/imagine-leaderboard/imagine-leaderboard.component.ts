@@ -3,7 +3,6 @@ import {GameRoom} from '../../../../dto/gameRoom';
 import {ImagineIfGameRound} from '../../../../dto/imagineIfGameRound';
 import {ImagineGameService} from '../../../../services/imagine/imagine-game.service';
 import {ImagineIfQuestion} from '../../../../dto/imagineIfQuestion';
-import {Player} from '../../../../dto/player';
 
 @Component({
   selector: 'app-imagine-leaderboard',
@@ -104,6 +103,7 @@ export class ImagineLeaderboardComponent implements OnInit {
   }
 }
 
+// TODO SCOREfor real like timers and stuff
 
 // TODO MAX POINTS
 // TODO 2. Maybe add some visualization like a graph
