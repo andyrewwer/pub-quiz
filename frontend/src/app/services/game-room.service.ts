@@ -26,4 +26,8 @@ export class GameRoomService {
   setCurrentRound(gameRoom: GameRoom, round: number): Observable<GameRoom> {
     return this.http.post<GameRoom>('/api/gameRooms/' + gameRoom.id + '/round/' + round, null);
   }
+
+  getCurrentRoundGameRoom(gameRoom: GameRoom): Observable<GameRoom> {
+    return this.http.get<GameRoom>('/api/gameRooms/' + gameRoom.id);
+  }
 }

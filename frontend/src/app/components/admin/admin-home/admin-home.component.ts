@@ -31,7 +31,6 @@ export class AdminHomeComponent implements OnInit {
       _gameRooms => {
         console.log('Game Rooms', _gameRooms);
         this.gameRooms = _gameRooms;
-        //  TODO COLORS
       }
     );
   }

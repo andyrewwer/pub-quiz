@@ -10,7 +10,7 @@ import {ImagineGameService} from '../../../services/imagine/imagine-game.service
 import {FlashMessageService} from '../../../services/flash-message.service';
 
 @Component({
-  selector: 'imagine',
+  selector: 'app-imagine',
   templateUrl: './imagine.component.html',
   styleUrls: ['./imagine.component.css']
 })
@@ -24,6 +24,7 @@ export class ImagineComponent implements OnInit, OnDestroy {
   submitted = false;
   transitioning = false;
   subscription: Subscription;
+  personString = '[person name]';
 
   constructor(private builder: FormBuilder,
               private router: Router,
@@ -37,7 +38,8 @@ export class ImagineComponent implements OnInit, OnDestroy {
       player: [null],
       round: [null],
       answer: [null],
-      question: [null]
+      question: [null],
+      selectedPlayerId: [null]
     });
   }
 
@@ -51,6 +53,7 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.form.controls.player.setValue(player);
     this.form.controls.gameRoom.setValue(player.gameRoom);
     this.form.controls.question.setValue(player.gameRoom.question);
+    this.setPersonString(player.gameRoom);
     this.getCurrentRound();
     this.subscription = interval(1000).subscribe(val => {
       this.getCurrentRound();
@@ -58,26 +61,36 @@ export class ImagineComponent implements OnInit, OnDestroy {
   }
 
   private getCurrentRound() {
-    this.gameRoomService.getCurrentRound(this.form.value.gameRoom).subscribe(
-      curRound => {
+    this.gameRoomService.getCurrentRoundGameRoom(this.form.value.gameRoom).subscribe(
+      gameRoom => {
         if (this.transitioning) {
           return;
         }
-        if (curRound === this.form.value.round) {
+        if (gameRoom.round === this.form.value.round) {
           return;
         }
-        console.log('getCurrentRound');
         if (!!this.form.value.round) {
           this.flashService.updateCountdown(3);
           this.transitioning = true;
           setTimeout(() => {
-            this.updateCurrentRound(curRound);
+            this.updateCurrentRound(gameRoom.round);
+            this.form.controls.gameRoom.setValue(gameRoom);
+            this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
+            this.setPersonString(gameRoom);
           }, 3000);
         } else {
-          this.updateCurrentRound(curRound);
+          this.updateCurrentRound(gameRoom.round);
         }
 
       });
+  }
+
+  private setPersonString(gameRoom) {
+    this.playerService.findPlayer(gameRoom.playerId).subscribe(
+      player => {
+        this.personString = player.name;
+      }
+    );
   }
 
   private updateCurrentRound(curRound) {
@@ -93,6 +106,10 @@ export class ImagineComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     );
+  }
+
+  displayQuestion(question: string): string {
+    return question.replace('[person]', this.personString);
   }
 
   ngOnDestroy() {

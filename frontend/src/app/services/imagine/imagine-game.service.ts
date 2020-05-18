@@ -22,4 +22,7 @@ export class ImagineGameService {
     return this.http.get<Array<ImagineIfGameRound>>('/api/gameRound/imagine/gameRoom/' + gameRoomId + '/round/' + round);
   }
 
+  calculate(gameRoomId: number, round: number) {
+    return this.http.get('/api/gameRound/imagine/gameRoom/' + gameRoomId + '/round/' + round + '/calculate' );
+  }
 }

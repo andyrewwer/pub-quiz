@@ -25,7 +25,7 @@ export class ImagineGameComponent implements OnInit {
     this.form.controls.round.valueChanges.subscribe(
       round => {
         console.log('SUBSCRIBED TO CHANGE TO ROUND', round);
-        this.checkForExistingAnswer(round)
+        this.checkForExistingAnswer(round);
       }
     );
   }
@@ -72,7 +72,7 @@ export class ImagineGameComponent implements OnInit {
   }
 
   setSelectedClass(answer: number) {
-    return this.form.value.answer === answer ? this.submitted ? 'final-choice' : 'table-info' : ''
+    return this.form.value.answer === answer ? this.submitted ? 'final-choice' : 'table-info' : '';
   }
 
   setSubmitted(_submitted: boolean) {

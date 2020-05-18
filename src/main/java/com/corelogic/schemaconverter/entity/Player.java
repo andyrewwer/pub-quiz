@@ -23,6 +23,7 @@ public class Player {
     private GameRoom gameRoom;
 
     private String name;
+    private int score;
 
 }
 

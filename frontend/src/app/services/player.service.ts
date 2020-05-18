@@ -22,6 +22,10 @@ export class PlayerService {
     return this.http.get<Array<Player>>('/api/players/gameRoom/' + selectedGameRoom.id);
   }
 
+  findPlayer(playerId: number): Observable<Player> {
+    return this.http.get<Player>('/api/players/' + playerId);
+  }
+
   getPlayer(): Player {
     return this.currentPlayer;
   }

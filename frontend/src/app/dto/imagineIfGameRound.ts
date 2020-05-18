@@ -9,6 +9,7 @@ export class ImagineIfGameRound {
   round: number;
   answer: number;
   question: ImagineIfQuestion;
+  selectedPlayerId: ImagineIfQuestion;
 
   constructor(args: ImagineIfGameRound = <ImagineIfGameRound>{}) {
     this.id = args.id;
@@ -17,5 +18,6 @@ export class ImagineIfGameRound {
     this.round = args.round;
     this.answer = args.answer;
     this.question = args.question;
+    this.selectedPlayerId = args.selectedPlayerId;
   }
 }

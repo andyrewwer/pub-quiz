@@ -28,5 +28,6 @@ public class GameRoom {
     private GameRoomStatus status;
 
     private long question;
+    private long playerId;
 }
 

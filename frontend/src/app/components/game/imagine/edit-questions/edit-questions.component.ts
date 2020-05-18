@@ -25,8 +25,8 @@ export class EditQuestionsComponent implements OnInit {
 
   update(question: ImagineIfQuestion) {
     this.questionService.save(question).subscribe(
-      question => {
-        console.log('Success', question);
+      _question => {
+        console.log('Success', _question);
       }, err  => {
         console.error('err');
       }

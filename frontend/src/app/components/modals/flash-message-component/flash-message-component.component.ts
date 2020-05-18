@@ -17,12 +17,12 @@ export class FlashMessageComponentComponent implements OnInit {
   ngOnInit() {
     this.flashMessageService.currentMessage.subscribe(msg => this.updateMessage(msg));
     this.flashMessageService.currentCountdown.subscribe(msg => {
-      this.countdown(Number.parseInt(msg));
+      this.countdown(Number.parseInt(msg, 10));
     });
   }
 
   updateMessage(msg: string) {
-    if (msg && msg != '' && msg != null) {
+    if (msg && msg !== '' && msg != null) {
       this.message = msg;
       this.showMessage = true;
 

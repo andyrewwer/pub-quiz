@@ -1,14 +1,16 @@
 package com.corelogic.schemaconverter.games.imagine.service;
 
+import com.corelogic.schemaconverter.entity.Player;
 import com.corelogic.schemaconverter.games.imagine.entity.ImagineIfGameRound;
 import com.corelogic.schemaconverter.games.imagine.entity.ImagineIfQuestion;
 import com.corelogic.schemaconverter.games.imagine.repository.ImagineIfGameRoundRepository;
 import com.corelogic.schemaconverter.repository.GameRoomRepository;
+import com.corelogic.schemaconverter.repository.PlayerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -17,12 +19,14 @@ public class ImagineIfGameService  {
     private final ImagineIfGameRoundRepository gameRoundRepository;
     private final ImagineIfQuestionService questionService;
     private final GameRoomRepository gameRoomRepository;
+    private final PlayerRepository playerRepository;
 
     @Autowired
-    public ImagineIfGameService(ImagineIfGameRoundRepository gameRoundRepository, ImagineIfQuestionService imagineIfQuestionRepository, GameRoomRepository gameRoomRepository) {
+    public ImagineIfGameService(ImagineIfGameRoundRepository gameRoundRepository, ImagineIfQuestionService imagineIfQuestionRepository, GameRoomRepository gameRoomRepository, PlayerRepository playerRepository) {
         this.gameRoundRepository = gameRoundRepository;
         this.questionService = imagineIfQuestionRepository;
         this.gameRoomRepository = gameRoomRepository;
+        this.playerRepository = playerRepository;
     }
 
     public ImagineIfGameRound save(ImagineIfGameRound gameRound) {
@@ -68,5 +72,35 @@ public class ImagineIfGameService  {
 
     public ImagineIfGameRound findGamesForPlayerAndRound(Long playerId, int round) {
         return gameRoundRepository.findByPlayerIdAndRound(playerId, round);
+    }
+
+    public void updateScoresForGameRoomIdAndRound(Long id, int round) {
+        log.info("updateScoresForGameRoomIdAndRound(Long [{}], int [{}]", id, round);
+        List<ImagineIfGameRound> games = findByGameRoomIdAndRound(id, round);
+        log.info("foundGames [{}]", games);
+        Map<Integer, List<ImagineIfGameRound>> answerNumberGamesMap = new HashMap<>();
+        games.forEach(game -> {
+            answerNumberGamesMap.putIfAbsent(game.getAnswer(), new ArrayList<>());
+            List<ImagineIfGameRound> imagineIfGameRounds = answerNumberGamesMap.get(game.getAnswer());
+            imagineIfGameRounds.add(game);
+        });
+        log.info("I guess updating score worked [{}]", answerNumberGamesMap);
+
+        Map<Integer, List<ImagineIfGameRound>> answerCountGameMap = new HashMap<>();
+        for (int key: answerNumberGamesMap.keySet()) {
+            int size = answerNumberGamesMap.get(key).size();
+            answerCountGameMap.putIfAbsent(size, new ArrayList<>());
+            List<ImagineIfGameRound> gamesForAnswerNumber = answerCountGameMap.get(size);
+            gamesForAnswerNumber.addAll(answerNumberGamesMap.get(key));
+        }
+
+        log.info("I guess updating score worked [{}]", answerCountGameMap);
+        log.info("and this is the keys [{}]", answerCountGameMap.keySet());
+
+        for (ImagineIfGameRound game: answerCountGameMap.get(Collections.max((answerCountGameMap).keySet()))) {
+            Player player = game.getPlayer();
+            player.setScore(player.getScore() + 1);
+            playerRepository.save(player);
+        }
     }
 }

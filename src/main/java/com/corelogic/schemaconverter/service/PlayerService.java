@@ -32,7 +32,12 @@ public class PlayerService {
             throw new GameRoomNotFoundException("Game Room not found!");
         }
         Player player = playerRepository.findByNameAndGameRoomId(playerJoinRequest.getName(), gameRoom.getId());
-        return ObjectUtils.isEmpty(player) ? playerRepository.save(Player.builder().gameRoom(gameRoom).name(playerJoinRequest.getName()).build()) : player;
+        Player returnPlayer = ObjectUtils.isEmpty(player) ? playerRepository.save(Player.builder().gameRoom(gameRoom).name(playerJoinRequest.getName()).build()) : player;
+        if (gameRoom.getPlayerId() == 0) {
+            gameRoom.setPlayerId(returnPlayer.getId());
+            gameRoomRepository.save(gameRoom);
+        }
+        return returnPlayer;
     }
 
     public Player findById(Long id) {
@@ -45,5 +50,11 @@ public class PlayerService {
 
     public List<Player> findAllForGameRoom(Long gameRoomId) {
         return playerRepository.findAllByGameRoomId(gameRoomId);
+    }
+
+    public long generateNewRandomPlayerIdForGameRoom(GameRoom gameRoom) {
+        List<Player> playersInGame = findAllForGameRoom(gameRoom.getId());
+        return playersInGame.size() > 0 ? playersInGame.get((int) (Math.random() * playersInGame.size())).getId() : 0;
+
     }
 }

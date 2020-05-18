@@ -7,7 +7,7 @@
   </mat-card-header>
   <mat-card>
     <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
-      <h4>{{form.value.question.question}}</h4>
+      <h4>{{displayQuestion(form.value.question.question)}}</h4>
     <app-imagine-game [(form)]="form" [(submitted)]="submitted" *ngIf="!submitted && !!this.form.value.round"></app-imagine-game>
     <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" [(submitted)]="submitted" *ngIf="submitted && !!this.form.value.round"></app-imagine-leaderboard>
     </mat-card-content>

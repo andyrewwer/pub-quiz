@@ -3,29 +3,32 @@ package com.corelogic.schemaconverter.service;
 import com.corelogic.schemaconverter.entity.GameRoom;
 import com.corelogic.schemaconverter.entity.enums.GameRoomStatus;
 import com.corelogic.schemaconverter.games.imagine.entity.ImagineIfGameRound;
-import com.corelogic.schemaconverter.games.imagine.entity.ImagineIfQuestion;
 import com.corelogic.schemaconverter.games.imagine.service.ImagineIfGameService;
 import com.corelogic.schemaconverter.games.imagine.service.ImagineIfQuestionService;
 import com.corelogic.schemaconverter.repository.GameRoomRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
 @Service
 @Slf4j
+@Transactional
 public class GameRoomService {
     private final GameRoomRepository gameRoomRepository;
     private final ImagineIfQuestionService imagineIfQuestionService;
     private final ImagineIfGameService imagineIfGameService;
+    private final PlayerService playerService;
 
     @Autowired
-    public GameRoomService(GameRoomRepository gameRoomRepository, ImagineIfQuestionService imagineIfQuestionService, ImagineIfGameService imagineIfGameService) {
+    public GameRoomService(GameRoomRepository gameRoomRepository, ImagineIfQuestionService imagineIfQuestionService, ImagineIfGameService imagineIfGameService, PlayerService playerService) {
         this.gameRoomRepository = gameRoomRepository;
         this.imagineIfQuestionService = imagineIfQuestionService;
         this.imagineIfGameService = imagineIfGameService;
+        this.playerService = playerService;
     }
 
     public GameRoom create(GameRoom gameRoom) {
@@ -33,11 +36,7 @@ public class GameRoomService {
             gameRoom.setRound(1);
             gameRoom.setStatus(GameRoomStatus.CREATED);
         }
-
-        switch (gameRoom.getType()) {
-            case IMAGINE_IF:
-                gameRoom.setQuestion(imagineIfQuestionService.generateNewQuestionId());
-        }
+        setUpNewRound(gameRoom);
         // CHECK FOR DUPLICATE GAME ROOM CODES
         return gameRoomRepository.save(gameRoom);
     }
@@ -57,29 +56,37 @@ public class GameRoomService {
 
     public GameRoom setCurrentRoundForGameRoom(Long id, Integer round) {
         GameRoom gameRoom = gameRoomRepository.findOne(id);
-        gameRoom.setRound(round);
         switch (gameRoom.getType()) {
             case IMAGINE_IF:
-                gameRoom.setQuestion(findExistingQuestionOrGenerateNewQuestion(id, round));
+                ImagineIfGameRound gameRound = findExistingImagineIfGameRound(id, round);
+            if (gameRound != null && gameRound.getQuestion() != null) {
+                    log.info("setting existing");
+                    gameRoom.setQuestion(gameRound.getQuestion().getId());
+                    gameRoom.setPlayerId(gameRound.getSelectedPlayerId());
+                } else {
+                log.info("setting new ");
+                    setUpNewRound(gameRoom);
+                }
                 // TODO check if question has already come up
                 // TODO check if duplicate questions??
                 // TODO how to determine subject?
+                // TODO AUDIT TABLES
         }
+        gameRoom.setRound(round);
         log.info("Setting gameRoom [{}]", gameRoom);
         return gameRoomRepository.save(gameRoom);
     }
 
-    private Long findExistingQuestionOrGenerateNewQuestion(Long gameRoomId, int round) {
-        long questionId = findQuestionIdIfAlreadyCreated(gameRoomId, round);
-        log.info("Finding question ID [{}]", questionId);
-        long random = imagineIfQuestionService.generateNewQuestionId();
-        log.info("Setting question to: [{}]", questionId == 0 ? random : questionId);
-        return questionId == 0 ? random : questionId;
+    private ImagineIfGameRound findExistingImagineIfGameRound(Long gameRoomId, int round) {
+        return imagineIfGameService.findFirstByGameRoomIdAndRound(gameRoomId, round);
     }
 
-    private long findQuestionIdIfAlreadyCreated(Long gameRoomId, int round) {
-        ImagineIfGameRound game = imagineIfGameService.findFirstByGameRoomIdAndRound(gameRoomId, round);
-        return game == null ? 0 : game.getQuestion().getId();
+    private GameRoom setUpNewRound(GameRoom gameRoom) {
+        switch (gameRoom.getType()) {
+            case IMAGINE_IF:
+                gameRoom.setQuestion(imagineIfQuestionService.generateNewQuestionId());
+                gameRoom.setPlayerId(playerService.generateNewRandomPlayerIdForGameRoom(gameRoom));
+        }
+        return gameRoom;
     }
-
 }

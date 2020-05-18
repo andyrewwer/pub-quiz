@@ -7,7 +7,7 @@ import gameRoomTypes = GameRoomTypes.gameRoomTypes;
 import {GameRoom} from '../../../dto/gameRoom';
 
 @Component({
-  selector: 'create-game-modal',
+  selector: 'app-create-game-modal',
   templateUrl: './create-game-modal.component.html',
   styleUrls: ['./create-game-modal.component.css']
 })
@@ -17,7 +17,7 @@ export class CreateGameModalComponent {
   form: FormGroup;
   constructor(private builder: FormBuilder,
               private gameRoomService: GameRoomService,
-              private dialogRef: MatDialogRef<CreateGameModalComponent>){
+              private dialogRef: MatDialogRef<CreateGameModalComponent>) {
     this.form = builder.group({
       name: [null, Validators.required],
       type: ['QUIZ', Validators.required],
@@ -26,7 +26,7 @@ export class CreateGameModalComponent {
   }
 
   createGame() {
-    let gameRoom: GameRoom = this.form.value;
+    const gameRoom: GameRoom = this.form.value;
     gameRoom.code = gameRoom.code.toUpperCase();
     this.gameRoomService.save(gameRoom).subscribe(
       _gameRoom => {

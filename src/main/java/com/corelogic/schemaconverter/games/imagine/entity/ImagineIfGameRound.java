@@ -32,6 +32,8 @@ public class ImagineIfGameRound {
 
     private int answer;
 
+    private int selectedPlayerId;
+
     @OneToOne
     private ImagineIfQuestion question;
 
