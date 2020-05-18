@@ -79,6 +79,7 @@ export class ImagineComponent implements OnInit, OnDestroy {
             this.setPersonString(gameRoom);
           }, 3000);
         } else {
+          this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
           this.updateCurrentRound(gameRoom.round);
         }
 
@@ -109,7 +110,10 @@ export class ImagineComponent implements OnInit, OnDestroy {
   }
 
   displayQuestion(question: string): string {
-    return question.replace('[person]', this.personString);
+    if (!!question) {
+      return question.replace('[person]', this.personString);
+    }
+    return '';
   }
 
   ngOnDestroy() {

@@ -99,6 +99,9 @@ public class ImagineIfGameService  {
 
         for (ImagineIfGameRound game: answerCountGameMap.get(Collections.max((answerCountGameMap).keySet()))) {
             Player player = game.getPlayer();
+            if (game.getSelectedPlayerId() == game.getPlayer().getId()) {
+                player.setScore(player.getScore() + 1);
+            }
             player.setScore(player.getScore() + 1);
             playerRepository.save(player);
         }

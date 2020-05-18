@@ -98,10 +98,12 @@ export class ImagineLeaderboardComponent implements OnInit {
       () => console.log('calculate result')
     );
   }
+
+  getNumberOfPoints(game: ImagineIfGameRound): string {
+    return game.player.id === game.selectedPlayerId ? '2' : '1';
+  }
 }
 
 
-// TODO POINTS - save on Player, remove ability to go back or no answer below maxRound
 // TODO MAX POINTS
-// TODO REPLACE [PERSON]
 // TODO 2. Maybe add some visualization like a graph

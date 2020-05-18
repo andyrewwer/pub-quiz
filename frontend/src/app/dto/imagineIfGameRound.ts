@@ -9,7 +9,7 @@ export class ImagineIfGameRound {
   round: number;
   answer: number;
   question: ImagineIfQuestion;
-  selectedPlayerId: ImagineIfQuestion;
+  selectedPlayerId: number;
 
   constructor(args: ImagineIfGameRound = <ImagineIfGameRound>{}) {
     this.id = args.id;

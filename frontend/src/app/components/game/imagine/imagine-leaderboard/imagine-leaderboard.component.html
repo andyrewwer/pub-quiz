@@ -9,7 +9,7 @@
     <tr *ngFor="let game of answerCountGameMap.get(key)">
           <th>{{game.player.name}}</th>
       <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
-      <td>{{game.player.score}} <span class="text-success">{{i === 0 ? '(+1)' : ''}}</span></td>
+      <td>{{game.player.score}} <span class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
     </tr>
   </ng-container>
 </table>
