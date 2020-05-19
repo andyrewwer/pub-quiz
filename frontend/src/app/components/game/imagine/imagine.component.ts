@@ -16,13 +16,7 @@ import {GameRoomStatusTypes} from '../../../dto/enums/gameRoomStatusTypes';
 })
 export class ImagineComponent implements OnInit, OnDestroy {
 
-  // TODO SOME SORT OF COUNTDOWN ON SCREEN
-  // TODO COUNTDOWN FOR HOW LONG TO ANSWER QUESTION UNTIL WE SEE ANSWER
-  // TODO COUNTDOWN UNTIL NEXT QUESTION
-
   form: FormGroup;
-  submitted = false;
-  transitioning = false;
   subscription: Subscription;
   personString = '[person name]';
   timeRemaining = -1;
@@ -60,8 +54,6 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.getCurrentRound();
     this.subscription = interval(1000).subscribe(val => {
       this.getCurrentRound();
-      console.log('this.timeRemaining', this.timeRemaining);
-      console.log('this.form.value.gameRoom.status', this.form.value.gameRoom.status);
       if (--this.timeRemaining > 0 && this.form.value.gameRoom.status === 'STARTED') {
         this.flashService.updateFlashMessage(this.timeRemaining.toString());
       }
@@ -76,22 +68,13 @@ export class ImagineComponent implements OnInit, OnDestroy {
           this.timeRemaining = gameRoom.timeRemaining;
           this.prevTime = gameRoom.timeRemaining;
         }
-        console.log('this.form.controls.value.gameRoom', this.form.value.gameRoom);
-        console.log('this.timeRemaining', this.timeRemaining);
-        console.log('this.prevTime', this.prevTime);
         this.showLeaderboard = gameRoom.status !== GameRoomStatusTypes.STARTED && this.timeRemaining <= 0;
         if (gameRoom.round === this.form.value.round) {
           return;
         }
-        if (!!this.form.value.round) {
-          this.updateCurrentRound(gameRoom.round);
-          this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
-          this.setPersonInQuestionString(gameRoom);
-        } else {
-          this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
-          this.updateCurrentRound(gameRoom.round);
-        }
-
+        this.updateCurrentRound(gameRoom.round);
+        this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
+        this.setPersonInQuestionString(gameRoom);
       });
   }
 
@@ -104,8 +87,6 @@ export class ImagineComponent implements OnInit, OnDestroy {
   }
 
   private updateCurrentRound(curRound) {
-    this.submitted = false;
-    this.transitioning = false;
     this.form.controls.round.setValue(curRound);
     this.form.value.gameRoom.round = curRound;
     this.questionService.findQuestionByGameRoomId(this.form.value.gameRoom.id).subscribe(
@@ -127,8 +108,6 @@ export class ImagineComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.flashService.hideMessage(); // TODO TEST TOMORROW< BOOT UP AND SEE IF MESSAGE DISSAPEARS WHEN YOU GO TO DIFFERENT SCREEN
-
+    this.flashService.hideMessage();
   }
-
 }

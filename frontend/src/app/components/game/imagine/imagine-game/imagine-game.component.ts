@@ -14,9 +14,7 @@ export class ImagineGameComponent implements OnInit {
 
   @Input() form: FormGroup;
   @Output() formChange = new EventEmitter<FormGroup>();
-  @Input() submitted = false;
-  @Output() submittedChange = new EventEmitter<boolean>();
-
+  submitted = false;
 
   constructor(private gameService: ImagineGameService) { }
 
@@ -34,7 +32,6 @@ export class ImagineGameComponent implements OnInit {
       return;
     }
     this.form.controls.answer.setValue(answerNumber);
-
   }
 
   private checkForExistingAnswer(curRound) {
@@ -74,7 +71,6 @@ export class ImagineGameComponent implements OnInit {
 
   setSubmitted(_submitted: boolean) {
     this.submitted = _submitted;
-    this.submittedChange.emit(this.submitted);
   }
 
   setForm(_form: FormGroup) {

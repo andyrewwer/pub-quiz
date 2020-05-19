@@ -26,12 +26,9 @@ export class ImagineLeaderboardComponent implements OnInit {
   ngOnInit() {
     this.gameService.findByGameRoomAndRound(this.gameRoom.id, this.gameRoom.round).subscribe(
       _games => {
-        console.log('found games', _games);
         if (_games.length === 0) {
-          /* show some error */
           return;
         }
-        // map that shows for each Answer a list of Games
         const answerNumberGamesMap = new Map<number, Array<ImagineIfGameRound>>();
         _games.forEach(
           game => {
@@ -112,13 +109,7 @@ export class ImagineLeaderboardComponent implements OnInit {
   getKeys(): Array<number> {
     return Array.from(this.answerCountGameMap.keys()).sort((a, b) => b - a);
   }
-
-  calculate() {
-    this.gameService.calculate(this.gameRoom.id, this.gameRoom.round).subscribe(
-      () => console.log('calculate result')
-    );
-  }
-
+  
   getNumberOfPoints(game: ImagineIfGameRound): string {
     return game.player.id === game.selectedPlayerId ? '2' : '1';
   }

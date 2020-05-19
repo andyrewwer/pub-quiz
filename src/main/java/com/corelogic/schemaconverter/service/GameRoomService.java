@@ -66,8 +66,7 @@ public class GameRoomService {
 
                 // TODO check if question has already come up
                 // TODO check if duplicate questions??
-                // TODO how to determine subject?
-                // TODO AUDIT TABLES
+                // TODO AUDIT TABLES -- required?
         }
         gameRoom.setRound(round);
         log.info("Setting gameRoom [{}]", gameRoom);

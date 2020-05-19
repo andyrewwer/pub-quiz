@@ -15,9 +15,7 @@ export class ImagineHomeComponent {
 
   startGame() {
     this.gameRoomService.startGame(this.gameRoom).subscribe(
-      () => {
-        console.log('startingGame');
-      }, err => {
+      () => {}, err => {
         console.log('Error starting game', err);
       }
     );
