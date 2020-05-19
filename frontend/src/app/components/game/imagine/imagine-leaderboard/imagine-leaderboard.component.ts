@@ -19,6 +19,8 @@ export class ImagineLeaderboardComponent implements OnInit {
 
   public labels: Array<Label> = new Array<Label>();
   public data: Array<number> = new Array<number>();
+  public backgroundColours: Array<string> = new Array<string>();
+  public imagineColors = ['#ff849d', '#64b5ef', '#ffd77b', '#74cdcc', '#ae85ff', '#ffb26a'];
 
   constructor(private gameService: ImagineGameService) {
   }
@@ -63,7 +65,11 @@ export class ImagineLeaderboardComponent implements OnInit {
     for (let key of answerNumberGamesMap.keys()) {
       this.labels.push(answers[key-1]);
       this.data.push(answerNumberGamesMap.get(key).length);
+      this.backgroundColours.push(this.imagineColors[key-1]);
+      console.log('this.imagineColors[key-1]', this.imagineColors[key-1]);
     }
+    console.log('this.imagineColors', this.imagineColors);
+    console.log('this.backgroundcolours', this.backgroundColours);
   }
 
   getAnswerForQuestion(answer: number, question: ImagineIfQuestion): string {

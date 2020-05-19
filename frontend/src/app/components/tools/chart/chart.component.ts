@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -8,10 +8,11 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent {
+export class ChartComponent implements OnChanges {
 
   @Input() labels: Label[];
   @Input() data: number[];
+  @Input() backgroundColors: string[];
 
 
   // Pie
@@ -36,14 +37,7 @@ export class ChartComponent {
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: [
-        '#ff849d',
-        '#64b5ef',
-        '#ffd77b',
-        '#74cdcc',
-        '#ae85ff',
-        '#ffb26a'
-      ]
+      backgroundColor: this.backgroundColors
     },
   ];
 
@@ -53,5 +47,13 @@ export class ChartComponent {
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.pieChartColors = [
+      {
+        backgroundColor: this.backgroundColors
+      },
+    ];
   }
 }
