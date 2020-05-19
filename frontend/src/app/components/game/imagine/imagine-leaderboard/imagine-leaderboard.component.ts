@@ -68,10 +68,7 @@ export class ImagineLeaderboardComponent implements OnInit {
       this.labels.push(answers[key-1]);
       this.data.push(answerNumberGamesMap.get(key).length);
       this.backgroundColours.push(this.imagineColors[key-1]);
-      console.log('this.imagineColors[key-1]', this.imagineColors[key-1]);
     }
-    console.log('this.imagineColors', this.imagineColors);
-    console.log('this.backgroundcolours', this.backgroundColours);
   }
 
   getAnswerForQuestion(answer: number, question: ImagineIfQuestion): string {

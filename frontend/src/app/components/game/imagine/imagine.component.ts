@@ -56,10 +56,12 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.form.controls.player.setValue(player);
     this.form.controls.gameRoom.setValue(player.gameRoom);
     this.form.controls.question.setValue(player.gameRoom.question);
-    this.setPersonString(player.gameRoom);
+    this.setPersonInQuestionString(player.gameRoom);
     this.getCurrentRound();
     this.subscription = interval(1000).subscribe(val => {
       this.getCurrentRound();
+      console.log('this.timeRemaining', this.timeRemaining);
+      console.log('this.form.value.gameRoom.status', this.form.value.gameRoom.status);
       if (--this.timeRemaining > 0 && this.form.value.gameRoom.status === 'STARTED') {
         this.flashService.updateFlashMessage(this.timeRemaining.toString());
       }
@@ -74,16 +76,17 @@ export class ImagineComponent implements OnInit, OnDestroy {
           this.timeRemaining = gameRoom.timeRemaining;
           this.prevTime = gameRoom.timeRemaining;
         }
+        console.log('this.form.controls.value.gameRoom', this.form.value.gameRoom);
+        console.log('this.timeRemaining', this.timeRemaining);
+        console.log('this.prevTime', this.prevTime);
         this.showLeaderboard = gameRoom.status !== GameRoomStatusTypes.STARTED && this.timeRemaining <= 0;
         if (gameRoom.round === this.form.value.round) {
           return;
         }
         if (!!this.form.value.round) {
-          this.timeRemaining = -1;
           this.updateCurrentRound(gameRoom.round);
-          this.form.controls.gameRoom.setValue(gameRoom);
           this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
-          this.setPersonString(gameRoom);
+          this.setPersonInQuestionString(gameRoom);
         } else {
           this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
           this.updateCurrentRound(gameRoom.round);
@@ -92,7 +95,7 @@ export class ImagineComponent implements OnInit, OnDestroy {
       });
   }
 
-  private setPersonString(gameRoom) {
+  private setPersonInQuestionString(gameRoom) {
     this.playerService.findPlayer(gameRoom.playerId).subscribe(
       player => {
         this.personString = player.name;
@@ -124,6 +127,8 @@ export class ImagineComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.flashService.hideMessage(); // TODO TEST TOMORROW< BOOT UP AND SEE IF MESSAGE DISSAPEARS WHEN YOU GO TO DIFFERENT SCREEN
+
   }
 
 }

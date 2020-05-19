@@ -19,6 +19,9 @@ export class FlashMessageComponentComponent implements OnInit {
     this.flashMessageService.currentCountdown.subscribe(msg => {
       this.countdown(Number.parseInt(msg, 10));
     });
+    this.flashMessageService.hide.subscribe(() => {
+      this.hideMessage();
+    });
   }
 
   updateMessage(msg: string) {
@@ -34,6 +37,10 @@ export class FlashMessageComponentComponent implements OnInit {
     }
   }
 
+  hideMessage() {
+    this.showMessage = false;
+    this.message = '';
+  }
 
   displayMessage(msg: string) {
     if (msg && msg !== '' && msg != null) {
