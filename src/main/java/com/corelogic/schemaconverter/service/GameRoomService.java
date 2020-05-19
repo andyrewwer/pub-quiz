@@ -34,10 +34,13 @@ public class GameRoomService {
     public GameRoom create(GameRoom gameRoom) {
         if (ObjectUtils.isEmpty(gameRoom.getId())) {
             gameRoom.setRound(1);
-            gameRoom.setStatus(GameRoomStatus.CREATED);
         }
-        setUpNewRound(gameRoom);
+        switch (gameRoom.getType()) {
+            case IMAGINE_IF:
+                gameRoom = imagineIfGameService.setUpNewRound(gameRoom, 1);
+        }
         // CHECK FOR DUPLICATE GAME ROOM CODES
+        gameRoom.setStatus(GameRoomStatus.CREATED);
         return gameRoomRepository.save(gameRoom);
     }
 
@@ -56,17 +59,11 @@ public class GameRoomService {
 
     public GameRoom setCurrentRoundForGameRoom(Long id, Integer round) {
         GameRoom gameRoom = gameRoomRepository.findOne(id);
+        gameRoom.setStatus(GameRoomStatus.STARTED);
         switch (gameRoom.getType()) {
             case IMAGINE_IF:
-                ImagineIfGameRound gameRound = findExistingImagineIfGameRound(id, round);
-            if (gameRound != null && gameRound.getQuestion() != null) {
-                    log.info("setting existing");
-                    gameRoom.setQuestion(gameRound.getQuestion().getId());
-                    gameRoom.setPlayerId(gameRound.getSelectedPlayerId());
-                } else {
-                log.info("setting new ");
-                    setUpNewRound(gameRoom);
-                }
+                gameRoom = imagineIfGameService.setUpNewRound(gameRoom, round);
+
                 // TODO check if question has already come up
                 // TODO check if duplicate questions??
                 // TODO how to determine subject?
@@ -77,16 +74,9 @@ public class GameRoomService {
         return gameRoomRepository.save(gameRoom);
     }
 
-    private ImagineIfGameRound findExistingImagineIfGameRound(Long gameRoomId, int round) {
-        return imagineIfGameService.findFirstByGameRoomIdAndRound(gameRoomId, round);
-    }
-
-    private GameRoom setUpNewRound(GameRoom gameRoom) {
-        switch (gameRoom.getType()) {
-            case IMAGINE_IF:
-                gameRoom.setQuestion(imagineIfQuestionService.generateNewQuestionId());
-                gameRoom.setPlayerId(playerService.generateNewRandomPlayerIdForGameRoom(gameRoom));
-        }
-        return gameRoom;
+    public GameRoom startGame(Long id) {
+        GameRoom gameRoom = findById(id);
+        gameRoom.setStatus(GameRoomStatus.STARTED);
+        return gameRoomRepository.save(gameRoom);
     }
 }

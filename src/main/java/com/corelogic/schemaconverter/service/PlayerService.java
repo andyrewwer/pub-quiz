@@ -58,4 +58,8 @@ public class PlayerService {
         return playersInGame.size() > 0 ? playersInGame.get(gameRoom.getRound() % playersInGame.size()).getId() : 0;
 
     }
+
+    public Player save(Player player) {
+        return playerRepository.save(player);
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {interval, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
@@ -6,8 +6,8 @@ import {PlayerService} from '../../../services/player.service';
 import {GameRoomService} from '../../../services/game-room.service';
 import {ModalService} from '../../../services/modal.service';
 import {QuestionService} from '../../../services/imagine/question.service';
-import {ImagineGameService} from '../../../services/imagine/imagine-game.service';
 import {FlashMessageService} from '../../../services/flash-message.service';
+import {GameRoomStatusTypes} from '../../../dto/enums/gameRoomStatusTypes';
 
 @Component({
   selector: 'app-imagine',
@@ -17,14 +17,17 @@ import {FlashMessageService} from '../../../services/flash-message.service';
 export class ImagineComponent implements OnInit, OnDestroy {
 
   // TODO SOME SORT OF COUNTDOWN ON SCREEN
-    // TODO COUNTDOWN FOR HOW LONG TO ANSWER QUESTION UNTIL WE SEE ANSWER
-    // TODO COUNTDOWN UNTIL NEXT QUESTION
+  // TODO COUNTDOWN FOR HOW LONG TO ANSWER QUESTION UNTIL WE SEE ANSWER
+  // TODO COUNTDOWN UNTIL NEXT QUESTION
 
   form: FormGroup;
   submitted = false;
   transitioning = false;
   subscription: Subscription;
   personString = '[person name]';
+  timeRemaining = -1;
+  showLeaderboard = false;
+  prevTime = -1;
 
   constructor(private builder: FormBuilder,
               private router: Router,
@@ -57,27 +60,30 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.getCurrentRound();
     this.subscription = interval(1000).subscribe(val => {
       this.getCurrentRound();
+      if (--this.timeRemaining > 0 && this.form.value.gameRoom.status === 'STARTED') {
+        this.flashService.updateFlashMessage(this.timeRemaining.toString());
+      }
     });
   }
 
   private getCurrentRound() {
     this.gameRoomService.getCurrentRoundGameRoom(this.form.value.gameRoom).subscribe(
       gameRoom => {
-        if (this.transitioning) {
-          return;
+        this.form.controls.gameRoom.setValue(gameRoom);
+        if (gameRoom.timeRemaining !== this.prevTime) {
+          this.timeRemaining = gameRoom.timeRemaining;
+          this.prevTime = gameRoom.timeRemaining;
         }
+        this.showLeaderboard = gameRoom.status !== GameRoomStatusTypes.STARTED && this.timeRemaining <= 0;
         if (gameRoom.round === this.form.value.round) {
           return;
         }
         if (!!this.form.value.round) {
-          this.flashService.updateCountdown(3);
-          this.transitioning = true;
-          setTimeout(() => {
-            this.updateCurrentRound(gameRoom.round);
-            this.form.controls.gameRoom.setValue(gameRoom);
-            this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
-            this.setPersonString(gameRoom);
-          }, 3000);
+          this.timeRemaining = -1;
+          this.updateCurrentRound(gameRoom.round);
+          this.form.controls.gameRoom.setValue(gameRoom);
+          this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
+          this.setPersonString(gameRoom);
         } else {
           this.form.controls.selectedPlayerId.setValue(gameRoom.playerId);
           this.updateCurrentRound(gameRoom.round);

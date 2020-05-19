@@ -15,7 +15,7 @@ export class FlashMessageComponentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flashMessageService.currentMessage.subscribe(msg => this.updateMessage(msg));
+    this.flashMessageService.currentMessage.subscribe(msg => this.displayMessage(msg));
     this.flashMessageService.currentCountdown.subscribe(msg => {
       this.countdown(Number.parseInt(msg, 10));
     });
@@ -25,11 +25,29 @@ export class FlashMessageComponentComponent implements OnInit {
     if (msg && msg !== '' && msg != null) {
       this.message = msg;
       this.showMessage = true;
+      console.log('showingMessage', msg);
 
       setTimeout(() => {
         this.showMessage = false;
         this.message = '';
-      }, 3000);
+      }, 1000);
+    }
+  }
+
+
+  displayMessage(msg: string) {
+    if (msg && msg !== '' && msg != null) {
+      this.message = msg;
+      this.showMessage = true;
+      console.log('showingMessage', msg);
+
+      if (msg === '1') {
+        setTimeout(() => {
+          this.showMessage = false;
+          this.message = '';
+        }, 1000);
+
+      }
     }
   }
 

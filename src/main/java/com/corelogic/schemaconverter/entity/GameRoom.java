@@ -29,5 +29,6 @@ public class GameRoom {
 
     private long question;
     private long playerId;
+    private int timeRemaining;
 }
 

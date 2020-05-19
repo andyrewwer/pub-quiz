@@ -13,8 +13,6 @@ import {Label} from 'ng2-charts';
 export class ImagineLeaderboardComponent implements OnInit {
 
   @Input() gameRoom: GameRoom;
-  @Input() submitted = false;
-  @Output() submittedChange = new EventEmitter<boolean>();
   answerCountGameMap = new Map<number, Array<ImagineIfGameRound>>();
 
   public labels: Array<Label> = new Array<Label>();
@@ -29,6 +27,10 @@ export class ImagineLeaderboardComponent implements OnInit {
     this.gameService.findByGameRoomAndRound(this.gameRoom.id, this.gameRoom.round).subscribe(
       _games => {
         console.log('found games', _games);
+        if (_games.length === 0) {
+          /* show some error */
+          return;
+        }
         // map that shows for each Answer a list of Games
         const answerNumberGamesMap = new Map<number, Array<ImagineIfGameRound>>();
         _games.forEach(
@@ -125,7 +127,6 @@ export class ImagineLeaderboardComponent implements OnInit {
   }
 }
 
-// TODO SCOREfor real like timers and stuff
+// TODO SCORE for real like timers and stuff
 
 // TODO MAX POINTS
-// TODO 2. Maybe add some visualization like a graph

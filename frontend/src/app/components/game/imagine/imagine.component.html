@@ -1,15 +1,20 @@
 <mat-card>
-  <mat-card-header>
-    <!--      TODO DISPLAY ON MOBILE-->
-    <!--      TODO DISPLAY ROOMCODE MORE PRETTY-->
-    <mat-card-title>{{form.value.gameRoom.name}} - Current Question {{form.value.gameRoom.round}}</mat-card-title>
-    <mat-card-subtitle class="text-muted d-block">Click an option & when you're sure press submit!</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card>
-    <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
-      <h4>{{displayQuestion(form?.value?.question?.question)}}</h4>
-    <app-imagine-game [(form)]="form" [(submitted)]="submitted" *ngIf="!submitted && !!this.form.value.round"></app-imagine-game>
-    <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" [(submitted)]="submitted" *ngIf="submitted && !!this.form.value.round"></app-imagine-leaderboard>
-    </mat-card-content>
-  </mat-card>
+  <ng-container *ngIf="this.form.value?.gameRoom.status === 'CREATED'">
+    <app-imagine-home [gameRoom]="this.form.value.gameRoom"></app-imagine-home>
+  </ng-container>
+  <ng-container *ngIf="this.form.value?.gameRoom.status !== 'CREATED'">
+    <mat-card-header>
+      <!--      TODO DISPLAY ON MOBILE-->
+      <!--      TODO DISPLAY ROOMCODE MORE PRETTY-->
+      <mat-card-title>{{form.value.gameRoom.name}} - Current Round {{form.value.gameRoom.round}}</mat-card-title>
+      <mat-card-subtitle class="text-muted d-block">Click an option & when you're sure press submit!</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card>
+      <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
+        <h4>{{displayQuestion(form?.value?.question?.question)}}</h4>
+        <app-imagine-game [(form)]="form" [(submitted)]="submitted" *ngIf="!showLeaderboard"></app-imagine-game>
+        <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" *ngIf="showLeaderboard"></app-imagine-leaderboard>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
 </mat-card>

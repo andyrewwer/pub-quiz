@@ -24,7 +24,6 @@ export class ImagineGameComponent implements OnInit {
     this.checkForExistingAnswer(this.form.value.round);
     this.form.controls.round.valueChanges.subscribe(
       round => {
-        console.log('SUBSCRIBED TO CHANGE TO ROUND', round);
         this.checkForExistingAnswer(round);
       }
     );
@@ -38,8 +37,6 @@ export class ImagineGameComponent implements OnInit {
 
   }
 
-// TODO DOES NOT WORK BELOW
-// WHEN PREVIOUS NOT ANSWERED BUT CURRENT IS
   private checkForExistingAnswer(curRound) {
     if (!this.form.value.player || !curRound) {
       return;

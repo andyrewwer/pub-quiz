@@ -30,4 +30,8 @@ export class GameRoomService {
   getCurrentRoundGameRoom(gameRoom: GameRoom): Observable<GameRoom> {
     return this.http.get<GameRoom>('/api/gameRooms/' + gameRoom.id);
   }
+
+  startGame(gameRoom: GameRoom) {
+    return this.http.get<GameRoom>('/api/gameRooms/' + gameRoom.id + '/start');
+  }
 }

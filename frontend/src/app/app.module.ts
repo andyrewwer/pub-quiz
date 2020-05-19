@@ -39,6 +39,7 @@ import { ImagineGameComponent } from './components/game/imagine/imagine-game/ima
 import { FlashMessageComponentComponent } from './components/modals/flash-message-component/flash-message-component.component';
 import {ChartsModule} from 'ng2-charts';
 import { ChartComponent } from './components/tools/chart/chart.component';
+import { ImagineHomeComponent } from './components/game/imagine/imagine-home/imagine-home.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { ChartComponent } from './components/tools/chart/chart.component';
     ImagineGameComponent,
     FlashMessageComponentComponent,
     ChartComponent,
+    ImagineHomeComponent,
   ],
   imports: [
     AppRoutingModule,

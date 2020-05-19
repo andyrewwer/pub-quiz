@@ -42,4 +42,10 @@ public class GameRoomController {
     public GameRoom setCurrentRound(@PathVariable Long id, @PathVariable Integer round) {
         return gameRoomService.setCurrentRoundForGameRoom(id, round);
     }
+
+    @GetMapping("{id}/start")
+    public GameRoom startGame(@PathVariable Long id) {
+        return gameRoomService.startGame(id);
+    }
+
 }
