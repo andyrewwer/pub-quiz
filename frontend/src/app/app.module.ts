@@ -37,6 +37,8 @@ import { ImagineAdminComponent } from './components/admin/imagine-admin/imagine-
 import { ImagineLeaderboardComponent } from './components/game/imagine/imagine-leaderboard/imagine-leaderboard.component';
 import { ImagineGameComponent } from './components/game/imagine/imagine-game/imagine-game.component';
 import { FlashMessageComponentComponent } from './components/modals/flash-message-component/flash-message-component.component';
+import {ChartsModule} from 'ng2-charts';
+import { ChartComponent } from './components/tools/chart/chart.component';
 
 
 @NgModule({
@@ -62,6 +64,7 @@ import { FlashMessageComponentComponent } from './components/modals/flash-messag
     ImagineLeaderboardComponent,
     ImagineGameComponent,
     FlashMessageComponentComponent,
+    ChartComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -77,7 +80,8 @@ import { FlashMessageComponentComponent } from './components/modals/flash-messag
     MatRippleModule,
     MatListModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    ChartsModule
   ],
   exports: [
     MatCardModule,

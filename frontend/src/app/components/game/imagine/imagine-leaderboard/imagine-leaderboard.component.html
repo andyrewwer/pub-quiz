@@ -1,17 +1,26 @@
-<table class="table table-bordered mat-elevation-z3 mt-2">
-  <tbody>
-  <tr>
-    <th>Name</th>
-    <th>Response</th>
-    <th></th>
-  </tr>
-  <ng-container *ngFor="let key of getKeys(); let i = index">
-    <tr *ngFor="let game of answerCountGameMap.get(key)">
+<div class="row">
+  <div class="col-md-5 col-sm-12">
+    <table class="table table-bordered mat-elevation-z3 mt-2">
+      <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Response</th>
+        <th></th>
+      </tr>
+      <ng-container *ngFor="let key of getKeys(); let i = index">
+        <tr *ngFor="let game of answerCountGameMap.get(key)">
           <th>{{game.player.name}}</th>
-      <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
-      <td>{{game.player.score}} <span class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
-    </tr>
-  </ng-container>
-</table>
+          <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
+          <td>{{game.player.score}} <span class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+  <div class="col-md-6 col-sm-12 mt-3">
+    <app-chart [data]="data" [labels]="labels"></app-chart>
+  </div>
+</div>
 
-<button mat-raised-button (click)="calculate()">calculate scores</button>
+
+
+<!--<button mat-raised-button (click)="calculate()">calculate scores</button>-->

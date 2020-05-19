@@ -3,6 +3,7 @@ import {GameRoom} from '../../../../dto/gameRoom';
 import {ImagineIfGameRound} from '../../../../dto/imagineIfGameRound';
 import {ImagineGameService} from '../../../../services/imagine/imagine-game.service';
 import {ImagineIfQuestion} from '../../../../dto/imagineIfQuestion';
+import {Label} from 'ng2-charts';
 
 @Component({
   selector: 'app-imagine-leaderboard',
@@ -15,7 +16,12 @@ export class ImagineLeaderboardComponent implements OnInit {
   @Input() submitted = false;
   @Output() submittedChange = new EventEmitter<boolean>();
   answerCountGameMap = new Map<number, Array<ImagineIfGameRound>>();
-  constructor(private gameService: ImagineGameService) { }
+
+  public labels: Array<Label> = new Array<Label>();
+  public data: Array<number> = new Array<number>();
+
+  constructor(private gameService: ImagineGameService) {
+  }
 
   ngOnInit() {
     this.gameService.findByGameRoomAndRound(this.gameRoom.id, this.gameRoom.round).subscribe(
@@ -33,6 +39,8 @@ export class ImagineLeaderboardComponent implements OnInit {
             }
             gamesForAnswer.push(game);
           });
+
+        this.updateDataAndLabelsWithQuestion(_games[0].question, answerNumberGamesMap);
         this.answerCountGameMap = new Map<number, Array<ImagineIfGameRound>>();
         for (const key of answerNumberGamesMap.keys()) {
           const lengthKey = answerNumberGamesMap.get(key).length;
@@ -48,6 +56,14 @@ export class ImagineLeaderboardComponent implements OnInit {
         console.error('Error fetching games', err);
       }
     );
+  }
+
+  updateDataAndLabelsWithQuestion(question: ImagineIfQuestion, answerNumberGamesMap: Map<number, Array<ImagineIfGameRound>>) {
+    const answers = [question.answer1, question.answer2, question.answer3, question.answer4, question.answer5, question.answer6];
+    for (let key of answerNumberGamesMap.keys()) {
+      this.labels.push(answers[key-1]);
+      this.data.push(answerNumberGamesMap.get(key).length);
+    }
   }
 
   getAnswerForQuestion(answer: number, question: ImagineIfQuestion): string {
