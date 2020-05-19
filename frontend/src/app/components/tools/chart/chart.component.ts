@@ -12,7 +12,7 @@ export class ChartComponent implements OnChanges {
 
   @Input() labels: Label[];
   @Input() data: number[];
-  @Input() backgroundColors: string[];
+  @Input() backgroundColors: string[] = ['#ff849d', '#64b5ef', '#ffd77b', '#74cdcc', '#ae85ff', '#ffb26a'];
 
 
   // Pie
@@ -31,8 +31,6 @@ export class ChartComponent implements OnChanges {
       },
     }
   };
-  // public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  // public pieChartData: number[] = [300, 500, 100];
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
@@ -40,14 +38,6 @@ export class ChartComponent implements OnChanges {
       backgroundColor: this.backgroundColors
     },
   ];
-
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.pieChartColors = [
