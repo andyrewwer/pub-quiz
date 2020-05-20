@@ -10,8 +10,8 @@
           <th><button mat-stroked-button (click)="createGame()">Create new Game</button>
           </th>
         </tr>
-        <tr *ngFor="let room of gameRooms; let i = index" (click)="selectGameRoom(room)"
-            [className]="selectedGameRoom.id === room.id ? 'table-active' : ''">
+        <tr *ngFor="let room of gameRooms" (click)="selectGameRoom(room)"
+            [className]="selectedGameRoom?.id === room?.id ? 'table-active' : ''">
           <td>{{room.id}}</td>
           <td>{{room.name}}</td>
           <td>{{room.code}}</td>

@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameRoom} from '../../../dto/gameRoom';
 import {GameRoomService} from '../../../services/game-room.service';
 import {ModalService} from '../../../services/modal.service';
-import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-admin-home',

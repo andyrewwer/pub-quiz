@@ -1,6 +1,34 @@
 <mat-card style="min-width: 500px">
   <mat-card-content>
     <mat-tab-group selectedIndex="0">
+      <mat-tab label="Games" class="bg-light">
+        <div class="main-div">
+          <mat-card>
+            <mat-card-content>
+              <table class="table table-striped">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Code</th>
+                  <th>Status</th>
+                  <th><button mat-stroked-button (click)="createGame()">Create new Game</button>
+                  </th>
+                </tr>
+                <tr *ngFor="let room of gameRooms">
+                  <td>{{room.id}}</td>
+                  <td>{{room.name}}</td>
+                  <td>{{room.code}}</td>
+                  <td>{{room.status | gameRoomStatus}}</td>
+                  <td><label class="mx-2">{{room.round}}</label>
+                    <img (click)="incrementRound(room)" class="mr-2" src="/assets/svg/add.svg"
+                         alt="Plus"/>
+                  </td>
+                </tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
       <mat-tab label="Add Question" class="bg-light">
         <app-add-question></app-add-question>
       </mat-tab>

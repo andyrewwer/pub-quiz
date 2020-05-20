@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {GameRoomService} from '../../../services/game-room.service';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GameRoomTypes} from '../../../dto/enums/gameRoomTypes';
 import gameRoomTypes = GameRoomTypes.gameRoomTypes;
@@ -15,12 +15,13 @@ export class CreateGameModalComponent {
   types = gameRoomTypes;
 
   form: FormGroup;
-  constructor(private builder: FormBuilder,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private builder: FormBuilder,
               private gameRoomService: GameRoomService,
               private dialogRef: MatDialogRef<CreateGameModalComponent>) {
     this.form = builder.group({
       name: [null, Validators.required],
-      type: ['QUIZ', Validators.required],
+      type: [data, Validators.required],
       code: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     });
   }

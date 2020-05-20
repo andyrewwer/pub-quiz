@@ -64,7 +64,7 @@ export class QuizAdminComponent implements OnInit, OnDestroy {
   }
 
   createGame() {
-    this.modalService.showCreateGameModal().subscribe(
+    this.modalService.showCreateGameModal(GameRoomTypes.QUIZ).subscribe(
       success => {
         if (!!success && success) {
           this.findAllGameRooms();

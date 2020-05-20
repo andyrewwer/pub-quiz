@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ConfirmationModalComponent} from '../components/modals/confirmation-modal/confirmation-modal.component';
 import {QuizGameRound} from '../dto/quizGameRound';
 import {CreateGameModalComponent} from '../components/modals/create-game-modal/create-game-modal.component';
 import {Observable} from 'rxjs';
 import {BasicMessageModalComponent} from '../components/modals/basic-error-modal/basic-message-modal.component';
+import {GameRoomTypes} from '../dto/enums/gameRoomTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +36,12 @@ export class ModalService {
     return dialogRef.afterClosed();
   }
 
-  showCreateGameModal(): Observable<any> {
-    const dialogRef = this.dialog.open(CreateGameModalComponent);
+  showCreateGameModal(gameType: GameRoomTypes = GameRoomTypes.QUIZ): Observable<any> {
+    const data: MatDialogConfig = {
+      data: gameType
+    };
+
+    const dialogRef = this.dialog.open(CreateGameModalComponent, data);
     return dialogRef.afterClosed();
   }
 }
