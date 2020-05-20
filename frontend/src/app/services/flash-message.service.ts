@@ -16,7 +16,6 @@ export class FlashMessageService {
   constructor() { }
 
   updateFlashMessage(message: string) {
-    console.log('flashing message 2', message);
     this.message.next(message);
   }
 

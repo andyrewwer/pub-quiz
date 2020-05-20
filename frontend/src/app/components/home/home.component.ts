@@ -36,6 +36,10 @@ export class HomeComponent implements OnInit {
   }
 
   submit() {
+    if (this.form.invalid) {
+      console.log('form is invalid :( ');
+      return;
+    }
     if (this.form.value.quizcode === 'ADMINN' && this.form.value.name === 'ADMIN') {
       this.router.navigate(['/admin']);
       // TODO CREATE LOBBY

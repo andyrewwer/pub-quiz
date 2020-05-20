@@ -15,4 +15,7 @@ public interface GameRoomRepository extends JpaRepository<GameRoom, Long> {
     GameRoom findByCode(String code);
 
     List<GameRoom> findByTypeAndStatusAndTimeRemainingGreaterThanEqual(GameRoomType type, GameRoomStatus created, int timeRemaining);
+
+    List<GameRoom> findAllByTypeOrderByNameAsc(GameRoomType type);
+    List<GameRoom> findAllByOrderByName();
 }

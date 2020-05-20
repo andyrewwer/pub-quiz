@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GameRoom} from '../dto/gameRoom';
+import {GameRoomTypes} from '../dto/enums/gameRoomTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class GameRoomService {
 
   findAll(): Observable<Array<GameRoom>> {
     return this.http.get<Array<GameRoom>>('/api/gameRooms');
+  }
+
+  findAllForGameType(type: GameRoomTypes): Observable<Array<GameRoom>> {
+    return this.http.get<Array<GameRoom>>('/api/gameRooms/type/' + type);
   }
 
   getCurrentRound(gameRoom: GameRoom): Observable<number> {

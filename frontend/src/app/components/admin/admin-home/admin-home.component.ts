@@ -1,11 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameRoom} from '../../../dto/gameRoom';
 import {GameRoomService} from '../../../services/game-room.service';
-import {AnswerComponent} from './answer/answer.component';
-import {LeaderboardComponent} from './leaderboard/leaderboard.component';
-import {PlayersComponent} from './players/players.component';
 import {ModalService} from '../../../services/modal.service';
-import {GameRoomTypes} from '../../../dto/enums/gameRoomTypes';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-admin-home',
@@ -13,17 +10,13 @@ import {GameRoomTypes} from '../../../dto/enums/gameRoomTypes';
   styleUrls: ['./admin-home.component.css']
 })
 export class AdminHomeComponent implements OnInit {
-  @ViewChild(AnswerComponent, null) private childAnswer: AnswerComponent;
-  @ViewChild(LeaderboardComponent, null) private childLeaderboard: LeaderboardComponent;
-  @ViewChild(PlayersComponent, null) private childPlayers: PlayersComponent;
-
   gameRooms: Array<GameRoom>;
-  selectedGameRoom: GameRoom;
   constructor(private gameRoomService: GameRoomService,
               private modalService: ModalService) { }
 
   ngOnInit() {
     this.findAllGameRooms();
+
   }
 
   private findAllGameRooms() {
@@ -68,10 +61,7 @@ export class AdminHomeComponent implements OnInit {
     );
   }
 
-  selectGameRoom(room: GameRoom) {
-    this.selectedGameRoom = room;
-    this.childAnswer.refresh(room);
-    this.childLeaderboard.refresh(room);
-    this.childPlayers.refresh(room);
+  refresh() {
+    this.findAllGameRooms();
   }
 }

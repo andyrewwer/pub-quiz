@@ -55,7 +55,6 @@ public class QuizGameService {
         if (gameRound.getAnswerTheme() == null) {
             gameRound.setAnswerTheme(new QuizAnswer());
         }
-//        TODO CHECK IF game already exists based on player & gameroom & round
         return gameRoundRepository.save(gameRound);
     }
 

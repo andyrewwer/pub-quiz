@@ -4,16 +4,16 @@
       <table class="table table-striped">
         <tr>
           <th>
-            <button mat-stroked-button (click)="createGame()">Create new Game</button>
+            <img src="/assets/svg/refresh.svg" alt="Refresh" (click)="refresh()"/>
           </th>
           <th>Name</th>
           <th>Game</th>
           <th>Code</th>
           <th>Status</th>
-          <th>Round</th>
+          <th><button mat-stroked-button (click)="createGame()">Create new Game</button></th>
         </tr>
-        <tr *ngFor="let room of gameRooms; let i = index" (click)="selectGameRoom(room)" [className]="selectedGameRoom === room ? 'table-active' : ''">
-          <td>{{i+1}}</td>
+        <tr *ngFor="let room of gameRooms">
+          <td>{{room.id}}</td>
           <td>{{room.name}}</td>
           <td>{{room.type | gameRoomPipe}}</td>
           <td>{{room.code}}</td>
@@ -27,25 +27,6 @@
           </td>
         </tr>
       </table>
-      <div class="mt-5">
-        <div *ngIf="!!selectedGameRoom">
-          <mat-card>
-            <mat-card-content>
-              <mat-tab-group>
-                <mat-tab label="Check Answers" class="bg-light">
-                  <app-answer [selectedGameRoom]="selectedGameRoom"></app-answer>
-                </mat-tab>
-                <mat-tab label="Leaderboard" class="bg-light">
-                  <app-leaderboard [selectedGameRoom]="selectedGameRoom"></app-leaderboard>
-                </mat-tab>
-                <mat-tab label="Players" class="bg-light">
-                  <app-players [selectedGameRoom]="selectedGameRoom"></app-players>
-                </mat-tab>
-              </mat-tab-group>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
     </mat-card-content>
   </mat-card>
 </div>

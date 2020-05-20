@@ -28,7 +28,6 @@ export class FlashMessageComponentComponent implements OnInit {
     if (msg && msg !== '' && msg != null) {
       this.message = msg;
       this.showMessage = true;
-      console.log('showingMessage', msg);
 
       setTimeout(() => {
         this.showMessage = false;
@@ -46,7 +45,6 @@ export class FlashMessageComponentComponent implements OnInit {
     if (msg && msg !== '' && msg != null) {
       this.message = msg;
       this.showMessage = true;
-      console.log('showingMessage', msg);
 
       if (msg === '1') {
         setTimeout(() => {

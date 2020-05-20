@@ -65,6 +65,5 @@ public class QuizGameRound {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Transient
     private GameRoomType type = GameRoomType.QUIZ;
-    // TODO ARRAY INSTEAD OF LIST?
 }
 

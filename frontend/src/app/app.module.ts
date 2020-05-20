@@ -16,23 +16,23 @@ import {
 import {HomeComponent} from './components/home/home.component';
 import {QuizComponent} from './components/game/quiz/quiz.component';
 import {Broadcaster} from './services/broadcaster';
-import {AnswerComponent} from './components/admin/admin-home/answer/answer.component';
+import {AnswerComponent} from './components/admin/quiz-admin/answer/answer.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LeaderboardComponent} from './components/admin/admin-home/leaderboard/leaderboard.component';
+import {LeaderboardComponent} from './components/admin/quiz-admin/leaderboard/leaderboard.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {AdminHomeComponent} from './components/admin/admin-home/admin-home.component';
 import {ConfirmationModalComponent} from './components/modals/confirmation-modal/confirmation-modal.component';
 import {ModalService} from './services/modal.service';
 import {MatDialogModule} from '@angular/material/dialog';
-import {PlayersComponent} from './components/admin/admin-home/players/players.component';
+import {PlayersComponent} from './components/admin/quiz-admin/players/players.component';
 import {CreateGameModalComponent} from './components/modals/create-game-modal/create-game-modal.component';
 import { GameRoomPipePipe } from './dto/pipes/game-room-pipe.pipe';
 import { GameRoomStatusPipe } from './dto/pipes/game-room-status-pipe.pipe';
 import {BasicMessageModalComponent} from './components/modals/basic-error-modal/basic-message-modal.component';
-import { AddQuestionComponent } from './components/game/imagine/add-question/add-question.component';
+import { AddQuestionComponent } from './components/admin/imagine-admin/add-question/add-question.component';
 import { ImagineComponent } from './components/game/imagine/imagine.component';
-import { EditQuestionsComponent } from './components/game/imagine/edit-questions/edit-questions.component';
+import { EditQuestionsComponent } from './components/admin/imagine-admin/edit-questions/edit-questions.component';
 import { ImagineAdminComponent } from './components/admin/imagine-admin/imagine-admin.component';
 import { ImagineLeaderboardComponent } from './components/game/imagine/imagine-leaderboard/imagine-leaderboard.component';
 import { ImagineGameComponent } from './components/game/imagine/imagine-game/imagine-game.component';
@@ -40,6 +40,7 @@ import { FlashMessageComponentComponent } from './components/modals/flash-messag
 import {ChartsModule} from 'ng2-charts';
 import { ChartComponent } from './components/tools/chart/chart.component';
 import { ImagineHomeComponent } from './components/game/imagine/imagine-home/imagine-home.component';
+import { QuizAdminComponent } from './components/admin/quiz-admin/quiz-admin.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ImagineHomeComponent } from './components/game/imagine/imagine-home/ima
     FlashMessageComponentComponent,
     ChartComponent,
     ImagineHomeComponent,
+    QuizAdminComponent,
   ],
   imports: [
     AppRoutingModule,

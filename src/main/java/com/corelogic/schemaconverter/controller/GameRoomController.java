@@ -1,6 +1,7 @@
 package com.corelogic.schemaconverter.controller;
 
 import com.corelogic.schemaconverter.entity.GameRoom;
+import com.corelogic.schemaconverter.entity.enums.GameRoomType;
 import com.corelogic.schemaconverter.service.GameRoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,12 @@ public class GameRoomController {
     public List<GameRoom> findGames() {
         return gameRoomService.findAll();
     }
+
+    @GetMapping("/type/{type}")
+    public List<GameRoom> findGamesForGameRoomType(@PathVariable String type) {
+        return gameRoomService.findAllForGameRoomType(GameRoomType.valueOf(type));
+    }
+
 
     @GetMapping("{id}/round")
     public Integer getCurrentRound(@PathVariable Long id) {

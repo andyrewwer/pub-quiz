@@ -1,8 +1,9 @@
 package com.corelogic.schemaconverter.service;
 
+import com.corelogic.schemaconverter.dto.error.InvalidSetRoundException;
 import com.corelogic.schemaconverter.entity.GameRoom;
 import com.corelogic.schemaconverter.entity.enums.GameRoomStatus;
-import com.corelogic.schemaconverter.games.imagine.entity.ImagineIfGameRound;
+import com.corelogic.schemaconverter.entity.enums.GameRoomType;
 import com.corelogic.schemaconverter.games.imagine.service.ImagineIfGameService;
 import com.corelogic.schemaconverter.games.imagine.service.ImagineIfQuestionService;
 import com.corelogic.schemaconverter.repository.GameRoomRepository;
@@ -51,7 +52,7 @@ public class GameRoomService {
     public GameRoom findById(Long id) { return gameRoomRepository.findOne(id); }
     public GameRoom findOne(GameRoom gameRoom) { return findById(gameRoom.getId()); }
 
-    public List<GameRoom> findAll() { return gameRoomRepository.findAll(); }
+    public List<GameRoom> findAll() { return gameRoomRepository.findAllByOrderByName(); }
 
     public Integer getCurrentRoundForGameRoom(Long id) {
         return findById(id).getRound();
@@ -59,6 +60,9 @@ public class GameRoomService {
 
     public GameRoom setCurrentRoundForGameRoom(Long id, Integer round) {
         GameRoom gameRoom = gameRoomRepository.findOne(id);
+        if (Math.abs(gameRoom.getRound()-round) != 1) {
+            throw new InvalidSetRoundException("Expected to increment round by 1 but was " + Math.abs(gameRoom.getRound()-round));
+        }
         gameRoom.setStatus(GameRoomStatus.STARTED);
         switch (gameRoom.getType()) {
             case IMAGINE_IF:
@@ -77,5 +81,9 @@ public class GameRoomService {
         GameRoom gameRoom = findById(id);
         gameRoom.setStatus(GameRoomStatus.STARTED);
         return gameRoomRepository.save(gameRoom);
+    }
+
+    public List<GameRoom> findAllForGameRoomType(GameRoomType type) {
+        return gameRoomRepository.findAllByTypeOrderByNameAsc(type);
     }
 }
