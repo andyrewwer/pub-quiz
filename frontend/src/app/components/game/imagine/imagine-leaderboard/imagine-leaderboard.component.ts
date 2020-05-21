@@ -18,7 +18,7 @@ export class ImagineLeaderboardComponent implements OnInit {
   public labels: Array<Label> = new Array<Label>();
   public data: Array<number> = new Array<number>();
   public backgroundColours: Array<string> = new Array<string>();
-  public imagineColors = ['#ff849d', '#64b5ef', '#ffd77b', '#74cdcc', '#ae85ff', '#ffb26a'];
+  public imagineColors = ['#09BBA0', '#37F2BA', '#16A0CC', '#1982A1', '#185F7C', '#73C2FB'];
 
   constructor(private gameService: ImagineGameService) {
   }
@@ -109,7 +109,7 @@ export class ImagineLeaderboardComponent implements OnInit {
   getKeys(): Array<number> {
     return Array.from(this.answerCountGameMap.keys()).sort((a, b) => b - a);
   }
-  
+
   getNumberOfPoints(game: ImagineIfGameRound): string {
     return game.player.id === game.selectedPlayerId ? '2' : '1';
   }

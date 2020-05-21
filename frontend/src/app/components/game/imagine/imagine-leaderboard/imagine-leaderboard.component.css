@@ -12,28 +12,28 @@ table {
   background-color: #85A09C;
 }
 
-.red-text {
+.answer1-text {
   /*color: #ffe1e6; // light */
-  color: #ff849d;
+  color: #09BBA0;
 }
-.blue-text {
+.answer2-text {
   /*color: #d9ecfb; // light*/
-  color: #64b5ef;
+  color: #37F2BA;
 }
-.yellow-text {
+.answer3-text {
   /*color: #fff5de; // light*/
-  color: #ffd77b;
+  color: #16A0CC;
 }
-.green-text {
+.answer4-text {
   /*color: #ddf2f2; // light*/
-  color: #74cdcc;
+  color: #1982A1;
 
 }
-.purple-text {
-  color: #ae85ff;
+.answer5-text {
+  color: #185F7C;
   /*color: #ebe0ff; // light*/
 }
-.orange-text {
+.answer6-text {
   /*color: #ffecdb; // light*/
-  color: #ffb26a;
+  color: #73C2FB;
 }

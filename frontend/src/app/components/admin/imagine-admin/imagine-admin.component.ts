@@ -28,7 +28,7 @@ export class ImagineAdminComponent implements OnInit, OnDestroy {
   }
 
   private findAllGameRooms() {
-    this.gameRoomService.findAllForGameType(GameRoomTypes.QUIZ).subscribe(
+    this.gameRoomService.findAllForGameType(GameRoomTypes.IMAGINE_IF).subscribe(
       _gameRooms => {
         console.log('Game Rooms', _gameRooms);
         this.gameRooms = _gameRooms;
