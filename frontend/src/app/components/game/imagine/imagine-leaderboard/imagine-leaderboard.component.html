@@ -1,4 +1,4 @@
-<div class="row" *ngIf="answerCountGameMap.size > 0">
+<div class="row">
   <div class="ml-3 col-md-5 col-sm-12">
     <table class="table table-bordered mat-elevation-z3 mt-2">
       <tbody>
@@ -7,12 +7,15 @@
         <th>Response</th>
         <th></th>
       </tr>
-      <ng-container *ngFor="let key of getKeys(); let i = index">
-        <tr *ngFor="let game of answerCountGameMap.get(key)">
-          <th>{{game.player.name}}</th>
-          <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
-          <td>{{game.player.score}} <span class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
-        </tr>
+      <ng-container *ngIf="!!getKeys() && getKeys().length > 0">
+        <ng-container *ngFor="let key of getKeys(); let i = index">
+          <tr *ngFor="let game of answerCountGameMap.get(key)">
+            <th>{{game.player.name}}</th>
+            <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
+            <td>{{game.player.score}} <span
+              class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
+          </tr>
+        </ng-container>
       </ng-container>
       <tr *ngFor="let player of playersInGameRoomWithNoAnswers">
         <th>{{player.name}}</th>
@@ -25,10 +28,6 @@
   <div class="ml-1 col-md-6 col-sm-12 mt-3">
     <app-chart [data]="data" [labels]="labels" [backgroundColors]="backgroundColours"></app-chart>
   </div>
-</div>
-<div *ngIf="answerCountGameMap.size === 0">
-  <h3> Unfortunately no-one answered this question</h3>
-<!--  TODO Pick this up-->
 </div>
 
 <!--TODO move from this screen back to hommeeeeeeeeeeeee-->

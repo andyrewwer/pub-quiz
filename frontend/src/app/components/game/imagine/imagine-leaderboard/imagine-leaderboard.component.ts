@@ -30,6 +30,10 @@ export class ImagineLeaderboardComponent implements OnInit {
     this.gameService.findByGameRoomAndRound(this.gameRoom.id, this.gameRoom.round).subscribe(
       _games => {
         if (_games.length === 0) {
+          this.playerService.findAllForGameRoom(this.gameRoom).subscribe(
+            players => {
+              this.playersInGameRoomWithNoAnswers = players;
+            });
           return;
         }
         this.playerService.findAllForGameRoom(this.gameRoom).subscribe(
