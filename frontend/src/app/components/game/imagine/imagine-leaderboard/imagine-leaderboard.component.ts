@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {GameRoom} from '../../../../dto/gameRoom';
 import {ImagineIfGameRound} from '../../../../dto/imagineIfGameRound';
 import {ImagineGameService} from '../../../../services/imagine/imagine-game.service';
@@ -90,17 +90,17 @@ export class ImagineLeaderboardComponent implements OnInit {
   setTextColor(answer: number): string {
     switch (answer) {
       case 1:
-        return 'red-text';
+        return 'answer1-text';
       case 2:
-        return 'blue-text';
+        return 'answer2-text';
       case 3:
-        return 'yellow-text';
+        return 'answer3-text';
       case 4:
-        return 'green-text';
+        return 'answer4-text';
       case 5:
-        return 'purple-text';
+        return 'answer5-text';
       case 6:
-        return 'orange-text';
+        return 'answer6-text';
       default:
         return '';
     }
