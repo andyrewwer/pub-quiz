@@ -68,7 +68,10 @@ export class ImagineComponent implements OnInit, OnDestroy {
           this.timeRemaining = gameRoom.timeRemaining;
           this.prevTime = gameRoom.timeRemaining;
         }
-        this.showLeaderboard = gameRoom.status !== GameRoomStatusTypes.STARTED && this.timeRemaining <= 0;
+        this.showLeaderboard = gameRoom.status === GameRoomStatusTypes.FINISHED;
+        if (this.showLeaderboard && this.timeRemaining > 0) {
+          this.flashService.hideMessage();
+        }
         if (gameRoom.round === this.form.value.round) {
           return;
         }

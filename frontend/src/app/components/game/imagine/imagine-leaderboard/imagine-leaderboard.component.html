@@ -14,6 +14,12 @@
           <td>{{game.player.score}} <span class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
         </tr>
       </ng-container>
+      <tr *ngFor="let player of playersInGameRoomWithNoAnswers">
+        <th>{{player.name}}</th>
+        <td>No answer given</td> <!-- something sassy? TODO !-->
+        <td>{{player.score}}</td>
+      </tr>
+      </tbody>
     </table>
   </div>
   <div class="ml-1 col-md-6 col-sm-12 mt-3">

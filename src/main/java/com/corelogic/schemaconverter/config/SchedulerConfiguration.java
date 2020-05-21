@@ -22,7 +22,7 @@ public class SchedulerConfiguration {
     }
 
     @Scheduled(cron = "0/5 * * * * *")
-    public void test() {
+    public void reduceGameRoomTimersByFiveSeconds() {
         imagineIfGameService.updateTimersForAllGameRooms();
     }
 }

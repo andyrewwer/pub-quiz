@@ -4,6 +4,8 @@ import {ImagineIfGameRound} from '../../../../dto/imagineIfGameRound';
 import {ImagineGameService} from '../../../../services/imagine/imagine-game.service';
 import {ImagineIfQuestion} from '../../../../dto/imagineIfQuestion';
 import {Label} from 'ng2-charts';
+import {PlayerService} from '../../../../services/player.service';
+import {Player} from '../../../../dto/player';
 
 @Component({
   selector: 'app-imagine-leaderboard',
@@ -14,13 +16,14 @@ export class ImagineLeaderboardComponent implements OnInit {
 
   @Input() gameRoom: GameRoom;
   answerCountGameMap = new Map<number, Array<ImagineIfGameRound>>();
-
+  playersInGameRoomWithNoAnswers: Array<Player> = new Array<Player>();
   public labels: Array<Label> = new Array<Label>();
   public data: Array<number> = new Array<number>();
   public backgroundColours: Array<string> = new Array<string>();
   public imagineColors = ['#09BBA0', '#37F2BA', '#16A0CC', '#1982A1', '#185F7C', '#73C2FB'];
 
-  constructor(private gameService: ImagineGameService) {
+  constructor(private gameService: ImagineGameService,
+              private playerService: PlayerService) {
   }
 
   ngOnInit() {
@@ -29,6 +32,23 @@ export class ImagineLeaderboardComponent implements OnInit {
         if (_games.length === 0) {
           return;
         }
+        this.playerService.findAllForGameRoom(this.gameRoom).subscribe(
+          players => {
+            players.forEach(
+              player => {
+                let found = false;
+                _games.forEach(
+                  game => {
+                    if (game.player.id === player.id) {
+                      found = true;
+                    }
+                  });
+                  if (!found) {
+                    this.playersInGameRoomWithNoAnswers.push(player);
+                  }
+              });
+          }
+        );
         const answerNumberGamesMap = new Map<number, Array<ImagineIfGameRound>>();
         _games.forEach(
           game => {

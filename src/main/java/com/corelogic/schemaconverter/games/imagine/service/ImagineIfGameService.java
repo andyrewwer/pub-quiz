@@ -35,7 +35,20 @@ public class ImagineIfGameService  {
 
     public ImagineIfGameRound save(ImagineIfGameRound gameRound) {
         log.info("Saving imagineIfGameRound {}", gameRound);
+        // TODO check if all answers are submitted as well!!
+        gameRound = gameRoundRepository.save(gameRound);
+        checkIfRoundIsComplete(gameRound);
         return gameRoundRepository.save(gameRound);
+    }
+
+    private void checkIfRoundIsComplete(ImagineIfGameRound round) {
+        List<Player> playersForGameRoom = playerService.findAllForGameRoom(round.getGameRoom().getId());
+        List<ImagineIfGameRound> answersForGameRound = findByGameRoomIdAndRound(round.getGameRoom().getId(), round.getRound());
+
+        if (playersForGameRoom.size() != answersForGameRound.size()) {
+            return;
+        }
+        gameRoomRepository.save(finishRound(round.getGameRoom()));
     }
 
     public ImagineIfQuestion getQuestion(long questionId) {
@@ -110,20 +123,24 @@ public class ImagineIfGameService  {
     }
 
     public void updateTimersForAllGameRooms() {
-        // TODO check if all answers are submitted as well!!
         List<GameRoom> gameRooms = gameRoomRepository.findByTypeAndStatusAndTimeRemainingGreaterThanEqual(GameRoomType.IMAGINE_IF, GameRoomStatus.STARTED,  0);
         gameRooms.forEach(
                 room -> {
                     int newTime = room.getTimeRemaining() - 5;
                     room.setTimeRemaining(newTime);
                     if (newTime <= 0) {
-                        updateScoresForGameRoomIdAndRound(room.getId(), room.getRound());
-                        room.setStatus(GameRoomStatus.FINISHED);
+                        finishRound(room);
                     }
                 });
 
         gameRoomRepository.save(gameRooms);
         log.info("Game Rooms! [{}]", gameRooms);
+    }
+
+    private GameRoom finishRound(GameRoom room) {
+        updateScoresForGameRoomIdAndRound(room.getId(), room.getRound());
+        room.setStatus(GameRoomStatus.FINISHED);
+        return room;
     }
 
     public GameRoom setUpNewRound(GameRoom gameRoom, int round) {
