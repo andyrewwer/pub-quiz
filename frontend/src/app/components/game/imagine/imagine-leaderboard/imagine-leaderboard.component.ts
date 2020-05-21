@@ -139,6 +139,4 @@ export class ImagineLeaderboardComponent implements OnInit {
   }
 }
 
-// TODO SCORE for real like timers and stuff
-
 // TODO MAX POINTS

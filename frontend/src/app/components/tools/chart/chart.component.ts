@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -10,7 +10,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 })
 export class ChartComponent implements OnChanges {
 
-  @Input() labels: Label[]; // TODO Labels to be white?
+  @Input() labels: Label[];
   @Input() data: number[];
   @Input() backgroundColors: string[] = ['#ff849d', '#64b5ef', '#ffd77b', '#74cdcc', '#ae85ff', '#ffb26a'];
 
@@ -24,10 +24,8 @@ export class ChartComponent implements OnChanges {
     },
     plugins: {
       datalabels: {
-        formatter: (value, ctx) => {
-          const label = ctx.chart.data.labels[ctx.dataIndex];
-          return label;
-        },
+        formatter: (value, ctx) => ctx.chart.data.labels[ctx.dataIndex],
+        color: 'white'
       },
     }
   };
