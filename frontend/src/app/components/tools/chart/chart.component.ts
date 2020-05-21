@@ -10,7 +10,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 })
 export class ChartComponent implements OnChanges {
 
-  @Input() labels: Label[];
+  @Input() labels: Label[]; // TODO Labels to be white?
   @Input() data: number[];
   @Input() backgroundColors: string[] = ['#ff849d', '#64b5ef', '#ffd77b', '#74cdcc', '#ae85ff', '#ffb26a'];
 
