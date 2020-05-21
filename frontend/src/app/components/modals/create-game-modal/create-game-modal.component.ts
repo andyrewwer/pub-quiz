@@ -34,6 +34,7 @@ export class CreateGameModalComponent {
         console.log('created game room', _gameRoom);
         this.dialogRef.close(true);
       }, err => {
+        // ON DUPLICATE MODAL SHOW ERROR
         console.error(err);
       }
     );
