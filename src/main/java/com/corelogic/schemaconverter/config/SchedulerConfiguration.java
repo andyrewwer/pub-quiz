@@ -21,7 +21,7 @@ public class SchedulerConfiguration {
         this.imagineIfGameService = imagineIfGameService;
     }
 
-    @Scheduled(cron = "0/5 * * * * *")
+    @Scheduled(cron = "0/2 * * * * *")
     public void reduceGameRoomTimersByFiveSeconds() {
         imagineIfGameService.updateTimersForAllGameRooms();
     }

@@ -126,7 +126,7 @@ public class ImagineIfGameService  {
         List<GameRoom> gameRooms = gameRoomRepository.findByTypeAndStatusAndTimeRemainingGreaterThanEqual(GameRoomType.IMAGINE_IF, GameRoomStatus.STARTED,  0);
         gameRooms.forEach(
                 room -> {
-                    int newTime = room.getTimeRemaining() - 5;
+                    int newTime = room.getTimeRemaining() - 2;
                     room.setTimeRemaining(newTime);
                     if (newTime <= 0) {
                         finishRound(room);
