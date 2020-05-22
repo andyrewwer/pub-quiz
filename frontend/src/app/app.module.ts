@@ -41,6 +41,7 @@ import {ChartsModule} from 'ng2-charts';
 import { ChartComponent } from './components/tools/chart/chart.component';
 import { ImagineHomeComponent } from './components/game/imagine/imagine-home/imagine-home.component';
 import { QuizAdminComponent } from './components/admin/quiz-admin/quiz-admin.component';
+import {MatToolbar, MatToolbarModule} from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { QuizAdminComponent } from './components/admin/quiz-admin/quiz-admin.com
     MatRippleModule,
     MatListModule,
     MatTabsModule,
+    MatToolbarModule,
     MatDialogModule,
     ChartsModule
   ],
@@ -95,6 +97,7 @@ import { QuizAdminComponent } from './components/admin/quiz-admin/quiz-admin.com
     MatRippleModule,
     MatListModule,
     MatTabsModule,
+    MatToolbarModule,
     MatDialogModule
   ],
   providers: [

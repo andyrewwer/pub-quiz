@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/">AndrewWeeks.tech</a>
+<mat-toolbar color="primary">
+  <button mat-button class="title-button" routerLink="/">AndrewWeeks.tech</button>
+  <span class="spacer"></span>
   <a class="navbar-brand pl-4 font-weight-bold text-primary" *ngIf="!!player">{{player.name}}</a>
-<!--  TODO SHOW / HIDE ADMIN BETTER. RENAME ADMIN?-->
-  <a class="navbar-brand" routerLink="/admin">Admin</a>
-</nav>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/admin">Admin</button>
+<!--  TODO SHOW / HIDE ADMIN BETTER. RENAME ADMIN-->
+</mat-toolbar>
