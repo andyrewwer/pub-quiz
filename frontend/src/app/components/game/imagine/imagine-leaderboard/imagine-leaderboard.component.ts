@@ -6,6 +6,8 @@ import {ImagineIfQuestion} from '../../../../dto/imagineIfQuestion';
 import {Label} from 'ng2-charts';
 import {PlayerService} from '../../../../services/player.service';
 import {Player} from '../../../../dto/player';
+import {GameRoomService} from '../../../../services/game-room.service';
+import {ModalService} from '../../../../services/modal.service';
 
 @Component({
   selector: 'app-imagine-leaderboard',
@@ -15,6 +17,7 @@ import {Player} from '../../../../dto/player';
 export class ImagineLeaderboardComponent implements OnInit {
 
   @Input() gameRoom: GameRoom;
+  currentRound: number;
   answerCountGameMap = new Map<number, Array<ImagineIfGameRound>>();
   playersInGameRoomWithNoAnswers: Array<Player> = new Array<Player>();
   public labels: Array<Label> = new Array<Label>();
@@ -23,10 +26,13 @@ export class ImagineLeaderboardComponent implements OnInit {
   public imagineColors = ['#09BBA0', '#37F2BA', '#16A0CC', '#1982A1', '#185F7C', '#73C2FB'];
 
   constructor(private gameService: ImagineGameService,
-              private playerService: PlayerService) {
+              private gameRoomService: GameRoomService,
+              private playerService: PlayerService,
+              private modalService: ModalService) {
   }
 
   ngOnInit() {
+    this.currentRound = this.gameRoom.round;
     this.gameService.findByGameRoomAndRound(this.gameRoom.id, this.gameRoom.round).subscribe(
       _games => {
         if (_games.length === 0) {
@@ -136,6 +142,20 @@ export class ImagineLeaderboardComponent implements OnInit {
 
   getNumberOfPoints(game: ImagineIfGameRound): string {
     return game.player.id === game.selectedPlayerId ? '2' : '1';
+  }
+
+  nextRound() {
+    if (this.gameRoom.round === this.currentRound) {
+      this.gameRoomService.setCurrentRound(this.gameRoom, ++this.gameRoom.round).subscribe(
+        _gameRoom => {
+          this.gameRoom = _gameRoom;
+        }, error => {
+          console.log(error);
+          this.gameRoom.round--;
+          this.modalService.showBasicModal('Error', 'Sorry, we failed to move to next round. Try again in a few moments!');
+        }
+      );
+    }
   }
 }
 

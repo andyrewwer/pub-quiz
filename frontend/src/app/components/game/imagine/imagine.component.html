@@ -9,12 +9,10 @@
       <mat-card-title>{{form.value.gameRoom.name}} - Current Round {{form.value.gameRoom.round}}</mat-card-title>
       <mat-card-subtitle class="text-muted d-block">Click an option & when you're sure press submit!</mat-card-subtitle>
     </mat-card-header>
-    <mat-card>
-      <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
-        <h4>{{displayQuestion(form?.value?.question?.question)}}</h4>
-        <app-imagine-game [(form)]="form" *ngIf="!showLeaderboard"></app-imagine-game>
-        <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" *ngIf="showLeaderboard"></app-imagine-leaderboard>
-      </mat-card-content>
-    </mat-card>
+    <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
+      <h4>{{displayQuestion(form?.value?.question?.question)}}</h4>
+      <app-imagine-game [(form)]="form" *ngIf="!showLeaderboard"></app-imagine-game>
+      <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" *ngIf="showLeaderboard"></app-imagine-leaderboard>
+    </mat-card-content>
   </ng-container>
 </mat-card>
