@@ -87,6 +87,7 @@ export class ImagineLeaderboardComponent implements OnInit {
         console.error('Error fetching games', err);
       }
     );
+    // TODO if someone has won do some animation
   }
 
   updateDataAndLabelsWithQuestion(question: ImagineIfQuestion, answerNumberGamesMap: Map<number, Array<ImagineIfGameRound>>) {
@@ -149,6 +150,7 @@ export class ImagineLeaderboardComponent implements OnInit {
       this.gameRoomService.setCurrentRound(this.gameRoom, ++this.gameRoom.round).subscribe(
         _gameRoom => {
           this.gameRoom = _gameRoom;
+          // TODO show 5 second timer before moving to next round or just go right away e
         }, error => {
           console.log(error);
           this.gameRoom.round--;
