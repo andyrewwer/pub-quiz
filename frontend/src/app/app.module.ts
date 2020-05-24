@@ -42,6 +42,7 @@ import { ChartComponent } from './components/tools/chart/chart.component';
 import { ImagineHomeComponent } from './components/game/imagine/imagine-home/imagine-home.component';
 import { QuizAdminComponent } from './components/admin/quiz-admin/quiz-admin.component';
 import {MatToolbar, MatToolbarModule} from '@angular/material/toolbar';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import {MatToolbar, MatToolbarModule} from '@angular/material/toolbar';
     ChartComponent,
     ImagineHomeComponent,
     QuizAdminComponent,
+    FooterComponent,
   ],
   imports: [
     AppRoutingModule,
