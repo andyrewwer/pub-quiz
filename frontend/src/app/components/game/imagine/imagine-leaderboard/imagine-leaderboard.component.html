@@ -1,31 +1,35 @@
 <div class="row mb-3">
   <div class="ml-3 col-md-5 col-sm-12">
     <table class="table table-bordered mat-elevation-z3 mt-2">
-      <tbody>
+      <thead>
       <tr>
         <th>Name</th>
         <th>Response</th>
         <th></th>
       </tr>
+      </thead>
+      <tbody>
       <ng-container *ngIf="!!getKeys() && getKeys().length > 0">
         <ng-container *ngFor="let key of getKeys(); let i = index">
           <tr *ngFor="let game of answerCountGameMap.get(key)">
-            <th>{{game.player.name}}</th>
+            <td>{{game.player.name}}</td>
             <td [class]="setTextColor(game.answer)">{{getAnswerForQuestion(game.answer, game.question)}}</td>
             <td>{{game.player.score}} <span
-              class="text-success">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
+              class="text-correct">{{i === 0 ? '(+' + getNumberOfPoints(game) + ')' : ''}}</span></td>
           </tr>
         </ng-container>
       </ng-container>
       <tr *ngFor="let player of playersInGameRoomWithNoAnswers">
-        <th>{{player.name}}</th>
+        <td>{{player.name}}</td>
         <td>No answer given</td>
         <td>{{player.score}}</td>
       </tr>
       </tbody>
     </table>
     <div class="text-center pt-3">
-      <button mat-raised-button color="primary" (click)="nextRound()" [disabled]="gameRoom.round !== currentRound">Next</button>
+      <button mat-raised-button color="primary" (click)="nextRound()" [disabled]="gameRoom.round !== currentRound">
+        Next
+      </button>
     </div>
   </div>
   <div class="ml-1 col-md-6 col-sm-12 mt-3">
