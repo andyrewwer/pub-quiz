@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <img src="assets/logo-white.png" height="47px"/>
+  <img src="assets/logo-white.png" height="43px"/>
   <button mat-button class="title-button" routerLink="/">AndrewWeeks.tech</button>
   <span class="spacer"></span>
-  <a class="navbar-brand pl-4 font-weight-bold text-player" *ngIf="!!player">{{player.name}}</a>
+  <a class="navbar-brand pl-4 font-weight-bold text-player" *ngIf="!!player"><small>{{player.gameRoom.code}} - {{player.name}}</small></a>
   <span class="spacer"></span>
-  <button mat-button routerLink="/admin">Admin</button>
+<!--  <button mat-button routerLink="/admin">Admin</button>-->
 <!--  TODO SHOW / HIDE ADMIN BETTER. RENAME ADMIN-->
 </mat-toolbar>

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!!this.playerService.getPlayer())  {
+    if (!!this.playerService.getPlayer()) {
       this.form.patchValue(this.playerService.getPlayer());
       this.form.controls.quizcode.setValue(this.playerService.getPlayer().gameRoom.code);
       this.playerEventService.fire(null);
@@ -40,28 +40,24 @@ export class HomeComponent implements OnInit {
       console.log('form is invalid :( ');
       return;
     }
-    if (this.form.value.quizcode === 'ADMINN' && this.form.value.name === 'ADMIN') {
+    this.form.controls.quizcode.setValue(this.form.value.quizcode.toUpperCase());
+    if (this.form.value.quizcode === 'ADMN' && this.form.value.name.toUpperCase() === 'ADMIN') {
       this.router.navigate(['/admin']);
       // TODO CREATE LOBBY
       // TODO CREATE MULTIPLE GAME TYPES
       // TODO CREATE LOG-ON page for admin
       // TODO add a changelog + wish list
-      // TODO CREATE NEW GAME TYPE - WHOOPS
-      // TODO CREATE A PAGE OF THE EVENTS FOR ANDREW?
       return;
     }
-    this.form.controls.name.setValue(this.form.value.name.toUpperCase());
-    this.form.controls.quizcode.setValue(this.form.value.quizcode.toUpperCase());
     this.playerService.save(this.form.value).subscribe(
       player => {
         this.playerService.setPlayer(player);
         this.playerEventService.fire(player);
         this.router.navigate(['/game/' + player.gameRoom.type.toLowerCase() + '/' + player.gameRoom.id]);
       }, (err: HttpErrorResponse) => {
-        if (err.status ===  412) {
+        if (err.status === 412) {
           this.modalService.showBasicModal('Error', 'Game Room Code Not Found');
         }
       });
   }
-
 }
