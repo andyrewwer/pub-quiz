@@ -11,10 +11,11 @@ export class StartGameModalComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private gameRoomService: GameRoomService,
-              private dialogRef: MatDialogRef<StartGameModalComponent>) { }
+              private dialogRef: MatDialogRef<StartGameModalComponent>) {
+  }
 
   startGame () {
-    this.gameRoomService.startGame(this.data.gameRoom).subscribe(
+    this.gameRoomService.startGame(this.data).subscribe(
       () => {
         this.dialogRef.close(true);
       }, err => {

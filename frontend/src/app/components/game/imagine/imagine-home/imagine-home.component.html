@@ -33,9 +33,8 @@
   </div>
   <div class="col-sm-12 col-md-5">
     <div class="text-center pt-1">
-      <button mat-raised-button color="primary" (click)="startGame()" [disabled]="players.length < 3">Start the Game!</button>
-      <mat-card-subtitle class="text-muted d-block pt-3">Warning: This will begin the game for everyone. Press when you're all ready.</mat-card-subtitle>
-<!--      TODO CONFIRMATION MODAL ? -->
+      <button mat-raised-button color="primary" (click)="startGame()" [disabled]="players?.length < 3">Start the Game!</button>
+      <mat-card-subtitle class="text-muted d-block pt-3">Warning: This will begin the game for everyone.</mat-card-subtitle>
     </div>
   </div>
 </div>
