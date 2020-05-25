@@ -1,7 +1,41 @@
-<h3> Now listen up here TWERPS, the game is about to begin </h3>
-// TODO BE MORE IMPERTINENT
-// ADD BUTTON to "START" the game.
-<!--todo fix this screen but it works-->
-
-<button mat-raised-button color="primary" (click)="startGame()">Start the Game!</button>
-<mat-card-subtitle class="text-muted d-block">This will start the game for everyone, click when you're ready to start! </mat-card-subtitle>
+<h3> Welcome to Imagine If! </h3>
+<h5>Room Code: {{gameRoom.code}} </h5>
+<small>Note: Players can join the game late; they'll be shown in the next question!</small>
+<div class="row">
+  <div class="col-sm-12 col-md-5">
+    <table class="table table-bordered mat-elevation-z3 mt-2">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Players in the game</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of players; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{player.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <p class="p-game-description"><b><i>Imagine If</i></b> is the game where it’s not what you think of yourself, but how others imagine you that
+      matters.<br>
+    </p>
+    <p class="p-rules">
+      Each round a question about one of the players will be posed and six possible answers displayed. It’s your job to imagine what that player
+      would be, choose, or do. In this game the majority rules—all who select the most popular answer will be awarded <b>one point</b>, whether or not
+      the answer agrees with the subject’s own answer about themself. If however, the subject’s own answer matches the
+      majority, that player will be awarded <b>two points</b>. In case of tie, all majorities will be given points.<br>
+      <br>
+      The first player to <b>25 points</b> wins.
+    </p>
+  </div>
+  <div class="col-sm-12 col-md-5">
+    <div class="text-center pt-1">
+      <button mat-raised-button color="primary" (click)="startGame()" [disabled]="players.length < 3">Start the Game!</button>
+      <mat-card-subtitle class="text-muted d-block pt-3">Warning: This will begin the game for everyone. Press when you're all ready.</mat-card-subtitle>
+<!--      TODO CONFIRMATION MODAL ? -->
+    </div>
+  </div>
+</div>

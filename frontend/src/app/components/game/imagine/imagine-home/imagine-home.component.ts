@@ -1,23 +1,43 @@
-import {Component, Input} from '@angular/core';
-import {GameRoomService} from '../../../../services/game-room.service';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {GameRoom} from '../../../../dto/gameRoom';
+import {Player} from '../../../../dto/player';
+import {interval, Subscription} from 'rxjs';
+import {PlayerService} from '../../../../services/player.service';
+import {ModalService} from '../../../../services/modal.service';
 
 @Component({
   selector: 'app-imagine-home',
   templateUrl: './imagine-home.component.html',
   styleUrls: ['./imagine-home.component.css']
 })
-export class ImagineHomeComponent {
+export class ImagineHomeComponent implements OnInit, OnDestroy{
 
   @Input() gameRoom: GameRoom;
+  players: Array<Player>;
+  subscription: Subscription;
 
-  constructor(private gameRoomService: GameRoomService) { }
+  constructor(private modalService: ModalService,
+              private playerService: PlayerService) { }
+
+  ngOnInit(): void {
+    this.fetchPlayers();
+
+    this.subscription = interval(2500).subscribe(val => {
+      this.fetchPlayers();
+    });
+  }
+
+  private fetchPlayers() {
+    this.playerService.findAllForGameRoom(this.gameRoom).subscribe(
+      players => this.players = players
+    );
+  }
 
   startGame() {
-    this.gameRoomService.startGame(this.gameRoom).subscribe(
-      () => {}, err => {
-        console.log('Error starting game', err);
-      }
-    );
+    this.modalService.showStartGameModal(this.gameRoom);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
