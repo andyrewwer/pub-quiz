@@ -69,8 +69,10 @@ public class GameRoomService {
                 gameRoom = imagineIfGameService.setUpNewRound(gameRoom, round);
 
                 // TODO check if question has already come up
-                // TODO check if duplicate questions??
-                // TODO AUDIT TABLES -- required?
+                // See the to-do in PlayerService. Same change will do both
+                // May require refactor to ImagineIfGameRound instead of 1 per player
+                // 1 per round and then sub-entity
+                // :man-shrugging:
         }
         gameRoom.setRound(round);
         log.info("Setting gameRoom [{}]", gameRoom);

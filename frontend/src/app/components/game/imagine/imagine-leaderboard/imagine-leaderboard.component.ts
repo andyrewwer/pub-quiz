@@ -87,7 +87,6 @@ export class ImagineLeaderboardComponent implements OnInit {
         console.error('Error fetching games', err);
       }
     );
-    // TODO if someone has won do some animation
   }
 
   updateDataAndLabelsWithQuestion(question: ImagineIfQuestion, answerNumberGamesMap: Map<number, Array<ImagineIfGameRound>>) {
@@ -160,5 +159,3 @@ export class ImagineLeaderboardComponent implements OnInit {
     }
   }
 }
-
-// TODO MAX POINTS

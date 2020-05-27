@@ -63,6 +63,9 @@ public class PlayerService {
 
     public long generateNewRandomPlayerIdForGameRoom(GameRoom gameRoom) {
         // TODO This should be random not ordered
+        // May require refactor to ImagineIfGameRound instead of 1 per player
+        // 1 per round and then sub-entity
+        // :man-shrugging:
         List<Player> playersInGame = findAllForGameRoom(gameRoom.getId());
         return playersInGame.size() > 0 ? playersInGame.get(gameRoom.getRound() % playersInGame.size()).getId() : 0;
 

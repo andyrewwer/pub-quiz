@@ -35,6 +35,9 @@ public class ImagineIfGameService  {
 
     public ImagineIfGameRound save(ImagineIfGameRound gameRound) {
         // TODO validate if it already exists
+        // if (gameRoundRepo.findByPlayer&Round exists)
+        // do nothing
+        // else
         log.info("Saving imagineIfGameRound {}", gameRound);
         gameRound = gameRoundRepository.save(gameRound);
         checkIfRoundIsComplete(gameRound);

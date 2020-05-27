@@ -36,7 +36,6 @@ export class QuizAdminComponent implements OnInit, OnDestroy {
   private findAllGameRooms() {
     this.gameRoomService.findAllForGameType(GameRoomTypes.QUIZ).subscribe(
       _gameRooms => {
-        console.log('Game Rooms', _gameRooms);
         this.gameRooms = _gameRooms;
       }
     );

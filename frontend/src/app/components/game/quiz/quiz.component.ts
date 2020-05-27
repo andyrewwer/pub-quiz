@@ -94,7 +94,7 @@ export class QuizComponent implements OnInit, OnDestroy {
           console.log('NEW ROUND', curRound);
           this.submitted = false;
           this.form.controls.round.setValue(curRound);
-          this.form.value.gameRoom.round = curRound; // TODO WILL THIS WORK?
+          this.form.value.gameRoom.round = curRound;
           this.refreshGames();
         }
       });

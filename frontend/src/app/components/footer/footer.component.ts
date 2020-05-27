@@ -11,7 +11,9 @@ export class FooterComponent {
 
 }
 
-// TODO CHANGELOG
-// TODO ABOUT THE DEVELOPER / THE SITE?
-// TODO Create game from main screen
-// TODO show room code in the header
+// TODO NICE-TO-HAVES
+// CHANGELOG
+// "wish-list", suggest an idea
+// ABOUT THE DEVELOPER / THE SITE?
+// Create game from main screen
+// show room code in the header

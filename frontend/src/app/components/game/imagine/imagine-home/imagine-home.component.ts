@@ -41,3 +41,5 @@ export class ImagineHomeComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 }
+
+// TODO MAX POINTS SHOULD BE A VARIABLE ON GAME_ROOM

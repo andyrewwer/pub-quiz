@@ -21,7 +21,6 @@ export class AdminHomeComponent implements OnInit {
   private findAllGameRooms() {
     this.gameRoomService.findAll().subscribe(
       _gameRooms => {
-        console.log('Game Rooms', _gameRooms);
         this.gameRooms = _gameRooms;
       }
     );

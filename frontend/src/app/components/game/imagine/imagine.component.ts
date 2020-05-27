@@ -129,3 +129,5 @@ export class ImagineComponent implements OnInit, OnDestroy {
   }
 
 }
+
+// SHOULD HAVE A GLOBAL LEAVE BUTTON MAYBE?
