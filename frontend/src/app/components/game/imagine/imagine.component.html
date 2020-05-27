@@ -1,18 +1,17 @@
 <mat-card>
-  <ng-container *ngIf="this.form.value?.gameRoom.status === 'CREATED'">
+  <ng-container *ngIf="showHome()">
     <app-imagine-home [gameRoom]="this.form.value.gameRoom"></app-imagine-home>
   </ng-container>
-  <ng-container *ngIf="this.form.value?.gameRoom.status !== 'CREATED'">
+  <ng-container *ngIf="!showHome()">
     <mat-card-header>
-      <!--      TODO DISPLAY ON MOBILE-->
-      <!--      TODO DISPLAY ROOMCODE MORE PRETTY-->
       <mat-card-title>{{form.value.gameRoom.name}} - Current Round {{form.value.gameRoom.round}}</mat-card-title>
       <mat-card-subtitle class="text-muted d-block">Click an option & when you're sure press submit!</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="mat-elevation-z8 pb-4 pt-4">
       <h4>{{displayQuestion(form?.value?.question?.question)}}</h4>
-      <app-imagine-game [(form)]="form" *ngIf="!showLeaderboard"></app-imagine-game>
-      <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" *ngIf="showLeaderboard"></app-imagine-leaderboard>
+      <app-imagine-game [(form)]="form" *ngIf="showGame()"></app-imagine-game>
+      <app-imagine-leaderboard [gameRoom]="form.value.gameRoom" *ngIf="showLeaderboard()"></app-imagine-leaderboard>
+      <app-imagine-final *ngIf="showFinal()" [gameRoom]="form.value.gameRoom"></app-imagine-final>
     </mat-card-content>
   </ng-container>
 </mat-card>

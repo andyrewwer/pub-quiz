@@ -39,4 +39,8 @@ export class GameRoomService {
   startGame(gameRoom: GameRoom) {
     return this.http.get<GameRoom>('/api/gameRooms/' + gameRoom.id + '/start');
   }
+
+  restartGame(gameRoom: GameRoom): Observable<GameRoom> {
+    return this.http.get<GameRoom>('/api/gameRooms/' + gameRoom.id + '/restart');
+  }
 }

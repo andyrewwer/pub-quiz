@@ -20,8 +20,6 @@ export class ImagineComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   personString = '[person name]';
   timeRemaining = -1;
-  showLeaderboard = false;
-  prevTime = -1;
 
   constructor(private builder: FormBuilder,
               private router: Router,
@@ -54,9 +52,6 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.getCurrentRound();
     this.subscription = interval(1000).subscribe(val => {
       this.getCurrentRound();
-      if (--this.timeRemaining > 0 && this.form.value.gameRoom.status === 'STARTED') {
-        this.flashService.updateFlashMessage(this.timeRemaining.toString());
-      }
     });
   }
 
@@ -64,13 +59,13 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.gameRoomService.getCurrentRoundGameRoom(this.form.value.gameRoom).subscribe(
       gameRoom => {
         this.form.controls.gameRoom.setValue(gameRoom);
-        if (gameRoom.timeRemaining !== this.prevTime) {
+        if (gameRoom.timeRemaining !== this.timeRemaining) {
           this.timeRemaining = gameRoom.timeRemaining;
-          this.prevTime = gameRoom.timeRemaining;
         }
-        this.showLeaderboard = gameRoom.status === GameRoomStatusTypes.FINISHED;
-        if (this.showLeaderboard && this.timeRemaining > 0) {
+        if (!this.showGame() || --this.timeRemaining < 0) {
           this.flashService.hideMessage();
+        } else {
+          this.flashService.updateFlashMessage(this.timeRemaining.toString());
         }
         if (gameRoom.round === this.form.value.round) {
           return;
@@ -103,6 +98,9 @@ export class ImagineComponent implements OnInit, OnDestroy {
   }
 
   displayQuestion(question: string): string {
+    if (this.showFinal()) {
+      return 'Game Over! Would you like to play again?';
+    }
     if (!!question) {
       return question.replace('[person]', this.personString);
     }
@@ -113,4 +111,21 @@ export class ImagineComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
     this.flashService.hideMessage();
   }
+
+  showHome() {
+    return this.form.value.gameRoom.status === GameRoomStatusTypes.CREATED;
+  }
+
+  showGame() {
+    return this.form.value.gameRoom.status === GameRoomStatusTypes.ROUND_STARTED;
+  }
+
+  showLeaderboard() {
+    return this.form.value.gameRoom.status === GameRoomStatusTypes.ROUND_FINISHED;
+  }
+
+  showFinal() {
+    return this.form.value.gameRoom.status === GameRoomStatusTypes.COMPLETE;
+  }
+
 }

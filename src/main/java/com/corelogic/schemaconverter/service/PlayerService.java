@@ -32,12 +32,21 @@ public class PlayerService {
             throw new GameRoomNotFoundException("Game Room not found!");
         }
         Player player = playerRepository.findByNameAndGameRoomId(playerJoinRequest.getName(), gameRoom.getId());
-        Player returnPlayer = ObjectUtils.isEmpty(player) ? playerRepository.save(Player.builder().gameRoom(gameRoom).name(playerJoinRequest.getName()).build()) : player;
+        if (ObjectUtils.isEmpty(player)) {
+            player = Player.builder()
+                    .gameRoom(gameRoom)
+                    .name(playerJoinRequest.getName())
+                    .active(true).build();
+            player = playerRepository.save(player);
+        } else {
+            player.setActive(true);
+            player = playerRepository.save(player);
+        }
         if (gameRoom.getPlayerId() == 0) {
-            gameRoom.setPlayerId(returnPlayer.getId());
+            gameRoom.setPlayerId(player.getId());
             gameRoomRepository.save(gameRoom);
         }
-        return returnPlayer;
+        return player;
     }
 
     public Player findById(Long id) {
@@ -49,7 +58,7 @@ public class PlayerService {
     }
 
     public List<Player> findAllForGameRoom(Long gameRoomId) {
-        return playerRepository.findAllByGameRoomId(gameRoomId);
+        return playerRepository.findAllByGameRoomIdAndActiveTrue(gameRoomId);
     }
 
     public long generateNewRandomPlayerIdForGameRoom(GameRoom gameRoom) {
@@ -60,6 +69,16 @@ public class PlayerService {
     }
 
     public Player save(Player player) {
+        return playerRepository.save(player);
+    }
+
+    public List<Player> findAllForGameRoomOrderByScore(Long gameRoomId) {
+        return playerRepository.findAllByGameRoomIdAndActiveTrueOrderByScoreDesc(gameRoomId);
+    }
+
+    public Player deactivatePlayer(Long id) {
+        Player player = this.playerRepository.findOne(id);
+        player.setActive(false);
         return playerRepository.save(player);
     }
 }

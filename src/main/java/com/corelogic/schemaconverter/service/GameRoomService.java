@@ -2,8 +2,10 @@ package com.corelogic.schemaconverter.service;
 
 import com.corelogic.schemaconverter.dto.error.InvalidSetRoundException;
 import com.corelogic.schemaconverter.entity.GameRoom;
+import com.corelogic.schemaconverter.entity.Player;
 import com.corelogic.schemaconverter.entity.enums.GameRoomStatus;
 import com.corelogic.schemaconverter.entity.enums.GameRoomType;
+import com.corelogic.schemaconverter.games.imagine.entity.ImagineIfGameRound;
 import com.corelogic.schemaconverter.games.imagine.service.ImagineIfGameService;
 import com.corelogic.schemaconverter.games.imagine.service.ImagineIfQuestionService;
 import com.corelogic.schemaconverter.repository.GameRoomRepository;
@@ -20,14 +22,12 @@ import java.util.List;
 @Transactional
 public class GameRoomService {
     private final GameRoomRepository gameRoomRepository;
-    private final ImagineIfQuestionService imagineIfQuestionService;
     private final ImagineIfGameService imagineIfGameService;
     private final PlayerService playerService;
 
     @Autowired
-    public GameRoomService(GameRoomRepository gameRoomRepository, ImagineIfQuestionService imagineIfQuestionService, ImagineIfGameService imagineIfGameService, PlayerService playerService) {
+    public GameRoomService(GameRoomRepository gameRoomRepository, ImagineIfGameService imagineIfGameService, PlayerService playerService) {
         this.gameRoomRepository = gameRoomRepository;
-        this.imagineIfQuestionService = imagineIfQuestionService;
         this.imagineIfGameService = imagineIfGameService;
         this.playerService = playerService;
     }
@@ -63,7 +63,7 @@ public class GameRoomService {
         if (Math.abs(gameRoom.getRound()-round) != 1) {
             throw new InvalidSetRoundException("Expected to increment round by 1 but was " + Math.abs(gameRoom.getRound()-round));
         }
-        gameRoom.setStatus(GameRoomStatus.STARTED);
+        gameRoom.setStatus(GameRoomStatus.ROUND_STARTED);
         switch (gameRoom.getType()) {
             case IMAGINE_IF:
                 gameRoom = imagineIfGameService.setUpNewRound(gameRoom, round);
@@ -79,11 +79,26 @@ public class GameRoomService {
 
     public GameRoom startGame(Long id) {
         GameRoom gameRoom = findById(id);
-        gameRoom.setStatus(GameRoomStatus.STARTED);
+        gameRoom.setStatus(GameRoomStatus.ROUND_STARTED);
         return gameRoomRepository.save(gameRoom);
     }
 
     public List<GameRoom> findAllForGameRoomType(GameRoomType type) {
         return gameRoomRepository.findAllByTypeOrderByNameAsc(type);
+    }
+
+    public GameRoom restartGame(Long id) {
+        GameRoom gameRoom = findById(id);
+        gameRoom.setRound(1);
+        gameRoom.setStatus(GameRoomStatus.CREATED);
+        gameRoom.setTimeRemaining(45);
+        List<ImagineIfGameRound> rounds = imagineIfGameService.findAllGamesForGameRoom(id);
+        imagineIfGameService.deleteGames(rounds);
+        List<Player> players = playerService.findAllForGameRoom(id);
+        for (Player player: players) {
+            player.setScore(0);
+            playerService.save(player);
+        }
+        return gameRoomRepository.save(gameRoom);
     }
 }

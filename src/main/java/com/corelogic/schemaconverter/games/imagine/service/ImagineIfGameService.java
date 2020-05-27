@@ -91,10 +91,10 @@ public class ImagineIfGameService  {
         return gameRoundRepository.findByPlayerIdAndRound(playerId, round);
     }
 
-    public void updateScoresForGameRoomIdAndRound(Long id, int round) {
-        List<ImagineIfGameRound> games = findByGameRoomIdAndRound(id, round);
+    public GameRoom updateScoresForGameRoomIdAndRound(GameRoom room) {
+        List<ImagineIfGameRound> games = findByGameRoomIdAndRound(room.getId(), room.getRound());
         if (games.size() == 0) {
-            return;
+            return room;
         }
         Map<Integer, List<ImagineIfGameRound>> answerNumberGamesMap = new HashMap<>();
         games.forEach(game -> {
@@ -111,24 +111,32 @@ public class ImagineIfGameService  {
             gamesForAnswerNumber.addAll(answerNumberGamesMap.get(key));
         }
 
-
+        List<Player> players = new ArrayList<>();
         for (ImagineIfGameRound game: answerCountGameMap.get(Collections.max((answerCountGameMap).keySet()))) {
             Player player = game.getPlayer();
+            players.add(player);
             if (game.getSelectedPlayerId() == game.getPlayer().getId()) {
                 player.setScore(player.getScore() + 1);
             }
             player.setScore(player.getScore() + 1);
             playerService.save(player);
         }
+        for (Player player : players) {
+            if (player.getScore() > 15) {
+                room.setStatus(GameRoomStatus.COMPLETE);
+                return gameRoomRepository.save(room);
+            }
+        }
+        return room;
     }
 
     public void updateTimersForAllGameRooms() {
-        List<GameRoom> gameRooms = gameRoomRepository.findByTypeAndStatusAndTimeRemainingGreaterThanEqual(GameRoomType.IMAGINE_IF, GameRoomStatus.STARTED,  0);
+        List<GameRoom> gameRooms = gameRoomRepository.findByTypeAndStatusAndTimeRemainingGreaterThanEqual(GameRoomType.IMAGINE_IF, GameRoomStatus.ROUND_STARTED,  0);
         gameRooms.forEach(
                 room -> {
-                    int newTime = room.getTimeRemaining() - 2;
+                    int newTime = room.getTimeRemaining() - 1;
                     room.setTimeRemaining(newTime);
-                    if (newTime <= 0) {
+                    if (newTime < 0) {
                         finishRound(room);
                     }
                 });
@@ -138,9 +146,8 @@ public class ImagineIfGameService  {
     }
 
     private GameRoom finishRound(GameRoom room) {
-        updateScoresForGameRoomIdAndRound(room.getId(), room.getRound());
-        room.setStatus(GameRoomStatus.FINISHED);
-        return room;
+        room.setStatus(GameRoomStatus.ROUND_FINISHED);
+        return updateScoresForGameRoomIdAndRound(room);
     }
 
     public GameRoom setUpNewRound(GameRoom gameRoom, int round) {
@@ -150,14 +157,16 @@ public class ImagineIfGameService  {
         }
         gameRoom.setTimeRemaining(45);
         if (gameRound != null && gameRound.getQuestion() != null) {
-            log.info("setting existing");
             gameRoom.setQuestion(gameRound.getQuestion().getId());
             gameRoom.setPlayerId(gameRound.getSelectedPlayerId());
         } else {
-            log.info("setting new ");
             gameRoom.setQuestion(questionService.generateNewQuestionId());
             gameRoom.setPlayerId(playerService.generateNewRandomPlayerIdForGameRoom(gameRoom));
         }
         return gameRoom;
+    }
+
+    public void deleteGames(List<ImagineIfGameRound> rounds) {
+        gameRoundRepository.delete(rounds);
     }
 }

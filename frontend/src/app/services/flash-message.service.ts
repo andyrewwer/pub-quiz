@@ -8,8 +8,6 @@ export class FlashMessageService {
 
   private message = new BehaviorSubject('');
   currentMessage = this.message.asObservable();
-  private countdown = new BehaviorSubject('');
-  currentCountdown = this.countdown.asObservable();
   private hideSubject = new BehaviorSubject('');
   hide = this.hideSubject.asObservable();
 
@@ -17,10 +15,6 @@ export class FlashMessageService {
 
   updateFlashMessage(message: string) {
     this.message.next(message);
-  }
-
-  updateCountdown(start: number ) {
-    this.countdown.next(start.toString());
   }
 
   hideMessage() {

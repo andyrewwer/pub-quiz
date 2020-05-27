@@ -22,8 +22,16 @@ export class PlayerService {
     return this.http.get<Array<Player>>('/api/players/gameRoom/' + selectedGameRoom.id);
   }
 
+  findAllForGameRoomOrderByScore(selectedGameRoom: GameRoom):  Observable<Array<Player>> {
+    return this.http.get<Array<Player>>('/api/players/gameRoom/' + selectedGameRoom.id + '/orderByScore');
+  }
+
   findPlayer(playerId: number): Observable<Player> {
     return this.http.get<Player>('/api/players/' + playerId);
+  }
+
+  leaveGame(player: Player): Observable<Player> {
+    return this.http.get<Player>('/api/players/' + player.id + '/deactivate');
   }
 
   getPlayer(): Player {

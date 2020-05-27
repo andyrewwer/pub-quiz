@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {GameRoomService} from '../../../services/game-room.service';
 
 @Component({
-  selector: 'start-game-modal',
+  selector: 'app-start-game-modal',
   templateUrl: './start-game-modal.component.html',
   styleUrls: ['./start-game-modal.component.css']
 })

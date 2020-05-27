@@ -4,10 +4,11 @@ import {ConfirmationModalComponent} from '../components/modals/confirmation-moda
 import {QuizGameRound} from '../dto/quizGameRound';
 import {CreateGameModalComponent} from '../components/modals/create-game-modal/create-game-modal.component';
 import {Observable} from 'rxjs';
-import {BasicMessageModalComponent} from '../components/modals/basic-error-modal/basic-message-modal.component';
+import {BasicMessageModalComponent} from '../components/modals/basic-message-modal/basic-message-modal.component';
 import {GameRoomTypes} from '../dto/enums/gameRoomTypes';
 import {GameRoom} from '../dto/gameRoom';
 import {StartGameModalComponent} from '../components/modals/start-game-modal/start-game-modal.component';
+import {EndGameModalComponent} from '../components/modals/end-game-modal/end-game-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,17 @@ export class ModalService {
     };
 
     const dialogRef = this.dialog.open(StartGameModalComponent, data);
+    return dialogRef.afterClosed();
+  }
+
+  showEndGameModal(title: string): Observable<any> {
+    const data: MatDialogConfig = {
+      data: {
+        title: title
+      }
+    };
+
+    const dialogRef = this.dialog.open(EndGameModalComponent, data);
     return dialogRef.afterClosed();
   }
 }

@@ -55,4 +55,9 @@ public class GameRoomController {
         return gameRoomService.startGame(id);
     }
 
+    @GetMapping("{id}/restart")
+    public GameRoom restartGame(@PathVariable Long id) {
+        return gameRoomService.restartGame(id);
+    }
+
 }

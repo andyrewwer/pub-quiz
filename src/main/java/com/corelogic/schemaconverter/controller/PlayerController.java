@@ -39,4 +39,14 @@ public class PlayerController {
         return playerService.findAllForGameRoom(gameRoomId);
     }
 
+    @GetMapping("/gameRoom/{gameRoomId}/orderByScore")
+    public List<Player> findPlayersForGameRoomOrderByScore(@PathVariable Long gameRoomId) {
+        return playerService.findAllForGameRoomOrderByScore(gameRoomId);
+    }
+
+    @GetMapping("/{id}/deactivate")
+    public Player deactivatePlayer(@PathVariable Long id) {
+        return playerService.deactivatePlayer(id);
+    }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FlashMessageService} from '../../../services/flash-message.service';
 
 @Component({
@@ -16,24 +16,7 @@ export class FlashMessageComponentComponent implements OnInit {
 
   ngOnInit() {
     this.flashMessageService.currentMessage.subscribe(msg => this.displayMessage(msg));
-    this.flashMessageService.currentCountdown.subscribe(msg => {
-      this.countdown(Number.parseInt(msg, 10));
-    });
-    this.flashMessageService.hide.subscribe(() => {
-      this.hideMessage();
-    });
-  }
-
-  updateMessage(msg: string) {
-    if (msg && msg !== '' && msg != null) {
-      this.message = msg;
-      this.showMessage = true;
-
-      setTimeout(() => {
-        this.showMessage = false;
-        this.message = '';
-      }, 1000);
-    }
+    this.flashMessageService.hide.subscribe(() => this.hideMessage());
   }
 
   hideMessage() {
@@ -53,18 +36,6 @@ export class FlashMessageComponentComponent implements OnInit {
         }, 1000);
 
       }
-    }
-  }
-
-  countdown(start: number) {
-    if (!!start && start >= 0) {
-      console.log('counting down ', start);
-      this.message = start.toString();
-      this.showMessage = true;
-      setTimeout(() => {
-        this.showMessage = false;
-        this.countdown(start - 1);
-      }, 1000);
     }
   }
 }

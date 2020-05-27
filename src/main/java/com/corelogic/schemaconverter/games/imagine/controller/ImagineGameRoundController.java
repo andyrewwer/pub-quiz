@@ -39,9 +39,4 @@ public class ImagineGameRoundController {
     public ImagineIfGameRound findGamesForPlayerAndRound(@PathVariable Long playerId, @PathVariable int round) {
         return imagineIfGameService.findGamesForPlayerAndRound(playerId, round);
     }
-
-    @GetMapping("/gameRoom/{id}/round/{round}/calculate")
-    public void calculateScoreForGameRound(@PathVariable Long id, @PathVariable Integer round) {
-        imagineIfGameService.updateScoresForGameRoomIdAndRound(id, round);
-    }
 }

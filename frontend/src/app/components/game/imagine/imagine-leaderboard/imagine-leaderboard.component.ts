@@ -53,9 +53,9 @@ export class ImagineLeaderboardComponent implements OnInit {
                       found = true;
                     }
                   });
-                  if (!found) {
-                    this.playersInGameRoomWithNoAnswers.push(player);
-                  }
+                if (!found) {
+                  this.playersInGameRoomWithNoAnswers.push(player);
+                }
               });
           }
         );
@@ -92,10 +92,10 @@ export class ImagineLeaderboardComponent implements OnInit {
 
   updateDataAndLabelsWithQuestion(question: ImagineIfQuestion, answerNumberGamesMap: Map<number, Array<ImagineIfGameRound>>) {
     const answers = [question.answer1, question.answer2, question.answer3, question.answer4, question.answer5, question.answer6];
-    for (let key of answerNumberGamesMap.keys()) {
-      this.labels.push(answers[key-1]);
+    for (const key of answerNumberGamesMap.keys()) {
+      this.labels.push(answers[key - 1]);
       this.data.push(answerNumberGamesMap.get(key).length);
-      this.backgroundColours.push(this.imagineColors[key-1]);
+      this.backgroundColours.push(this.imagineColors[key - 1]);
     }
   }
 
@@ -150,7 +150,7 @@ export class ImagineLeaderboardComponent implements OnInit {
       this.gameRoomService.setCurrentRound(this.gameRoom, ++this.gameRoom.round).subscribe(
         _gameRoom => {
           this.gameRoom = _gameRoom;
-          // TODO show 5 second timer before moving to next round or just go right away e
+          // TODO show 5 second timer before moving to next round or just go right away
         }, error => {
           console.log(error);
           this.gameRoom.round--;

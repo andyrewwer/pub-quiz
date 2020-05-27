@@ -29,7 +29,7 @@ import {PlayersComponent} from './components/admin/quiz-admin/players/players.co
 import {CreateGameModalComponent} from './components/modals/create-game-modal/create-game-modal.component';
 import {GameRoomPipePipe} from './dto/pipes/game-room-pipe.pipe';
 import {GameRoomStatusPipe} from './dto/pipes/game-room-status-pipe.pipe';
-import {BasicMessageModalComponent} from './components/modals/basic-error-modal/basic-message-modal.component';
+import {BasicMessageModalComponent} from './components/modals/basic-message-modal/basic-message-modal.component';
 import {AddQuestionComponent} from './components/admin/imagine-admin/add-question/add-question.component';
 import {ImagineComponent} from './components/game/imagine/imagine.component';
 import {EditQuestionsComponent} from './components/admin/imagine-admin/edit-questions/edit-questions.component';
@@ -44,6 +44,8 @@ import {QuizAdminComponent} from './components/admin/quiz-admin/quiz-admin.compo
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {FooterComponent} from './components/footer/footer.component';
 import {StartGameModalComponent} from './components/modals/start-game-modal/start-game-modal.component';
+import { EndGameModalComponent } from './components/modals/end-game-modal/end-game-modal.component';
+import { ImagineFinalComponent } from './components/game/imagine/imagine-final/imagine-final.component';
 
 
 @NgModule({
@@ -74,6 +76,8 @@ import {StartGameModalComponent} from './components/modals/start-game-modal/star
     QuizAdminComponent,
     FooterComponent,
     StartGameModalComponent,
+    EndGameModalComponent,
+    ImagineFinalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -113,7 +117,8 @@ import {StartGameModalComponent} from './components/modals/start-game-modal/star
     ConfirmationModalComponent,
     BasicMessageModalComponent,
     CreateGameModalComponent,
-    StartGameModalComponent
+    StartGameModalComponent,
+    EndGameModalComponent
   ],
   bootstrap: [AppComponent]
 })

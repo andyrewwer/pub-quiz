@@ -10,7 +10,7 @@ import {ModalService} from '../../../../services/modal.service';
   templateUrl: './imagine-home.component.html',
   styleUrls: ['./imagine-home.component.css']
 })
-export class ImagineHomeComponent implements OnInit, OnDestroy{
+export class ImagineHomeComponent implements OnInit, OnDestroy {
 
   @Input() gameRoom: GameRoom;
   players: Array<Player>;
