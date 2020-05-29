@@ -125,7 +125,7 @@ public class ImagineIfGameService  {
             playerService.save(player);
         }
         for (Player player : players) {
-            if (player.getScore() >= 15) {
+            if (player.getScore() >= 10) {
                 room.setStatus(GameRoomStatus.COMPLETE);
                 return gameRoomRepository.save(room);
             }
